@@ -1,0 +1,29 @@
+<div class="message_container">
+  <svg  class="svg_backGround">
+    <rect class="rect_backGround"></rect>
+  </svg>
+  <div class="margin_message">
+<div>
+<h3 class="message_titre">Envoyer un courriel</h3>
+<div *ngIf="details">
+  {{ details }}
+</div>
+<div>
+  <div>
+    <p style="color: #757575">À:  &nbsp; {{email.email}} </p>
+    <br>
+    <label style="color: white">Message: </label>
+  </div>
+  <div>
+    <textarea  [(ngModel)]="message" rows="10" cols="35" [disabled]="sending"></textarea>
+  </div>
+</div>
+  <div class="button_container">
+<p *ngIf="!sending">
+  <button mat-button (click)="send()">Envoyer</button>
+  <button mat-button (click)="cancel()">Retour</button>
+</p>
+  </div>
+</div>
+  </div>
+</div>

@@ -1,0 +1,51 @@
+<!--<mat-grid-list cols="1" rowHeight="1000px">-->
+<!--<mat-grid-tile colspan = "1" rowspan="1">-->
+<!--<mat-progress-spinner color="primary" mode = "indeterminate"></mat-progress-spinner>-->
+<!--</mat-grid-tile>-->
+<!--</mat-grid-list>-->
+
+<div class="container">
+  <div class="bar_petit_ecrant" [ngClass]="{'header_nav':true, 'header_nav--big':!isShrunk, 'header_nav--small':isShrunk}">
+  <mat-toolbar color="primary"  [@toolbar]="toolbarState">
+    <div class="flex-spacer-item"></div>
+    <h3 class="flex-item-titre">{{titre}}</h3>
+  </mat-toolbar>
+  </div>
+  <mat-toolbar color="primary" class="toolbar_frame" [@toolbar]="toolbarState">
+    <div class="flex-spacer-item"></div>
+    <h3 class="flex-item-titre">{{titre}}</h3>
+  </mat-toolbar>
+  <section class="inscription">
+    <div [@toolbar]="sideState" class="flex-item-button">
+      <mat-list>
+        <mat-list-item class="list_item_accueil">
+          <button (click)="buttonClick('inscription')"  routerLink="./inscription" routerLinkActive="active" class="button_accueil" mat-button> Inscription </button>
+        </mat-list-item>
+        <mat-list-item class="list_item_accueil">
+          <button (click)="buttonClick('liste_membres')"  routerLink="./liste_de_membres" routerLinkActive="active" class="button_accueil" mat-button> Liste de membres </button>
+        </mat-list-item>
+        <mat-list-item>
+          <button class="button_accueil" mat-button> Magasin </button>
+        </mat-list-item>
+      </mat-list>
+    </div>
+    <div class="flex-item">
+    <router-outlet ></router-outlet>
+    </div>
+    <!--<app-inscription *ngIf="titre === 'Inscription'" class="flex-item" ></app-inscription>-->
+    <!--<app-accueil class="flex-item"></app-accueil>-->
+  </section>
+  <!--<make-payment></make-payment>-->
+</div>
+
+
+
+<!--<h3>ADMIN</h3>-->
+<!--<nav>-->
+  <!--<a routerLink="./" routerLinkActive="active"-->
+     <!--[routerLinkActiveOptions]="{ exact: true }">Dashboard</a>-->
+  <!--<a routerLink="./crises" routerLinkActive="active">Manage Crises</a>-->
+  <!--<a routerLink="./heroes" routerLinkActive="active">Manage Heroes</a>-->
+<!--</nav>-->
+
+

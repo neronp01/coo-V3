@@ -1,0 +1,59 @@
+.card_perso{
+width: 600px;
+  height: auto;
+  margin: 20px;
+}
+.full-width {
+  width: 100%;
+}
+.stepper {
+}
+.spacer {
+  flex: 1 1 auto;
+}
+
+.imageMembre{
+  transform:scale(0.1,0.1);
+  border-radius: 50%;
+}
+
+.text{
+  margin-left: 15px;
+  float: right;
+}
+.pink{
+  color: #E91E63;
+}
+
+.section_facture{
+  min-width: 900px;
+}
+.ecrant_petit{
+  display: none;
+}
+
+@media only screen and (min-width: 200px) and (max-width: 770px){
+  .ecrant_large{
+    display: none;
+  }
+
+  .ecrant_petit{
+    display: block;
+  }
+  .card_perso{
+    max-width: 300px;
+    height: auto;
+    margin: 5px;
+    color: white;
+  }
+
+  .section_facture{
+    min-width: 200px;
+  }
+  .info_compl_list{
+    margin-bottom: 20px;
+  }
+  .diver_info_comp{
+    margin-top: 40px;
+  }
+}

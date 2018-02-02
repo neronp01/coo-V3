@@ -1,0 +1,5 @@
+input {width: 20em}
+.message_container {
+  margin-left: 20px;
+  background-color: #039be5;
+}

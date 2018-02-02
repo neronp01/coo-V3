@@ -1,0 +1,58 @@
+.example-container {
+
+  width: 100%;
+}
+
+.example-header {
+  min-height: 64px;
+  padding: 8px 24px 0;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+.textAlligne{
+  text-align: right;
+}
+
+.mat-table {
+  overflow: auto;
+  max-height: 500px;
+}
+.input_filter{
+  color: white;
+}
+
+.imageMembre {
+  transform:scale(0.1,0.1) translate(-2000px,-2200px);
+  border-radius: 50%;
+}
+.container_photo{
+  height: 70px;
+  width: 50px;
+}
+
+.center_element {
+
+  width: 100%;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+
+  -webkit-flex-flow: row wrap;
+  justify-content: space-around;
+}
+
+@media only screen and (min-width: 200px) and (max-width: 770px){
+
+  .imageMembre {
+    transform:scale(0.1,0.1) translate(-2300px,-2200px);
+    border-radius: 50%;
+  }
+  .textAlligne{
+    transform: translate(30px,0px);
+  }
+}

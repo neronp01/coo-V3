@@ -1,0 +1,125 @@
+.md_card_facture{
+  width: 800px;
+  height: auto;
+}
+
+.list_titre{
+  position: absolute;
+  left: 0px;
+}
+p{
+  font-size: small;
+
+}
+.option {
+
+}
+
+.card_inf{
+  width: 325px;
+  height: 100px;
+}
+.card_prix{
+  width: 725px;
+  height: auto;
+}
+.paiement{
+  background-color: #546E7A;
+  width: 300px;
+  height: auto;
+}
+.checkbox_p{
+  font-size: medium;
+  margin: 0px 120px 0px 10px;
+  text-align: left;
+
+}
+.textDon{
+  font-size: medium;
+  margin: 0px 310px 0px 10px;
+  text-align: right;
+}
+.resultat{
+  font-size: medium;
+  position:absolute;
+  right: 10px;
+}
+.description{
+  font-size:medium;
+}
+
+.ecrant_petit{
+  display: none;
+}
+
+@media only screen and (min-width: 200px) and (max-width: 770px){
+  .md_card_facture{
+    width: 300px;
+  }
+  .card_prix{
+    width: 300px;
+    height: auto;
+
+  }
+
+  .ecrant_large{
+    display: none;
+  }
+
+  .ecrant_petit{
+    display: block;
+  }
+ .md_card_facture {
+   color: white;
+ }
+  .card_inf{
+    margin-left: 15px;
+  }
+
+  .backGround{
+    height: 140px;
+    width: 100%;
+    position: absolute;
+    top:140px;
+    background-color: #212121;
+    opacity: .3;
+  }
+  .b_adresse {
+    top:140px;
+  }
+  .b_adresse_coo{
+    top:300px;
+  }
+
+  .checkbox_p{
+    width: 200px;
+    height: auto;
+    font-size: medium;
+    margin: 20px 5px 0px 35px;
+    text-align: left;
+
+  }
+  .list_titre{
+    position: absolute;
+    left: -150px;
+  }
+
+  .textDon{
+    width: 200px;
+    font-size: medium;
+    margin: 70px 5px 0px 35px;
+    text-align: left;
+  }
+  .checkbox{
+    margin-left: 30px;
+  }
+  .don_input {
+    position: relative;
+    top: 37px;
+    left: -40px;
+  }
+  .divider_prix{
+    margin-top: 35px;
+  }
+}
+

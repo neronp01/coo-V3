@@ -1,0 +1,70 @@
+<!--<div *ngIf="auth.user | async; then authenticated else guest">-->
+   <!--template will replace this div -->
+<!--</div>-->
+<!--<ng-template #guest>-->
+
+  <div class="fullScreen center_element" >
+  <div  [@openClose]="state" class="login_object">
+    <div class="container_image center_element">
+    <img class="smart_phone_image"  src="./../assets/pique.jpg"/>
+    </div>
+  <div class="coteGauche">
+
+ <div class="card_login">
+   <section>
+
+<mat-list>
+  <mat-list-item class="item_login">
+
+<button (click)="login('f')" class="button_login" mat-button>
+  <span>Connectez-vous avec <span class="provider_botton">Facebook</span></span>
+  <img class="image_logo" style="vertical-align:middle; margin-left: 20px" aria-hidden src="./../assets/provider/fb.png" height="25" />
+
+
+</button>
+  </mat-list-item>
+  <mat-list-item  class="item_login">
+    <button (click)="login('g')" class="button_login" mat-button>
+      <span>Connectez-vous avec <span class="provider_botton">Google</span></span>
+      <img class="image_logo google" style="vertical-align:middle; transform: scale(1.8)" aria-hidden src="./../assets/provider/g.png" height="25" />
+
+    </button>
+  </mat-list-item>
+  <mat-list-item class="item_login">
+    <button (click)="login('t')" mat-button class="button_login" >
+      <span>Connectez-vous avec <span class="provider_botton"> Twitter</span></span>
+      <img class="image_logo twitter" style="vertical-align:middle; transform: scale(1.8)" aria-hidden src="./../assets/provider/tweet.png" height="25" />
+
+    </button>
+  </mat-list-item>
+</mat-list>
+   </section>
+
+
+
+ </div>
+  </div>
+  <div style="float: right">
+  <img class="image_logoCOO_login" src="./../assets/coo_logo.png">
+  </div>
+<div class="center_element">
+    <svg  class="svg_login">
+      <circle class="circle"  >
+
+      </circle>
+    </svg>
+</div>
+  </div>
+  </div>
+<!--</ng-template>-->
+<!-- User logged in -->
+<!--<ng-template #authenticated>-->
+  <!--<div *ngIf="auth.user | async as user">-->
+    <!--<h3>Howdy, {{ user.displayName }}</h3>-->
+    <!--<img  [src]="user.photoURL">-->
+    <!--<p>UID: {{ user.uid }}</p>-->
+    <!--<p>Favorite Color: {{ user?.favoriteColor }} </p>-->
+    <!--<button (click)="auth.signOut()">Logout</button>-->
+  <!--</div>-->
+<!--</ng-template>-->
+

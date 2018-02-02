@@ -1,0 +1,98 @@
+.header_nav {
+  width:100%;
+  background-color:#C51162;
+  position:fixed;
+  top:95px;
+  left:0;
+  -webkit-transition:0.5s linear all;
+  -moz-transition:0.5s linear all;
+  -o-transition:0.5s linear all;
+  transition:0.5s linear all;
+}
+
+.header_nav--big {
+  height:50px;
+}
+
+.header_nav--small {
+  height:80px;
+  top:0px;
+}
+
+
+
+
+.inscription{
+
+  flex-flow: row wrap;
+  /* Then we define how is distributed the remaining space */
+  justify-content: space-around;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+
+}
+
+.flex-item-button {
+  flex: 1 20%;
+}
+.flex-item {
+  flex: 1 80%;
+}
+.container{
+
+}
+.flex-spacer-item {
+  flex: 1 20%;
+}
+.flex-item-titre {
+  flex: 1 80%;
+  text-align: center;
+}
+.toolbar_frame {
+  flex-flow: row wrap;
+  /* Then we define how is distributed the remaining space */
+  justify-content: space-around;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  width: 100%;
+}
+.button_accueil{
+  width: 100%;
+  font-size: large;
+}
+.list_item_accueil{
+  margin-top: 10px;
+  z-index: -1;;
+}
+.container_petitEcrant{
+  display: none;
+}
+.small_screen{
+  display: none;
+}
+.bar_petit_ecrant{
+  display: none;
+}
+@media only screen and (min-width: 200px) and (max-width: 770px){
+.flex-spacer-item{
+  display: none;
+}
+  .small_screen{
+    display: block;
+  }
+  .bar_petit_ecrant {
+    display: block;
+  }
+  .toolbar_frame{
+    display: none;
+  }
+  .inscription{
+    margin-top: 30px;
+  }
+}

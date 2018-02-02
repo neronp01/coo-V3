@@ -1,0 +1,212 @@
+.card_login{
+margin-top: 4px;
+  width: 548px;
+  height: 368px;
+  background-color: #424242;
+}
+
+.button_login{
+  margin-top: 25px;
+  width: 450px;
+  height: 80px;
+  font-size: x-large;
+}
+
+.item_login{
+  margin-top: 40px;
+  height: 150px;
+}
+.login_object {
+  margin-top: 150px;
+  width: 950px;
+  height: 400px;
+}
+
+.image_logoCOO_login {
+  margin-top: 0px;
+  margin-right: 25px;
+}
+
+.image_logo {
+  -webkit-transform: scale(1.8);
+  -moz-transform:    scale(1.8);
+  -ms-transform:     scale(1.8);
+  -o-transform:      scale(1.8);
+  transform:         scale(1.8);
+}
+
+.center_element {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-flex-flow: column wrap;
+  flex-flow: column wrap;
+  -webkit-align-content: center;
+  align-content: center;
+}
+
+.fullScreen{
+  width: 100%;
+  min-height: 750px;
+  height: auto;
+
+}
+
+.twitter{
+  margin-left: 50px;
+}
+.google{
+  margin-left: 50px;
+}
+.smart_phone_image {
+  display: none;
+}
+.coteGauche{
+  float: left
+}
+
+@media only screen and (min-width: 200px) and (max-width: 760px){
+  .coteGauche {
+    float: none
+  }
+  .card_login {
+    margin-top: 230px;
+    background-color: transparent;
+    width: 300px;
+    height: 280px;
+
+
+  }
+
+  .fullScreen{
+    width: 100%;
+    min-height: 350px;
+    height: auto;
+
+
+  }
+
+  .login_object {
+    margin-top: 0px;
+    width: 300px;
+    height: 400px;
+  }
+
+  .button_login {
+    margin-top: 0px;
+    width: 300px;
+    height: 80px;
+    font-size: large;
+
+  }
+  .item_login{
+    margin-top: 30px;
+    height: auto;
+
+  }
+  .provider_botton{
+    display: none;
+  }
+
+  .twitter {
+    margin-left: 15px;
+  }
+  .google {
+    margin-left: 15px;
+  }
+  .image_logoCOO_login {
+   display: none;
+  }
+  .smart_phone_image {
+    display: flex;
+    position: absolute;
+    margin-top: 115px;
+    -webkit-transform: scale(.5);
+    -moz-transform:    scale(.5);
+    -ms-transform:     scale(.5);
+    -o-transform:      scale(.5);
+    transform:         scale(.5);
+  }
+  .container_image {
+    width: 100%;
+    height: auto;
+  }
+  .svg_login {
+    position: relative;
+    top: -500px;
+    width: 210px;
+    height: 210px;
+
+  }
+  .circle {
+    cx: 105;
+    cy: 105;
+    r: 95;
+    stroke: #424242;
+    stroke-width:12;
+    fill: transparent;
+  }
+}
+
+@media only screen and (min-width: 761px) and (max-width: 1100px){
+  .image_logoCOO_login {
+    display: none;
+  }
+  .smart_phone_image {
+    display: flex;
+    position: absolute;
+    margin-top: 0px;
+    -webkit-transform: scale(.8);
+    -moz-transform:    scale(.8);
+    -ms-transform:     scale(.8);
+    -o-transform:      scale(.8);
+    transform:         scale(.8);
+  }
+  .card_login{
+    margin-top: 4px;
+    width: auto;
+    height: 368px;
+    background-color: #424242;
+  }
+  .coteGauche {
+    float: none
+  }
+  .card_login{
+    margin-top: 200px;
+    width: auto;
+    height: 350px;
+    background-color: #424242;
+  }
+  .login_object {
+    margin-top: 100px;
+    width: auto;
+    height: 400px;
+  }
+  .svg_login {
+    position: relative;
+    top: -725px;
+    width: 350px;
+    height: 350px;
+
+
+
+  }
+  .circle {
+    cx: 175;
+    cy: 175;
+    r: 160;
+    stroke: #424242;
+    stroke-width:19;
+    fill: transparent;
+  }
+
+
+}
+@media only screen and (min-height: 790px) and (max-width: 1100px){
+  .fullScreen{
+    margin-top: 10%;
+  }
+}

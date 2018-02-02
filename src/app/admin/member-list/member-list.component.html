@@ -1,0 +1,52 @@
+<div class="center_element">
+<div class="example-container mat-elevation-z8 " >
+  <div class="example-header">
+    <mat-form-field>
+      <input class="input_filter" matInput (keyup)="applyFilter($event.target.value)" placeholder="Rechercher un membre">
+    </mat-form-field>
+  </div>
+
+  <mat-table #table [dataSource]="dataSource">
+
+    <!-- Position Column -->
+    <ng-container matColumnDef=" ">
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <mat-cell *matCellDef="let element2">
+        <div class="container_photo">
+
+          <img class="imageMembre" [src]="element2.photo">
+      </div>
+
+      </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="Nom">
+      <mat-header-cell *matHeaderCellDef> Nom </mat-header-cell>
+      <mat-cell *matCellDef="let element2"> {{element2.prenom}}  &nbsp; {{element2.nom}} </mat-cell>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="Téléphone">
+      <mat-header-cell *matHeaderCellDef> Téléphone </mat-header-cell>
+      <mat-cell *matCellDef="let element2" datatype="tel"> {{element2.tel}} </mat-cell>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="Courriel">
+      <mat-header-cell *matHeaderCellDef> Courriel </mat-header-cell>
+      <mat-cell *matCellDef="let element2">
+        <i class="material-icons textAlligne"
+           [routerLink]="[{ outlets: { popup: ['compose'] } }]"
+        (click)="_email(element2.email)"
+        >email</i>
+      </mat-cell>
+    </ng-container>
+
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</div>
+</div>
+<router-outlet name="popup"></router-outlet>

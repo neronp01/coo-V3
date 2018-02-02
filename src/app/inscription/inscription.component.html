@@ -1,0 +1,739 @@
+<!--linear-->
+<div class="ecrant_large">
+<mat-horizontal-stepper class="stepper" linear>
+  <mat-step [stepControl]="infoPersoFormGroup">
+    <form [formGroup]="infoPersoFormGroup">
+      <ng-template matStepLabel>Renseignements personnels</ng-template>
+      <mat-grid-list cols="1" rowHeight="700px">
+        <mat-grid-tile colspan = "1" rowspan="1">
+      <mat-card class="card_perso">
+      <mat-grid-list cols="4" rowHeight="70px">
+        <div>
+        <mat-grid-tile colspan = "4" rowspan="1" >
+              <mat-toolbar style="background-color: #757575"> <h4>{{auth.userToken.email}}</h4>
+                <span class="spacer"></span>
+                <img class="imageMembre" [src]="auth.userToken.photoURL">
+              </mat-toolbar>
+        </mat-grid-tile>
+        <mat-grid-tile colspan = "4" rowspan="1" >
+        </mat-grid-tile>
+        <mat-grid-tile colspan = "4" rowspan="1" >
+          <mat-form-field class="full-width cotisation">
+            <mat-select placeholder="Type de cotisations" name="inscription" (selectionChange)="cotisationSelcted($event)"  formControlName="cotisationsCtrl" [value]="courriel" required>
+              <mat-option *ngFor="let cotisation of cotisations"
+                          [value]="cotisation.value">
+                {{cotisation.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile colspan = "2" rowspan="1" >
+          <mat-form-field class="full-width">
+            <input matInput id="prenom"
+                   minlength="2"
+                   formControlName="prenomCtrl"
+                   required
+                   (keyup)="membreInfoAdd('prenom',prenom.value)"
+                   #prenom
+                   placeholder="Prénom" >
+            <mat-error>Ce champs est obligatoire</mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile colspan = "2" rowspan="1">
+          <mat-form-field class="full-width">
+            <input matInput
+                   formControlName="nomCtrl"
+                   minlength="2"
+                   required
+                   (keyup)="membreInfoAdd('nom',nom.value)"
+                   placeholder="Nom" #nom >
+            <mat-error>Ce champs est obligatoire</mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile colspan = "4" rowspan="1">
+          <mat-form-field class="full-width">
+            <input matInput
+                   formControlName="adresseCtrl"
+                   minlength="4"
+                   required
+                   (keyup)="membreInfoAdd('adresse',adresse.value)"
+                   placeholder="Adresse" #adresse >
+            <mat-error>Ce champs est obligatoire</mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile colspan = "2" rowspan="1" >
+          <mat-form-field class="full-width">
+            <input matInput
+                   placeholder="Ville"
+                   formControlName="villeCtrl"
+                   minlength="3"
+                   (keyup)="membreInfoAdd('ville',ville.value)"
+                   required
+                   #ville>
+            <mat-error>Ce champs est obligatoire</mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile colspan = "2" rowspan="1" >
+          <mat-form-field class="full-width">
+            <input matInput
+                   minlength="6"
+                   formControlName="codePostalCtrl"
+                   required
+                   (keyup)="membreInfoAdd('codePostal',codePostal.value)"
+                   placeholder="Code Postal" #codePostal >
+            <mat-error>Ce champs est obligatoire</mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+        </div>
+        <mat-grid-tile colspan = "2" rowspan="1" >
+          <mat-form-field class="full-width">
+              <my-tel-input
+                (tel)="tel($event,prenom.value,nom.value,adresse.value,ville.value,codePostal.value)"
+                placeholder="Téléphone"
+                [value]="value"
+                required></my-tel-input>
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile colspan = "2" rowspan="1" >
+          <mat-form-field class="full-width">
+            <input matInput
+                   formControlName="professionCtrl"
+                   (keyup)="membreInfoAdd('profession',profession.value)"
+                   placeholder="Profession" #profession>
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile colspan = "2" rowspan="1">
+
+          <mat-form-field class="full-width">
+            <form #myForm="ngForm" novalidate>
+              <input matInput
+                     type="text"
+                     name="dateNaissance"
+                     #dateNaissance="ngModel"
+                     dateNaissanceValidation
+                     [(ngModel)]="_dateNaissance"
+                     class="form-control"
+                     placeholder="Date de naisssance"
+                     (keyup)="membreInfoAdd('dateNaissance',dateNaissance.value)"
+              >
+              <app-errors [control]="dateNaissance"></app-errors>
+            </form>
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile colspan = "2" rowspan="1">
+        </mat-grid-tile>
+
+        <mat-grid-tile colspan = "4" rowspan="1">
+      <div>
+        <button mat-button
+                matStepperNext
+                [disabled] = infoPersoisDisabled
+        >Next</button>
+      </div>
+        </mat-grid-tile>
+      </mat-grid-list>
+      </mat-card>
+        </mat-grid-tile>
+      </mat-grid-list>
+
+    </form>
+  </mat-step>
+  <mat-step *ngIf="cotisation === 'familiale'" [stepControl]="infoPersoConjFormGroup" >
+    <form [formGroup]="infoPersoConjFormGroup">
+      <ng-template matStepLabel>Renseignements conjouint(e)</ng-template>
+      <mat-grid-list cols="1" rowHeight="700px">
+        <mat-grid-tile colspan = "1" rowspan="1">
+          <mat-card class="card_perso">
+            <mat-grid-list cols="4" rowHeight="70px">
+              <mat-grid-tile colspan = "4" rowspan="2" class="informationSaisies">
+                <mat-form-field class="full-width">
+                  <input matInput
+                         type="email"
+                         class="card_perso email"
+                         placeholder="Courriel"
+                         formControlName="emailCtrl"
+                         #courrielConjouint
+                         (keyup)="membreInfoAdd('courrielConjouint',courrielConjouint.value)"
+                         required>
+                  <mat-error>Ce champs est obligatoire et doit être un courriel</mat-error>
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile colspan = "2" rowspan="1" >
+                <mat-form-field class="full-width">
+                  <input matInput
+                         minlength="2"
+                         required
+                         formControlName="prenomCtrl"
+                         #prenomConjouint
+                         (keyup)="membreInfoAdd('prenomConjouint',prenomConjouint.value)"
+                         placeholder="Prénom" >
+                  <mat-error>Ce champs est obligatoire</mat-error>
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile colspan = "2" rowspan="1">
+                <mat-form-field class="full-width">
+                  <input matInput
+                         minlength="2"
+                         required
+                         formControlName="nomCtrl"
+                         placeholder="Nom"
+                         (keyup)="membreInfoAdd('nomConjouint',nomConjouint.value)"
+                         #nomConjouint >
+                  <mat-error>Ce champs est obligatoire</mat-error>
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile colspan = "2" rowspan="1" >
+                <mat-form-field class="full-width">
+                  <my-tel-input
+                    (tel)="telConjouint($event, courrielConjouint.value, prenomConjouint.value,nomConjouint.value, professionConjouint.value)"
+                    [value]="valueConJouint"
+                    placeholder="Téléphone"
+                    required></my-tel-input>
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile colspan = "2" rowspan="1" >
+                <mat-form-field class="full-width">
+                  <input matInput
+                         formControlName="professionCtrl"
+                         (keyup)="membreInfoAdd('professionConjouint',professionConjouint.value)"
+                         placeholder="Profession" #professionConjouint>
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile colspan = "2" rowspan="1">
+
+                <mat-form-field class="full-width">
+                  <form #myForm="ngForm" novalidate>
+                    <input matInput
+                           #dateNaissanceConjouint="ngModel"
+                           dateNaissanceValidation
+                           [(ngModel)]="_dateNaissanceConjouint"
+                           type="text"
+                           name="dateNaissanceConjouint"
+                           (keyup)="membreInfoAdd('dateNaissanceConjouint',dateNaissanceConjouint.value)"
+                           class="form-control"
+                           placeholder="Date de naisssance"
+                    >
+                    <!--#dateNaissanceConjouint="ngModel"-->
+                    <!--[(ngModel)]="_dateNaissance"-->
+                    <app-errors [control]="dateNaissanceConjouint"></app-errors>
+                  </form>
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile colspan = "2" rowspan="1">
+              </mat-grid-tile>
+              <mat-grid-tile colspan = "4" rowspan="1">
+                <div>
+                  <button mat-button matStepperPrevious>Back</button>
+                  <button mat-button matStepperNext  [disabled] = infoPersoConjisDisabled>Next</button>
+                </div>
+              </mat-grid-tile>
+            </mat-grid-list>
+          </mat-card>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </form>
+  </mat-step>
+  <mat-step>
+    <form [formGroup]="factureFormGroup">
+    <ng-template matStepLabel>Renseignements complémentaires</ng-template>
+      <mat-grid-list cols="1" rowHeight="700px">
+        <mat-grid-tile colspan = "1" rowspan="1">
+          <mat-card class="card_perso">
+
+              <mat-list class="slide-toogle-list">
+                <mat-list-item>
+                  <mat-slide-toggle
+                    [checked]= "_membre.teleList"
+                    #teleListe
+                    (change)="autorisationsTelephone($event)">
+                  </mat-slide-toggle>
+                  <div *ngIf="!autorisationTel">
+                    <p class="text"><a>{{_autorisationsTelephone[0]}}</a><a class="bold">{{_autorisationsTelephone[1]}}</a><a>{{_autorisationsTelephone[2]}}</a></p>
+                  </div>
+                  <div *ngIf="autorisationTel">
+                    <p class="text"><a>{{_autorisationsTelephone[0]}}</a><a class="pink">{{_autorisationsTelephone[1]}}</a><a>{{_autorisationsTelephone[2]}}</a></p>
+                  </div>
+                </mat-list-item>
+                <mat-list-item>
+                  <mat-slide-toggle
+                    #nomListe
+                    [checked]= "_membre.nomListe"
+                    (change)="autorisationsNom($event)">
+                  </mat-slide-toggle>
+                  <div *ngIf="!autorisationNom">
+                    <p class="text"><a>{{_autorisationsNom[0]}}</a><a class="bold">{{_autorisationsNom[1]}}</a><a>{{_autorisationsNom[2]}}</a></p>
+                  </div>
+                  <div *ngIf="autorisationNom">
+                    <p class="text"><a>{{_autorisationsNom[0]}}</a><a class="pink">{{_autorisationsNom[1]}}</a><a>{{_autorisationsNom[2]}}</a></p>
+                  </div>
+                </mat-list-item>
+              </mat-list>
+            <p>Je suis disponible pour :</p>
+            <mat-grid-list class="option" cols="2" rowHeight="60px">
+              <mat-grid-tile colspan="1" rowspan="3">
+                <mat-list>
+                  <!--membre['membre']['animExc']-->
+                  <mat-list-item>
+                    <mat-checkbox
+                      (change)="checkBox('animExc',$event)"
+                      #animExc
+                      [checked]= "_membre.animExc"
+                      class="example-margin">
+                      Animation d’une excursion
+                    </mat-checkbox>
+                  </mat-list-item>
+                  <mat-list-item>
+                    <mat-checkbox
+                      #recenNoel
+                      (change)="checkBox('recenNoel',$event)"
+                      [checked]= "_membre.recenNoel"
+                      class="example-margin">
+                      Recensement de Noël
+                    </mat-checkbox>
+                  </mat-list-item>
+                  <mat-list-item>
+                    <mat-checkbox
+                      #animKio
+                      (change)="checkBox('animKio',$event)"
+                      [checked]= "_membre.animKio"
+                      class="example-margin">
+                      Animation d’un kiosque
+                    </mat-checkbox>
+                  </mat-list-item>
+                </mat-list>
+              </mat-grid-tile>
+              <mat-grid-tile colspan="1" rowspan="3">
+                <mat-list>
+                  <mat-list-item>
+                    <mat-checkbox
+                      #consAdm
+                      [checked]= "_membre.consAdm"
+                      (change)="checkBox('consAdm',$event)"
+                      class="example-margin">
+                      Conseil d’administration
+                    </mat-checkbox>
+                  </mat-list-item>
+                  <mat-list-item>
+                    <mat-checkbox
+                      #redacRevi
+                      [checked]= "_membre.redacRevi"
+                      (change)="checkBox('redacRevi',$event)"
+                      class="example-margin">
+                      Rédaction/révision
+                    </mat-checkbox>
+                  </mat-list-item>
+                  <mat-list-item>
+                    <mat-checkbox
+                      #promoPubli
+                      [checked]= "_membre.promoPubli"
+                      (change)="checkBox('promoPubli',$event)"
+                      class="example-margin">
+                      Promotion/publicité
+                    </mat-checkbox>
+                  </mat-list-item>
+                </mat-list>
+              </mat-grid-tile>
+              <mat-grid-tile colspan="2" rowspan="1">
+                <mat-form-field class="full-width">
+                  <input #autre
+                         matInput
+                         [value]="_membre.autre"
+                         (keyup)="membreInfoAdd('autre',autre.value)"
+                         placeholder="Autre :">
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile colspan="2" rowspan="1">
+                <div>
+                  <button mat-button matStepperPrevious>Back</button>
+                  <button mat-button matStepperNext>Next</button>
+                </div>
+              </mat-grid-tile>
+            </mat-grid-list>
+
+
+
+          </mat-card>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Paiement</ng-template>
+    <section class="section_facture">
+    <app-facture [infMembre]="infMembreFacturation" [infConjouint]="infConjouintFacturation"></app-facture>
+    </section>
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>
+</div>
+
+
+<div class="ecrant_petit">
+  <mat-vertical-stepper class="stepper" linear>
+    <mat-step [stepControl]="infoPersoFormGroup">
+      <form [formGroup]="infoPersoFormGroup">
+        <ng-template matStepLabel>Renseignements personnels</ng-template>
+        <mat-grid-list cols="1" rowHeight="700px">
+          <mat-grid-tile colspan = "1" rowspan="1">
+            <div class="card_perso">
+              <mat-grid-list cols="4" rowHeight="70px">
+                <div>
+                  <mat-grid-tile colspan = "4" rowspan="1" >
+                    <mat-toolbar style="background-color: #757575"> <h4>{{auth.userToken.email}}</h4>
+                      <span class="spacer"></span>
+                      <img class="imageMembre" [src]="auth.userToken.photoURL">
+                    </mat-toolbar>
+                  </mat-grid-tile>
+                  <mat-grid-tile colspan = "4" rowspan="1" >
+                  </mat-grid-tile>
+                  <mat-grid-tile colspan = "4" rowspan="1" >
+                    <mat-form-field class="full-width cotisation">
+                      <mat-select placeholder="Type de cotisations" name="inscription" (selectionChange)="cotisationSelcted($event)"  formControlName="cotisationsCtrl" [value]="courriel" required>
+                        <mat-option *ngFor="let cotisation of cotisations"
+                                    [value]="cotisation.value">
+                          {{cotisation.viewValue}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </mat-grid-tile>
+                  <mat-grid-tile colspan = "4" rowspan="1" >
+                    <mat-form-field class="full-width">
+                      <input matInput id="prenom"
+                             minlength="2"
+                             formControlName="prenomCtrl"
+                             required
+                             (keyup)="membreInfoAdd('prenom',prenom.value)"
+                             #prenom
+                             placeholder="Prénom" >
+                      <mat-error>Ce champs est obligatoire</mat-error>
+                    </mat-form-field>
+                  </mat-grid-tile>
+                  <mat-grid-tile colspan = "4" rowspan="1">
+                    <mat-form-field class="full-width">
+                      <input matInput
+                             formControlName="nomCtrl"
+                             minlength="2"
+                             required
+                             (keyup)="membreInfoAdd('nom',nom.value)"
+                             placeholder="Nom" #nom >
+                      <mat-error>Ce champs est obligatoire</mat-error>
+                    </mat-form-field>
+                  </mat-grid-tile>
+                  <mat-grid-tile colspan = "4" rowspan="1">
+                    <mat-form-field class="full-width">
+                      <input matInput
+                             formControlName="adresseCtrl"
+                             minlength="4"
+                             required
+                             (keyup)="membreInfoAdd('adresse',adresse.value)"
+                             placeholder="Adresse" #adresse >
+                      <mat-error>Ce champs est obligatoire</mat-error>
+                    </mat-form-field>
+                  </mat-grid-tile>
+                  <mat-grid-tile colspan = "4" rowspan="1" >
+                    <mat-form-field class="full-width">
+                      <input matInput
+                             placeholder="Ville"
+                             formControlName="villeCtrl"
+                             minlength="3"
+                             (keyup)="membreInfoAdd('ville',ville.value)"
+                             required
+                             #ville>
+                      <mat-error>Ce champs est obligatoire</mat-error>
+                    </mat-form-field>
+                  </mat-grid-tile>
+                  <mat-grid-tile colspan = "4" rowspan="1" >
+                    <mat-form-field class="full-width">
+                      <input matInput
+                             minlength="6"
+                             formControlName="codePostalCtrl"
+                             required
+                             (keyup)="membreInfoAdd('codePostal',codePostal.value)"
+                             placeholder="Code Postal" #codePostal >
+                      <mat-error>Ce champs est obligatoire</mat-error>
+                    </mat-form-field>
+                  </mat-grid-tile>
+                </div>
+                <mat-grid-tile colspan = "4" rowspan="1" >
+                  <mat-form-field class="full-width">
+                    <my-tel-input
+                      (tel)="tel($event,prenom.value,nom.value,adresse.value,ville.value,codePostal.value)"
+                      placeholder="Téléphone"
+                      [value]="value"
+                      required></my-tel-input>
+                  </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile colspan = "4" rowspan="1" >
+                  <mat-form-field class="full-width">
+                    <input matInput
+                           formControlName="professionCtrl"
+                           (keyup)="membreInfoAdd('profession',profession.value)"
+                           placeholder="Profession" #profession>
+                  </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile colspan = "4" rowspan="1">
+
+                  <mat-form-field class="full-width">
+                    <form #myForm="ngForm" novalidate>
+                      <input matInput
+                             type="text"
+                             name="dateNaissance"
+                             #dateNaissance="ngModel"
+                             dateNaissanceValidation
+                             [(ngModel)]="_dateNaissance"
+                             class="form-control"
+                             placeholder="Date de naisssance"
+                             (keyup)="membreInfoAdd('dateNaissance',dateNaissance.value)"
+                      >
+                      <app-errors [control]="dateNaissance"></app-errors>
+                    </form>
+                  </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile colspan = "2" rowspan="1">
+                </mat-grid-tile>
+
+                <mat-grid-tile colspan = "4" rowspan="1">
+                  <div>
+                    <button mat-button
+                            matStepperNext
+                            [disabled] = infoPersoisDisabled
+                    >Next</button>
+                  </div>
+                </mat-grid-tile>
+              </mat-grid-list>
+            </div>
+          </mat-grid-tile>
+        </mat-grid-list>
+
+      </form>
+    </mat-step>
+    <mat-step *ngIf="cotisation === 'familiale'" [stepControl]="infoPersoConjFormGroup" >
+      <form [formGroup]="infoPersoConjFormGroup" class="stepper_conjouint">
+        <ng-template matStepLabel>Renseignements conjouint(e)</ng-template>
+        <mat-grid-list cols="1" rowHeight="500px">
+          <mat-grid-tile colspan = "1" rowspan="1">
+            <div class="card_perso">
+              <mat-grid-list cols="4" rowHeight="70px">
+                <mat-grid-tile colspan = "4" rowspan="2" class="informationSaisies">
+                  <mat-form-field class="full-width">
+                    <input matInput
+                           type="email"
+                           class="card_perso email"
+                           placeholder="Courriel"
+                           formControlName="emailCtrl"
+                           #courrielConjouint
+                           (keyup)="membreInfoAdd('courrielConjouint',courrielConjouint.value)"
+                           required>
+                    <mat-error>Ce champs est obligatoire et doit être un courriel</mat-error>
+                  </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile colspan = "4" rowspan="1" >
+                  <mat-form-field class="full-width">
+                    <input matInput
+                           minlength="2"
+                           required
+                           formControlName="prenomCtrl"
+                           #prenomConjouint
+                           (keyup)="membreInfoAdd('prenomConjouint',prenomConjouint.value)"
+                           placeholder="Prénom" >
+                    <mat-error>Ce champs est obligatoire</mat-error>
+                  </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile colspan = "4" rowspan="1">
+                  <mat-form-field class="full-width">
+                    <input matInput
+                           minlength="2"
+                           required
+                           formControlName="nomCtrl"
+                           placeholder="Nom"
+                           (keyup)="membreInfoAdd('nomConjouint',nomConjouint.value)"
+                           #nomConjouint >
+                    <mat-error>Ce champs est obligatoire</mat-error>
+                  </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile colspan = "4" rowspan="1" >
+                  <mat-form-field class="full-width">
+                    <my-tel-input
+                      (tel)="telConjouint($event, courrielConjouint.value, prenomConjouint.value,nomConjouint.value, professionConjouint.value)"
+                      [value]="valueConJouint"
+                      placeholder="Téléphone"
+                      required></my-tel-input>
+                  </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile colspan = "4" rowspan="1" >
+                  <mat-form-field class="full-width">
+                    <input matInput
+                           formControlName="professionCtrl"
+                           (keyup)="membreInfoAdd('professionConjouint',professionConjouint.value)"
+                           placeholder="Profession" #professionConjouint>
+                  </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile colspan = "4" rowspan="1">
+
+                  <mat-form-field class="full-width">
+                    <form #myForm="ngForm" novalidate>
+                      <input matInput
+                             #dateNaissanceConjouint="ngModel"
+                             dateNaissanceValidation
+                             [(ngModel)]="_dateNaissanceConjouint"
+                             type="text"
+                             name="dateNaissanceConjouint"
+                             (keyup)="membreInfoAdd('dateNaissanceConjouint',dateNaissanceConjouint.value)"
+                             class="form-control"
+                             placeholder="Date de naisssance"
+                      >
+                      <!--#dateNaissanceConjouint="ngModel"-->
+                      <!--[(ngModel)]="_dateNaissance"-->
+                      <app-errors [control]="dateNaissanceConjouint"></app-errors>
+                    </form>
+                  </mat-form-field>
+                </mat-grid-tile>
+                <!--<mat-grid-tile colspan = "4" rowspan="1">-->
+                <!--</mat-grid-tile>-->
+                <!--<mat-grid-tile colspan = "4" rowspan="1">-->
+                  <!--&lt;!&ndash;<div>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<button mat-button matStepperPrevious>Back</button>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<button mat-button matStepperNext  [disabled] = infoPersoConjisDisabled>Next</button>&ndash;&gt;-->
+                  <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--</mat-grid-tile>-->
+              </mat-grid-list>
+            </div>
+          </mat-grid-tile>
+        </mat-grid-list>
+      </form>
+    </mat-step>
+    <mat-step>
+      <form [formGroup]="factureFormGroup">
+        <ng-template matStepLabel>Renseignements complémentaires</ng-template>
+        <mat-grid-list cols="1" rowHeight="775px">
+          <mat-grid-tile colspan = "1" rowspan="1">
+            <div class="card_perso">
+
+              <mat-list class="slide-toogle-list">
+                <mat-list-item class="info_compl_list">
+                  <mat-slide-toggle
+                    [checked]= "_membre.teleList"
+                    #teleListe
+                    (change)="autorisationsTelephone($event)">
+                  </mat-slide-toggle>
+                  <div *ngIf="!autorisationTel">
+                    <p class="text"><a>{{_autorisationsTelephone[0]}}</a><a class="bold">{{_autorisationsTelephone[1]}}</a><a>{{_autorisationsTelephone[2]}}</a></p>
+                  </div>
+                  <div *ngIf="autorisationTel">
+                    <p class="text"><a>{{_autorisationsTelephone[0]}}</a><a class="pink">{{_autorisationsTelephone[1]}}</a><a>{{_autorisationsTelephone[2]}}</a></p>
+                  </div>
+                </mat-list-item>
+                <mat-list-item>
+                  <mat-slide-toggle
+                    #nomListe
+                    [checked]= "_membre.nomListe"
+                    (change)="autorisationsNom($event)">
+                  </mat-slide-toggle>
+                  <div *ngIf="!autorisationNom">
+                    <p class="text"><a>{{_autorisationsNom[0]}}</a><a class="bold">{{_autorisationsNom[1]}}</a><a>{{_autorisationsNom[2]}}</a></p>
+                  </div>
+                  <div *ngIf="autorisationNom">
+                    <p class="text"><a>{{_autorisationsNom[0]}}</a><a class="pink">{{_autorisationsNom[1]}}</a><a>{{_autorisationsNom[2]}}</a></p>
+                  </div>
+                </mat-list-item>
+              </mat-list>
+              <mat-divider class="diver_info_comp"></mat-divider>
+              <p>Je suis disponible pour :</p>
+
+              <mat-grid-list class="option" cols="2" rowHeight="110px">
+                <mat-grid-tile colspan="2" rowspan="3">
+                  <mat-list>
+                    <!--membre['membre']['animExc']-->
+                    <mat-list-item>
+                      <mat-checkbox
+                        (change)="checkBox('animExc',$event)"
+                        #animExc
+                        [checked]= "_membre.animExc"
+                        class="example-margin">
+                        Animation d’une excursion
+                      </mat-checkbox>
+                    </mat-list-item>
+                    <mat-list-item>
+                      <mat-checkbox
+                        #recenNoel
+                        (change)="checkBox('recenNoel',$event)"
+                        [checked]= "_membre.recenNoel"
+                        class="example-margin">
+                        Recensement de Noël
+                      </mat-checkbox>
+                    </mat-list-item>
+                    <mat-list-item>
+                      <mat-checkbox
+                        #animKio
+                        (change)="checkBox('animKio',$event)"
+                        [checked]= "_membre.animKio"
+                        class="example-margin">
+                        Animation d’un kiosque
+                      </mat-checkbox>
+                    </mat-list-item>
+                    <mat-list-item>
+                      <mat-checkbox
+                        #consAdm
+                        [checked]= "_membre.consAdm"
+                        (change)="checkBox('consAdm',$event)"
+                        class="example-margin">
+                        Conseil d’administration
+                      </mat-checkbox>
+                    </mat-list-item>
+                    <mat-list-item>
+                      <mat-checkbox
+                        #redacRevi
+                        [checked]= "_membre.redacRevi"
+                        (change)="checkBox('redacRevi',$event)"
+                        class="example-margin">
+                        Rédaction/révision
+                      </mat-checkbox>
+                    </mat-list-item>
+                    <mat-list-item>
+                      <mat-checkbox
+                        #promoPubli
+                        [checked]= "_membre.promoPubli"
+                        (change)="checkBox('promoPubli',$event)"
+                        class="example-margin">
+                        Promotion/publicité
+                      </mat-checkbox>
+                    </mat-list-item>
+                  </mat-list>
+                </mat-grid-tile>
+                <mat-grid-tile colspan="2" rowspan="1">
+                  <mat-form-field class="full-width">
+                    <input #autre
+                           matInput
+                           [value]="_membre.autre"
+                           (keyup)="membreInfoAdd('autre',autre.value)"
+                           placeholder="Autre :">
+                  </mat-form-field>
+                </mat-grid-tile>
+                <!--<mat-grid-tile colspan="2" rowspan="1">-->
+                  <!--<div>-->
+                    <!--<button mat-button matStepperPrevious>Back</button>-->
+                    <!--<button mat-button matStepperNext>Next</button>-->
+                  <!--</div>-->
+                <!--</mat-grid-tile>-->
+              </mat-grid-list>
+
+
+
+            </div>
+          </mat-grid-tile>
+        </mat-grid-list>
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Paiement</ng-template>
+      <section class="section_facture">
+        <app-facture [infMembre]="infMembreFacturation" [infConjouint]="infConjouintFacturation"></app-facture>
+      </section>
+      <!--<div>-->
+        <!--<button mat-button matStepperPrevious>Back</button>-->
+      <!--</div>-->
+    </mat-step>
+  </mat-vertical-stepper>
+</div>

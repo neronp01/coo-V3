@@ -1,0 +1,32 @@
+.titre_photo{
+  color: #C51162;
+  position: relative;
+  top: -200px;
+  text-align: right;
+  margin-right: 20px;
+  font-weight: bold;
+  font-size: 250%;
+
+}
+
+.backGround_titre {
+
+  position: relative;
+  bottom: 200px;
+  background-color: #424242;
+  height: 60px;
+  width: 100%;
+  position: relative;
+  bottom: 120px;
+  opacity: .92;
+
+}
+
+@media only screen and (min-width: 200px) and (max-width: 760px){
+  .backGround_titre {
+    display: none;
+  }
+  .titre_photo {
+    top: 20px;
+  }
+}
