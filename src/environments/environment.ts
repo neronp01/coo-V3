@@ -7,11 +7,11 @@ export const environment = {
   production: false,
   stripeKey: 'pk_test_NV6NqnjufUL0GOqh9zStLSFA',
   firebase: {
-    apiKey: "AIzaSyDAvcZ58hVJLWCp8z7fDH7G3ludZMg9pD4",
-    authDomain: "coov2-5f8f7.firebaseapp.com",
-    databaseURL: "https://coov2-5f8f7.firebaseio.com",
-    projectId: "coov2-5f8f7",
-    storageBucket: "coov2-5f8f7.appspot.com",
-    messagingSenderId: "894720646360"
+    apiKey: "AIzaSyDS4K-3TaN8P3GJmfXSJ6rlwyA8v-gx9ts",
+    authDomain: "coov3-f509c.firebaseapp.com",
+    databaseURL: "https://coov3-f509c.firebaseio.com",
+    projectId: "coov3-f509c",
+    storageBucket: "coov3-f509c.appspot.com",
+    messagingSenderId: "597335038522"
   }
 };
