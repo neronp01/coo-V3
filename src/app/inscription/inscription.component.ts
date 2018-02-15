@@ -173,11 +173,21 @@ export class InscriptionComponent implements OnInit {
   value: MyTel;
   valueConJouint: MyTel;
   constructor(private _formBuilder: FormBuilder, private auth: AuthService) {
-
+this.infoPersoFormGroup = this._formBuilder.group({
+  emailConCtrl: ['', Validators.required],
+  prenomCtrl: ['', Validators.required],
+  nomCtrl: ['', Validators.required],
+  professionCtrl: ['', Validators],
+  adresseCtrl: ['', Validators],
+  villeCtrl: ['', Validators],
+  codePostalCtrl: ['', Validators]
+});
     this.membre = this.auth.userToken;
     console.log('membre--' , this.membre);
-    console.log('isData', auth.userToken['membre'])
+    console.log('isData', auth.userToken['membre']);
+    console.log('----ici', this.auth.memberIsInDataBase );
     if (this.auth.memberIsInDataBase) {
+      console.log('----ici------', this.auth.memberIsInDataBase );
       this.infMembreFacturation = auth.userToken['membre'];
         this.initForm();
         this._membre = this.membre.membre;
@@ -215,7 +225,7 @@ export class InscriptionComponent implements OnInit {
         this.infConjouintFacturation = x;
         console.log('cons' , x);
       });
-      this.initForm();
+      // this.initForm();
     }
     this.infoCotisation = new BehaviorSubject('');
    this.membreInfo = new BehaviorSubject(this.membre.membre);
@@ -251,6 +261,7 @@ telephoneHolderConjouint () {
     this.valueConJouint = new MyTel( area , exchange , subscriber );
   }
   initForm() {
+    console.log('--------iniForm' , this.membre.membre);
     this.infoPersoFormGroup = this._formBuilder.group({
       cotisationsCtrl: [this.membre.membre['typeCotisation'], Validators.required],
       prenomCtrl: [this.membre.membre['prenom'], Validators.required],

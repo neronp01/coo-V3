@@ -13,7 +13,7 @@ import { EmailService } from './services/email.service';
 export class AppComponent implements OnInit {
 
   test = false;
-  constructor(private auth: AuthService, private router: Router, private email: EmailService) {
+  constructor(private auth: AuthService, private router: Router, public email: EmailService) {
   }
   ngOnInit() {
     this.auth.user.take(1).subscribe( x => {

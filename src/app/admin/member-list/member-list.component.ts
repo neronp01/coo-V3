@@ -17,15 +17,21 @@ export class MemberListComponent implements OnInit {
   membresTable= [];
   constructor(private auth: AuthService, private email: EmailService, private router: Router) {
     auth.membres.subscribe( x => {
+      let count = 0;
       x.forEach( y => {
-            let photo: string;
-        if (y.photoURL === 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg' || '') {
-          photo = './assets/pique.jpg';
-          } else {
-          photo = y.photoURL;
-          }
-        ELEMENT_DATA.push({photo: y.photoURL, prenom: y['membre']['prenom'], nom: y['membre']['nom'],
-        tel: y['membre']['telephone'], email: y['membre']['email']});
+
+        if (count === 0) {
+          count++;
+        } else {
+          ELEMENT_DATA.push({photo: y.photoURL, prenom: y['membre']['prenom'], nom: y['membre']['nom'],
+          tel: y['membre']['telephone'], email: y['membre']['email']});
+        }
+        //    let photo: string;
+      //  if (y.photoURL === 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg' || '') {
+        //  photo = './assets/pique.jpg';
+        //  } else {
+         // photo = y.photoURL;
+        //  }
       });
       console.log('membres' , ELEMENT_DATA);
       this.dataSource = new MatTableDataSource(ELEMENT_DATA);

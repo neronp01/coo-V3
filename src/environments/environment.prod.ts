@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  stripeKey: 'firebase functions:config:get',
+  stripeKey: 'pk_live_Whi9I5kbChA7rtYNA9c1kkjc',
   firebase: {
     apiKey: "AIzaSyDS4K-3TaN8P3GJmfXSJ6rlwyA8v-gx9ts",
     authDomain: "coov3-f509c.firebaseapp.com",

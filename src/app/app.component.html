@@ -1,17 +1,17 @@
 <div class="global_container">
-<mat-card class="toolbar_app" style="background-color: #C51162">
-  <mat-card-header color="primary"  class="header_card">
+<mat-card class="toolbar_app" style="background-color:#212121">
+  <mat-card-header   class="header_card">
     <h1 class="titre_toolBar">GrandPic</h1>
     <span class="example-spacer"></span>
 
     <p *ngIf="!auth.isLoggedIn" style="margin-right: 20px" routerLink="/login" routerLinkActive="active">Se connecter</p>
     <p *ngIf="auth.isLoggedIn" (click)="auth.signOut()" routerLink="/coo" style="margin-right: 20px" >Se déconnecter</p>
-    <button mat-mini-fab color="primary" class="bottom_menu_small" [matMenuTriggerFor]="menu"> <i class="material-icons">menu</i></button>
-      <button mat-fab color="primary" class="bottom_menu_big" [matMenuTriggerFor]="menu"> <i class="material-icons icon_menu">menu</i></button>
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item (click)="enter()">Accueil</button>
-      <button mat-menu-item (click)="email.setEmail('maurice.thibaudeau@gmail.com')" [routerLink]="[{ outlets: { popup: ['compose'] } }]">Communiquer avec l'administrateur</button>
-      <button mat-menu-item (click)="email.setEmail('neronpascal001@gmail.com')" [routerLink]="[{ outlets: { popup: ['compose'] } }]">Signaler un bogue</button>
+    <button mat-mini-fab class="bottom_menu_small" [matMenuTriggerFor]="menu"> <i class="material-icons iconeMenuSmall">menu</i></button>
+      <button mat-fab  class="bottom_menu_big" [matMenuTriggerFor]="menu"> <i class="material-icons icon_menu">menu</i></button>
+    <mat-menu #menu="matMenu" class="matMenuBackGroung" >
+      <button mat-menu-item class="matMenu" (click)="enter()">Accueil</button>
+      <button mat-menu-item  class="matMenu" (click)="email.setEmail('maurice.thibaudeau@gmail.com')" [routerLink]="[{ outlets: { popup: ['compose'] } }]">Communiquer avec l'administrateur</button>
+      <button mat-menu-item class="matMenu" (click)="email.setEmail('neronpascal001@gmail.com')" [routerLink]="[{ outlets: { popup: ['compose'] } }]">Signaler un bogue</button>
     </mat-menu>
   </mat-card-header>
 </mat-card>
@@ -28,13 +28,13 @@
   <!--<a routerLink="/login" routerLinkActive="active">Login</a>-->
   <!--<a [routerLink]="[{ outlets: { popup: ['compose'] } }]">Contact</a>-->
 <!--</nav>-->
+
 <div class="remplissage_cont"></div>
 <div class="container_bas_page">
   <a href="http://www.coo.qc.ca/" class="ornitho_link"><p  class="test">Site officiel du Club des ornithologunes de l'outaouais</p></a>
   <p class="bar">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</p>
   <a href="https://www.facebook.com/Club-des-Ornithologues-de-lOutaouais-337865799662094/" class="ornitho_link"><p  class="test">Lien Facebook du Club des ornithologunes de l'outaouais</p></a>
 </div>
-
   <p class="nero">© neroArtefact, 2018. Tous droits réservés.</p>
 
 
