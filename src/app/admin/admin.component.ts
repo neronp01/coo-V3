@@ -93,7 +93,7 @@ export class AdminComponent implements OnInit {
   }
   buttonClick(a: string) {
     switch (a) {
-      case 'inscription': this.titre = 'Inscription';
+      case 'inscription': this.titre = 'Inscription / Adhésion';
       break;
       case 'liste_membres': this.titre = 'Liste de membres';
       break;

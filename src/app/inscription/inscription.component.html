@@ -36,7 +36,7 @@
                    (keyup)="membreInfoAdd('prenom',prenom1.value)"
                    #prenom1
                    placeholder="Prénom" >
-            <mat-error>Ce champs est obligatoire</mat-error>
+            <mat-error>Ce champ est obligatoire</mat-error>
           </mat-form-field>
         </mat-grid-tile>
         <mat-grid-tile colspan = "2" rowspan="1">
@@ -47,7 +47,7 @@
                    required
                    (keyup)="membreInfoAdd('nom',nom1.value)"
                    placeholder="Nom" #nom1 >
-            <mat-error>Ce champs est obligatoire</mat-error>
+            <mat-error>Ce champ est obligatoire</mat-error>
           </mat-form-field>
         </mat-grid-tile>
         <mat-grid-tile colspan = "4" rowspan="1">
@@ -58,7 +58,7 @@
                    required
                    (keyup)="membreInfoAdd('adresse',adresse1.value)"
                    placeholder="Adresse" #adresse1 >
-            <mat-error>Ce champs est obligatoire</mat-error>
+            <mat-error>Ce champ est obligatoire</mat-error>
           </mat-form-field>
         </mat-grid-tile>
         <mat-grid-tile colspan = "2" rowspan="1" >
@@ -70,7 +70,7 @@
                    (keyup)="membreInfoAdd('ville',ville1.value)"
                    required
                    #ville1>
-            <mat-error>Ce champs est obligatoire</mat-error>
+            <mat-error>Ce champ est obligatoire</mat-error>
           </mat-form-field>
         </mat-grid-tile>
         <mat-grid-tile colspan = "2" rowspan="1" >
@@ -81,7 +81,7 @@
                    required
                    (keyup)="membreInfoAdd('codePostal',codePostal1.value)"
                    placeholder="Code Postal" #codePostal1 >
-            <mat-error>Ce champs est obligatoire</mat-error>
+            <mat-error>Ce champ est obligatoire</mat-error>
           </mat-form-field>
         </mat-grid-tile>
         </div>
@@ -128,7 +128,7 @@
         <button mat-button
                 matStepperNext
                 [disabled] = infoPersoisDisabled
-        >Next</button>
+        >Suivant</button>
       </div>
         </mat-grid-tile>
       </mat-grid-list>
@@ -155,7 +155,7 @@
                          #courrielConjouint1
                          (keyup)="membreInfoAdd('courrielConjouint',courrielConjouint1.value)"
                          required>
-                  <mat-error>Ce champs est obligatoire et doit être un courriel</mat-error>
+                  <mat-error>Ce champ est obligatoire et doit être un courriel</mat-error>
                 </mat-form-field>
               </mat-grid-tile>
               <mat-grid-tile colspan = "2" rowspan="1" >
@@ -167,7 +167,7 @@
                          #prenomConjouint1
                          (keyup)="membreInfoAdd('prenomConjouint',prenomConjouint1.value)"
                          placeholder="Prénom" >
-                  <mat-error>Ce champs est obligatoire</mat-error>
+                  <mat-error>Ce champ est obligatoire</mat-error>
                 </mat-form-field>
               </mat-grid-tile>
               <mat-grid-tile colspan = "2" rowspan="1">
@@ -179,7 +179,7 @@
                          placeholder="Nom"
                          (keyup)="membreInfoAdd('nomConjouint',nomConjouint1.value)"
                          #nomConjouint1 >
-                  <mat-error>Ce champs est obligatoire</mat-error>
+                  <mat-error>Ce champ est obligatoire</mat-error>
                 </mat-form-field>
               </mat-grid-tile>
               <mat-grid-tile colspan = "2" rowspan="1" >
@@ -223,8 +223,8 @@
               </mat-grid-tile>
               <mat-grid-tile colspan = "4" rowspan="1">
                 <div>
-                  <button mat-button matStepperPrevious>Back</button>
-                  <button mat-button matStepperNext  [disabled] = infoPersoConjisDisabled>Next</button>
+                  <button mat-button matStepperPrevious>Retour</button>
+                  <button mat-button matStepperNext  [disabled] = infoPersoConjisDisabled>Suivant</button>
                 </div>
               </mat-grid-tile>
             </mat-grid-list>
@@ -344,8 +344,8 @@
               </mat-grid-tile>
               <mat-grid-tile colspan="2" rowspan="1">
                 <div>
-                  <button mat-button matStepperPrevious>Back</button>
-                  <button mat-button matStepperNext>Next</button>
+                  <button mat-button matStepperPrevious>Retour</button>
+                  <button mat-button matStepperNext>Suivant</button>
                 </div>
               </mat-grid-tile>
             </mat-grid-list>
@@ -363,7 +363,7 @@
     <app-facture [infMembre]="infMembreFacturation" [infConjouint]="infConjouintFacturation"></app-facture>
     </section>
     <div>
-      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button matStepperPrevious>Retour</button>
     </div>
   </mat-step>
 </mat-horizontal-stepper>
@@ -407,7 +407,7 @@
                              (keyup)="membreInfoAdd('prenom',prenom.value)"
                              #prenom
                              placeholder="Prénom" >
-                      <mat-error>Ce champs est obligatoire</mat-error>
+                      <mat-error>Ce champ est obligatoire</mat-error>
                     </mat-form-field>
                   </mat-grid-tile>
                   <mat-grid-tile colspan = "4" rowspan="1">
@@ -418,7 +418,7 @@
                              required
                              (keyup)="membreInfoAdd('nom',nom.value)"
                              placeholder="Nom" #nom >
-                      <mat-error>Ce champs est obligatoire</mat-error>
+                      <mat-error>Ce champ est obligatoire</mat-error>
                     </mat-form-field>
                   </mat-grid-tile>
                   <mat-grid-tile colspan = "4" rowspan="1">
@@ -429,7 +429,7 @@
                              required
                              (keyup)="membreInfoAdd('adresse',adresse.value)"
                              placeholder="Adresse" #adresse >
-                      <mat-error>Ce champs est obligatoire</mat-error>
+                      <mat-error>Ce champ est obligatoire</mat-error>
                     </mat-form-field>
                   </mat-grid-tile>
                   <mat-grid-tile colspan = "4" rowspan="1" >
@@ -441,7 +441,7 @@
                              (keyup)="membreInfoAdd('ville',ville.value)"
                              required
                              #ville>
-                      <mat-error>Ce champs est obligatoire</mat-error>
+                      <mat-error>Ce champ est obligatoire</mat-error>
                     </mat-form-field>
                   </mat-grid-tile>
                   <mat-grid-tile colspan = "4" rowspan="1" >
@@ -452,7 +452,7 @@
                              required
                              (keyup)="membreInfoAdd('codePostal',codePostal.value)"
                              placeholder="Code Postal" #codePostal >
-                      <mat-error>Ce champs est obligatoire</mat-error>
+                      <mat-error>Ce champ est obligatoire</mat-error>
                     </mat-form-field>
                   </mat-grid-tile>
                 </div>
@@ -499,7 +499,7 @@
                     <button mat-button
                             matStepperNext
                             [disabled] = infoPersoisDisabled
-                    >Next</button>
+                    >Suivant</button>
                   </div>
                 </mat-grid-tile>
               </mat-grid-list>
@@ -526,7 +526,7 @@
                            #courrielConjouint
                            (keyup)="membreInfoAdd('courrielConjouint',courrielConjouint.value)"
                            required>
-                    <mat-error>Ce champs est obligatoire et doit être un courriel</mat-error>
+                    <mat-error>Ce champ est obligatoire et doit être un courriel</mat-error>
                   </mat-form-field>
                 </mat-grid-tile>
                 <mat-grid-tile colspan = "4" rowspan="1" >
@@ -538,7 +538,7 @@
                            #prenomConjouint
                            (keyup)="membreInfoAdd('prenomConjouint',prenomConjouint.value)"
                            placeholder="Prénom" >
-                    <mat-error>Ce champs est obligatoire</mat-error>
+                    <mat-error>Ce champ est obligatoire</mat-error>
                   </mat-form-field>
                 </mat-grid-tile>
                 <mat-grid-tile colspan = "4" rowspan="1">
@@ -550,7 +550,7 @@
                            placeholder="Nom"
                            (keyup)="membreInfoAdd('nomConjouint',nomConjouint.value)"
                            #nomConjouint >
-                    <mat-error>Ce champs est obligatoire</mat-error>
+                    <mat-error>Ce champ est obligatoire</mat-error>
                   </mat-form-field>
                 </mat-grid-tile>
                 <mat-grid-tile colspan = "4" rowspan="1" >
@@ -718,9 +718,6 @@
                   <!--</div>-->
                 <!--</mat-grid-tile>-->
               </mat-grid-list>
-
-
-
             </div>
           </mat-grid-tile>
         </mat-grid-list>

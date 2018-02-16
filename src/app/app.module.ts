@@ -27,6 +27,7 @@ import {  MatToolbarModule, MatCardModule,  MatMenuModule, MatButtonModule, MatL
 import { DialogService } from './dialog.service';
 import {FrontPageModule} from './front-page/front-page.module';
 import { EmailService} from './services/email.service';
+import { FacturationService } from './services/facturation.service';
 
 
 @NgModule({
@@ -52,7 +53,7 @@ import { EmailService} from './services/email.service';
     PageNotFoundComponent,
   ],
   providers: [
-    DialogService, EmailService
+    DialogService, EmailService , FacturationService
   ],
   bootstrap: [ AppComponent ]
 })
