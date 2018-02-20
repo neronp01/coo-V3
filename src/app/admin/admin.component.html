@@ -22,10 +22,10 @@
           <button (click)="buttonClick('inscription')"  routerLink="./inscription" routerLinkActive="active" class="button_accueil" mat-button> Inscription / Adhésion </button>
         </mat-list-item>
         <mat-list-item class="list_item_accueil">
-          <button (click)="buttonClick('liste_membres')"  routerLink="./liste_de_membres" routerLinkActive="active" class="button_accueil" mat-button> Liste de membres </button>
+          <button (click)="buttonClick('liste_membres')"  routerLink="./liste_de_membres" routerLinkActive="active" class="button_accueil" *ngIf="_isMembre" mat-button> Liste de membres </button>
         </mat-list-item>
         <mat-list-item>
-          <button class="button_accueil" mat-button> Boutique en ligne </button>
+          <button class="button_accueil" *ngIf="_isMembre" mat-button> Boutique en ligne </button>
         </mat-list-item>
       </mat-list>
     </div>

@@ -5,6 +5,8 @@ import { Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/timer';
 import { Router } from '@angular/router';
 import 'rxjs/add/operator/take';
+import * as moment from 'moment';
+import { Membre } from '../services/membre.model';
 
 @Component({
   styleUrls: ['./admin.component.css'],
@@ -54,6 +56,7 @@ export class AdminComponent implements OnInit {
   state= 'void';
   titre = 'Accueil';
   isConnected = false;
+  _isMembre = false;
   foods = [
     {value: 'steak-0', viewValue: 'Steak'},
     {value: 'pizza-1', viewValue: 'Pizza'},
@@ -64,6 +67,7 @@ export class AdminComponent implements OnInit {
     this.auth.user.subscribe( x => {
       if (x !== null) {
         this.isConnected = true;
+        this._isMembre = this.isMembre;
         console.log('la' , this.isConnected);
       }
     });
@@ -77,6 +81,8 @@ export class AdminComponent implements OnInit {
         console.log('inside');
       }
     });
+
+
     window.onscroll = () => {
       zone.run(() => {
         if (window.pageYOffset > 0) {
@@ -99,5 +105,19 @@ export class AdminComponent implements OnInit {
       break;
       //  this.router.navigate(['/inscription']);
     }
+  }
+  get isMembre(): boolean {
+    const membre: Membre = this.auth.userToken['membre'];
+    const tab = Object.getOwnPropertyNames(membre);
+    let aUneAdhesion: boolean;
+    aUneAdhesion = false;
+    console.log('Date--', tab.includes('adhDate'), 'membre', membre, 'tab:');
+    // S'il y a une date d'adésion dans la base de donné, les données doivent être conservé.
+    if (tab.includes('adhDate')) {
+      if (!moment(membre['adhDate']).isBefore(moment(Date.now()).format('YYYYMMDD'))){
+        aUneAdhesion = true;
+      }
+    }
+    return aUneAdhesion;
   }
 }

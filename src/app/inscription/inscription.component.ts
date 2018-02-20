@@ -183,9 +183,6 @@ this.infoPersoFormGroup = this._formBuilder.group({
   codePostalCtrl: ['', Validators]
 });
     this.membre = this.auth.userToken;
-    console.log('membre--' , this.membre);
-    console.log('isData', auth.userToken['membre']);
-    console.log('----ici', this.auth.memberIsInDataBase );
     if (this.auth.memberIsInDataBase) {
       console.log('----ici------', this.auth.memberIsInDataBase );
       this.infMembreFacturation = auth.userToken['membre'];
@@ -198,14 +195,12 @@ this.infoPersoFormGroup = this._formBuilder.group({
             this.cotisation = 'familiale';
               this.initialisationConjouint();
               this.membreConjouint['membre'] = y['membre'];
-              console.log('sa marche' , this.membreConjouint);
             this.initFormConjouint();
             this._dateNaissanceConjouint = this.membreConjouint.membre['dateNaissance'];
             this.telephoneHolderConjouint();
             this.conjouintInfo = new BehaviorSubject(this.membreConjouint.membre);
             this.conjouintInfo.subscribe( x => {
               this.infConjouintFacturation = x;
-              console.log('cons' , x);
             });
           });
       } else {
@@ -213,7 +208,6 @@ this.infoPersoFormGroup = this._formBuilder.group({
           this.conjouintInfo = new BehaviorSubject(this.membreConjouint.membre);
           this.conjouintInfo.subscribe( x => {
             this.infConjouintFacturation = x;
-            console.log('cons' , x);
           });
         }
     } else {
@@ -223,7 +217,6 @@ this.infoPersoFormGroup = this._formBuilder.group({
       this.conjouintInfo = new BehaviorSubject(this.membreConjouint.membre);
       this.conjouintInfo.subscribe( x => {
         this.infConjouintFacturation = x;
-        console.log('cons' , x);
       });
       // this.initForm();
     }
@@ -232,7 +225,6 @@ this.infoPersoFormGroup = this._formBuilder.group({
     this.membreInfo.subscribe( x => {
       this.infMembreFacturation = x;
     });
-
   }
 
   ngOnInit() {
@@ -261,7 +253,7 @@ telephoneHolderConjouint () {
     this.valueConJouint = new MyTel( area , exchange , subscriber );
   }
   initForm() {
-    console.log('--------iniForm' , this.membre.membre);
+
     this.infoPersoFormGroup = this._formBuilder.group({
       cotisationsCtrl: [this.membre.membre['typeCotisation'], Validators.required],
       prenomCtrl: [this.membre.membre['prenom'], Validators.required],
@@ -273,7 +265,7 @@ telephoneHolderConjouint () {
     });
   }
   initFormConjouint() {
-    console.log('form--', this.membreConjouint );
+
     this.infoPersoConjFormGroup = this._formBuilder.group({
       emailCtrl: [this.membreConjouint.membre['email'], Validators.required],
       prenomCtrl: [this.membreConjouint.membre['prenom'], Validators.required],
@@ -418,6 +410,7 @@ telephoneHolderConjouint () {
       email: ''
       };
   }
+
   membreInfoAdd(key: string, value: string) {
     console.log('nom__', key, value);
     switch (key) {

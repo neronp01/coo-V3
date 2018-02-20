@@ -57,7 +57,7 @@
               <mat-list>
                 <mat-list-item>
                   <p class="description">Numéro de facture</p>
-                  <p class="resultat">NWE123</p>
+                  <p class="resultat">{{noFacture}}</p>
                 </mat-list-item>
                 <mat-list-item>
                   <p class="description">Montant de la cotisation ({{infMembre['typeCotisation']}})</p>
@@ -127,8 +127,7 @@
 
               <div class="card_inf">
                 <p>Club des ornithologues de l&#39;Outaouais</p>
-                <p>C.P. 1419, Succ. Hull, Gatineau (Québec) - J8X 3Y1
-                  Tél.: (819) 778-3413 Tc.: (819) 682-6177</p>
+                <p>C.P. 1419, Succ. Hull, Gatineau (Québec) - J8X 3Y1</p>
                 <p>info@coo.qc.ca</p>
               </div>
             </mat-grid-tile>
@@ -170,7 +169,7 @@
                 <mat-list>
                   <mat-list-item>
                     <p class="description">Numéro de facture</p>
-                    <p class="resultat">NWE123</p>
+                    <p class="resultat">{{noFacture}}</p>
                   </mat-list-item>
                   <mat-list-item>
                     <p class="description">Cotisation ({{infMembre['typeCotisation']}})</p>
@@ -206,4 +205,5 @@
       </div>
     </mat-grid-tile>
   </mat-grid-list>
+
 </section>

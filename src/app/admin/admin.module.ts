@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { HttpClientModule } from '@angular/common/http';
 
 
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -32,6 +32,7 @@ import { MemberListComponent } from './member-list/member-list.component';
 
 @NgModule({
   imports: [
+    HttpClientModule,
     CommonModule,
     AdminRoutingModule,
     FormsModule, ReactiveFormsModule,

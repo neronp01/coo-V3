@@ -21,7 +21,9 @@ export class Membre {
   consAdm?: boolean;
   redacRevi?: boolean;
   promoPubli?: boolean;
+  paiement?: Array<object>;
   autre?: string;
+  adhDate?: Date;
   constructor() {
   }
 }

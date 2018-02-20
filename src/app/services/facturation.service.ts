@@ -10,7 +10,6 @@ export interface NoFacture {
 
 @Injectable()
 export class FacturationService {
-
   private noFactureDoc: AngularFirestoreDocument<NoFacture>;
   constructor( private afs: AngularFirestore) {
    }
@@ -22,4 +21,9 @@ export class FacturationService {
     newInfo = this.noFactureDoc.valueChanges();
     return newInfo;
   }
+
+  updateNoFacture(newNumber: NoFacture) {
+    this.noFactureDoc.update(newNumber);
+  }
+
 }

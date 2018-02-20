@@ -28,6 +28,10 @@ import { DialogService } from './dialog.service';
 import {FrontPageModule} from './front-page/front-page.module';
 import { EmailService} from './services/email.service';
 import { FacturationService } from './services/facturation.service';
+import { MessageService } from './services/message.service';
+import { HttpErrorHandler } from './services/http-error-handler.service';
+
+
 
 
 @NgModule({
@@ -53,7 +57,7 @@ import { FacturationService } from './services/facturation.service';
     PageNotFoundComponent,
   ],
   providers: [
-    DialogService, EmailService , FacturationService
+    DialogService, EmailService , FacturationService, MessageService, HttpErrorHandler
   ],
   bootstrap: [ AppComponent ]
 })

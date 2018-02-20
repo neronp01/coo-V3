@@ -15,10 +15,7 @@ import { FacturationService } from './services/facturation.service';
 export class AppComponent implements OnInit {
 
   test = false;
-  constructor(private auth: AuthService, private router: Router, public email: EmailService, private fac: FacturationService ) {
-fac.nofacture.subscribe(x => {console.log('--XXXXXX--------------' , x.numero)});
-
-    console.log('------facture', fac.nofacture);
+  constructor(private auth: AuthService, private router: Router, public email: EmailService ) {
   }
   ngOnInit() {
     this.auth.user.take(1).subscribe( x => {

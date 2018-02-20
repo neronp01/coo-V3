@@ -90,6 +90,7 @@ export class AuthService {
   get authenticated(): boolean {
     return this.authState !== null;
   }
+
   private updateUserData(user) {
     // Sets user data to firestore on login
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.email}`);
@@ -101,6 +102,8 @@ export class AuthService {
     };
     return userRef.set(data);
   }
+
+
   addUserConjouint( memb: Membre) {
 
     console.log('conjountMembre', memb);
@@ -156,12 +159,10 @@ export class AuthService {
         _isInDataBase = true;
       }
     });
-
+console.log('_isInDataBase' , _isInDataBase);
     return _isInDataBase;
   }
-  listeMembre(){
 
-  }
   addUserMembre( memb: Membre) {
     console.log('add', this.userToken['email'], memb );
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${this.userToken['email']}`);
@@ -172,6 +173,7 @@ export class AuthService {
       displayName: this.userToken['displayName'],
       photoURL: this.userToken['photoURL'],
       membre : {
+        adhDate: memb.adhDate,
         infFacturation : memb.infFacturation,
         estMembreActif: true,
         email: memb.email,
