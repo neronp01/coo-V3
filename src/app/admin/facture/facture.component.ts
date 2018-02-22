@@ -9,6 +9,8 @@ import { AuthService} from '../../auth.service';
 import { FacturationService , NoFacture } from '../../services/facturation.service';
 import { HttpClient } from '@angular/common/http';
 import { ConfigService } from './config.service';
+import { EmailIdService } from '../../services/email-id.service';
+
 
 
 
@@ -36,20 +38,16 @@ export class FactureComponent implements OnInit {
   membre: Membre;
   listeItem = {typeCotisation: 0, don: 0, fraisDePosteOrnitaouais: 0};
   constructor( private inf: InformationService, private auth: AuthService, private fac: FacturationService,
-     private http: HttpClient, private conf: ConfigService) {
-    const numbers = Observable.timer(0, 1000).take(3); // Call after 10 second.. Please set your time
+     private http: HttpClient, private conf: ConfigService, private emailId: EmailIdService) {
+    const numbers = Observable.timer(0, 1000); // Call after 10 second.. Please set your time
     numbers.subscribe(x => {
-     if (x > 1) {
-       if (this.infMembre['typeCotisation'] !== undefined) {
+     if (x > 3) {
+        this.infoFacture['conjouint'] = this.infConjouint ? this.infConjouint : {};
         this.addItem('typeCotisation', this.inf.infoCotisation[this.infMembre['typeCotisation']]);
         this.montant.next(this.total * 100);
         this.typeCotisation = this.inf.infoCotisation[this.infMembre['typeCotisation']];
         this.membre = this.auth.userToken['membre'];
-        this.infoFacture['membre'] = this.infMembre;
-        this.infoFacture['conjouint'] = this.infConjouint;
-        this.infoFacture['numeroFacture'] = this.noFacture;
         this.aUneAdhesion(this.membre);
-       }
      }
       this.infoCotisation = this.inf.infoCotisation;
     });
@@ -61,6 +59,8 @@ export class FactureComponent implements OnInit {
   }
 
   ngOnInit() {
+        this.infoFacture['membre'] = this.infMembre;
+        this.infoFacture['numeroFacture'] = this.noFacture;
     this.total = 0;
     this.fac.nofacture.take(1).subscribe( x => {
       if (this.count === 0 ) {
@@ -70,18 +70,15 @@ export class FactureComponent implements OnInit {
       }
     });
   }
-
   aUneAdhesion(oldData: Membre) {
     const tab = Object.getOwnPropertyNames(oldData);
-    let aUneAdhesion: boolean;
-    aUneAdhesion = true;
     // S'il y a une date d'adésion dans la base de donné, les données doivent être conservé.
     if (tab.includes('adhDate')) {
       this.infoFacture['membre']['adhDate'] = oldData.adhDate;
+      this.infoFacture['conjouint']['adhDate'] = oldData.adhDate;
     }
-    console.log('aUne adhésion',  this.infoFacture['membre']);
+    console.log('aUne adhésion',  this.infoFacture['membre'], tab.includes('adhDate'));
   }
-
   updateNoFacture(a: NoFacture) {
     this.fac.updateNoFacture({numero: this.noFacture});
   }
@@ -92,7 +89,9 @@ export class FactureComponent implements OnInit {
   }
   addItem( key: string, value: number) {
     this.listeItem[key] = value;
-    this.total = this.listeItem['typeCotisation'] + this.listeItem['don'] + this.listeItem['fraisDePosteOrnitaouais'];
+    this.total = this.listeItem['typeCotisation'] ? this.listeItem['typeCotisation'] : 0
+     + this.listeItem['don'] ? this.listeItem['don'] : 0
+     + this.listeItem['fraisDePosteOrnitaouais'] ? this.listeItem['fraisDePosteOrnitaouais'] : 0;
   }
   addFraiOrnitouais(e) {
     if (e.checked) {
@@ -103,16 +102,6 @@ export class FactureComponent implements OnInit {
     this.montant.next(this.total * 100);
   }
   test() {
-    const factureId = this.noFacture;
-    const data = { facture: {
-      toEmail: 'somebody@example.com',
-      toName: 'Jeff Delaney',
-      factureId: this.noFacture
-    }
-    };
-    this.conf.sendEmail('neronpascal001@gmail.com').subscribe( x => {
-      console.log('http', x);
-    });  //  this.http.post(this.endpoint, data).subscribe();
   }
 
 }

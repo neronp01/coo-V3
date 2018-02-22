@@ -24,7 +24,6 @@ export class InformationService {
   roleDoc:  AngularFirestoreDocument<object>;
 infoCotisation: object;
   fraisDePosteOrnitaouais: number;
-
   constructor( private dbc: AngularFirestore) {
     this.info.subscribe( x => {
       this.infoCotisation = {familiale: x['cotisationFamiliale'],
@@ -64,6 +63,6 @@ infoCotisation: object;
 
   updateRole( role: object) {
     this.roleDoc = this.dbc.doc<object>('informations/role');
-    this.roleDoc.update(role)
+    this.roleDoc.update(role);
   }
 }

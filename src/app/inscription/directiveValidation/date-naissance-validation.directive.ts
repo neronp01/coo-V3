@@ -21,7 +21,6 @@ export class DateNaissanceValidationDirective implements Validator {
             'message': 'Le format est JJ/MM/AAAA'
           }
         };
-      console.log(isValidDate, c.pristine)
       return  isValidDate ? null : message;
     }
 }

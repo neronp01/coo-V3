@@ -32,7 +32,7 @@ export class MakePaymentComponent implements OnInit {
       amount: this.infoFacture['montant']
     });
     this.auth.addUserMembre( this.infoFacture['membre']);
-    console.log('type' , this.infoFacture['membre']['typeCotisation'], this.infoFacture);
+    console.log('infoFacture' , this.infoFacture);
     if (this.infoFacture['membre']['typeCotisation'] === 'familiale') {
       this.auth.addUserConjouint(this.infoFacture['conjouint']);
     }

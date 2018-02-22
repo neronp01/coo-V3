@@ -126,11 +126,11 @@ export class MyTelInput implements MatFormFieldControl<MyTel>, OnDestroy {
     if ((event.target as Element).tagName.toLowerCase() !== 'input') {
       this.elRef.nativeElement.querySelector('input').focus();
     }
-    console.log('ici', MyTelInput.nextId, this.empty, this.parts.value['area']);
+
   }
   onKey() {
     const tel = this.parts.value['area'] + '-' + this.parts.value['exchange'] + '-' + this.parts.value['subscriber'];
-    console.log(tel, tel.length);
+
     if (tel.length === 12) {
       this.tel.emit(tel);
     } else {
@@ -173,18 +173,9 @@ export class InscriptionComponent implements OnInit {
   value: MyTel;
   valueConJouint: MyTel;
   constructor(private _formBuilder: FormBuilder, private auth: AuthService) {
-this.infoPersoFormGroup = this._formBuilder.group({
-  emailConCtrl: ['', Validators.required],
-  prenomCtrl: ['', Validators.required],
-  nomCtrl: ['', Validators.required],
-  professionCtrl: ['', Validators],
-  adresseCtrl: ['', Validators],
-  villeCtrl: ['', Validators],
-  codePostalCtrl: ['', Validators]
-});
     this.membre = this.auth.userToken;
     if (this.auth.memberIsInDataBase) {
-      console.log('----ici------', this.auth.memberIsInDataBase );
+
       this.infMembreFacturation = auth.userToken['membre'];
         this.initForm();
         this._membre = this.membre.membre;
@@ -198,28 +189,19 @@ this.infoPersoFormGroup = this._formBuilder.group({
             this.initFormConjouint();
             this._dateNaissanceConjouint = this.membreConjouint.membre['dateNaissance'];
             this.telephoneHolderConjouint();
-            this.conjouintInfo = new BehaviorSubject(this.membreConjouint.membre);
-            this.conjouintInfo.subscribe( x => {
-              this.infConjouintFacturation = x;
-            });
           });
       } else {
-          this.initialisationConjouint();
-          this.conjouintInfo = new BehaviorSubject(this.membreConjouint.membre);
-          this.conjouintInfo.subscribe( x => {
-            this.infConjouintFacturation = x;
-          });
         }
     } else {
       this.initialisationMembre();
       this.initialisationConjouint();
       this._membre = this.membre.membre;
-      this.conjouintInfo = new BehaviorSubject(this.membreConjouint.membre);
+       this.initForm();
+    }
+    this.conjouintInfo = new BehaviorSubject(this.membreConjouint.membre);
       this.conjouintInfo.subscribe( x => {
         this.infConjouintFacturation = x;
       });
-      // this.initForm();
-    }
     this.infoCotisation = new BehaviorSubject('');
    this.membreInfo = new BehaviorSubject(this.membre.membre);
     this.membreInfo.subscribe( x => {
@@ -230,12 +212,6 @@ this.infoPersoFormGroup = this._formBuilder.group({
   ngOnInit() {
 this.membre['email'] = this.auth.currentUserEmail;
     this.membre.membre['email'] = this.auth.currentUserEmail;
-    this.infoPersoConjFormGroup = this._formBuilder.group({
-      emailConCtrl: ['', Validators.required],
-      prenomCtrl: ['', Validators.required],
-      nomCtrl: ['', Validators.required],
-      professionCtrl: ['', Validators],
-    });
     this.factureFormGroup = this._formBuilder.group({
       factureCtrl: ['', Validators.required]
     });
@@ -255,22 +231,21 @@ telephoneHolderConjouint () {
   initForm() {
 
     this.infoPersoFormGroup = this._formBuilder.group({
-      cotisationsCtrl: [this.membre.membre['typeCotisation'], Validators.required],
-      prenomCtrl: [this.membre.membre['prenom'], Validators.required],
-      nomCtrl: [this.membre.membre['nom'], Validators.required],
-      adresseCtrl: [this.membre.membre['adresse'], Validators.required],
-      villeCtrl: [this.membre.membre['ville'], Validators.required],
-      codePostalCtrl: [this.membre.membre['codePostal'], Validators.required],
-      professionCtrl: [this.membre.membre['profession'], Validators],
+      cotisationsCtrl: [this.membre.membre['typeCotisation'] ? this.membre.membre['typeCotisation'] : '', Validators.required],
+      prenomCtrl: [this.membre.membre['prenom'] ? this.membre.membre['prenom'] : '', Validators.required],
+      nomCtrl: [this.membre.membre['nom'] ? this.membre.membre['nom'] : '', Validators.required],
+      adresseCtrl: [this.membre.membre['adresse'] ? this.membre.membre['adresse'] : '', Validators.required],
+      villeCtrl: [this.membre.membre['ville'] ? this.membre.membre['ville'] : '', Validators.required],
+      codePostalCtrl: [this.membre.membre['codePostal'] ? this.membre.membre['codePostal'] : '', Validators.required],
+      professionCtrl: [this.membre.membre['profession'] ? this.membre.membre['profession'] : '', Validators],
     });
   }
   initFormConjouint() {
-
     this.infoPersoConjFormGroup = this._formBuilder.group({
-      emailCtrl: [this.membreConjouint.membre['email'], Validators.required],
-      prenomCtrl: [this.membreConjouint.membre['prenom'], Validators.required],
-      nomCtrl: [this.membreConjouint.membre['nom'], Validators.required],
-      professionCtrl: [this.membreConjouint.membre['profession'], Validators],
+      emailCtrl: [this.membreConjouint.membre['email'] ? this.membreConjouint.membre['email'] : '', Validators.required],
+      prenomCtrl: [this.membreConjouint.membre['prenom'] ? this.membreConjouint.membre['prenom'] : '', Validators.required],
+      nomCtrl: [this.membreConjouint.membre['nom'] ? this.membreConjouint.membre['nom'] : '', Validators.required],
+      professionCtrl: [this.membreConjouint.membre['profession'] ? this.membreConjouint.membre['profession'] : '', Validators],
     });
   }
   get infoPersoisDisabled(): boolean {
@@ -293,11 +268,10 @@ telephoneHolderConjouint () {
     return status;
   }
   cotisationSelcted(e: any) {
-    console.log('coti--', this.membreConjouint, this.membre.membre['courrielConjouint'] );
   this.cotisation = e.value;
   if (e.value === 'familiale' ) {
     if (this.membre.membre['courrielConjouint'] === '') {
-      console.log('passe-ici');
+
       this.initialisationConjouint();
     }
 
@@ -320,7 +294,6 @@ telephoneHolderConjouint () {
     this. membreInfoAdd('tel', e);
   }
   telConjouint(e: any, email: string, prenom: string, nom: string, profession: string) {
-    console.log('conjEmail', email);
     this.infoPersoConjFormGroup = this._formBuilder.group({
       emailCtrl: [email, Validators.required],
       prenomCtrl: [prenom, Validators.required],
@@ -412,10 +385,8 @@ telephoneHolderConjouint () {
   }
 
   membreInfoAdd(key: string, value: string) {
-    console.log('nom__', key, value);
     switch (key) {
       case 'nom':
-        console.log('nom__', this.membre);
         this.membre.membre['nom'] = value;
         this.membreInfo.next(this.membre.membre);
         break;
@@ -440,7 +411,6 @@ telephoneHolderConjouint () {
         this.membreInfo.next(this.membre.membre);
         break;
       case 'profession':
-        console.log('profession', this.membre);
         this.membre.membre['profession'] = value;
         this.membreInfo.next(this.membre.membre);
         break;
@@ -461,7 +431,6 @@ telephoneHolderConjouint () {
         this.membreConjouint.membre['email'] = value;
         this.membreConjouint.membre['courrielConjouint'] = this.membre['email'];
         this.membreInfo.next(this.membre.membre);
-        console.log('ici, conjouint', this.membreConjouint, 'c:', this.membreConjouint.membre, 'm:',this.membre.membre);
         this.conjouintInfo.next(this.membreConjouint.membre);
         break;
       case 'prenomConjouint':
@@ -469,7 +438,6 @@ telephoneHolderConjouint () {
         this.conjouintInfo.next(this.membreConjouint.membre);
         break;
       case 'nomConjouint':
-        console.log('ici---' , value);
         this.membreConjouint.membre['nom'] = value;
         this.conjouintInfo.next(this.membreConjouint.membre);
         break;

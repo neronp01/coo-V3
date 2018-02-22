@@ -68,17 +68,16 @@ export class AdminComponent implements OnInit {
       if (x !== null) {
         this.isConnected = true;
         this._isMembre = this.isMembre;
-        console.log('la' , this.isConnected);
+
       }
     });
     const numbers = Observable.timer(0, 1000).take(3); // Call after 10 second.. Please set your time
 
     numbers.subscribe(x => {
-      console.log('test', x);
+
       this.toolbarState = 'in';
       if (x === 0) {
         this.sideState = 'inSide';
-        console.log('inside');
       }
     });
 
@@ -111,7 +110,7 @@ export class AdminComponent implements OnInit {
     const tab = Object.getOwnPropertyNames(membre);
     let aUneAdhesion: boolean;
     aUneAdhesion = false;
-    console.log('Date--', tab.includes('adhDate'), 'membre', membre, 'tab:');
+
     // S'il y a une date d'adésion dans la base de donné, les données doivent être conservé.
     if (tab.includes('adhDate')) {
       if (!moment(membre['adhDate']).isBefore(moment(Date.now()).format('YYYYMMDD'))){

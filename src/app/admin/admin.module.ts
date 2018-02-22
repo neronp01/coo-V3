@@ -29,6 +29,7 @@ import { ComposeMessageComponent } from './member-list/compose-message.component
 
 import { AdminRoutingModule } from './admin-routing.module';
 import { MemberListComponent } from './member-list/member-list.component';
+import { EmailIdService } from '../services/email-id.service';
 
 @NgModule({
   imports: [
@@ -59,6 +60,6 @@ import { MemberListComponent } from './member-list/member-list.component';
   //  ComposeMessageComponent
     // AccueilComponent,
   ],
-  providers: [PaymentService, InformationService]
+  providers: [PaymentService, InformationService, EmailIdService]
 })
 export class AdminModule {}
