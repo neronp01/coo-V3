@@ -3,26 +3,27 @@ import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection 
 import { Observable } from 'rxjs/Observable';
 import { Facture } from './facture.model';
 
-export interface NoFacture {
-  numero ?: number;
+export interface Numerotation {
+  noFacture ?: number;
+  noEmail ?: number;
 }
 
 
 @Injectable()
 export class FacturationService {
-  private noFactureDoc: AngularFirestoreDocument<NoFacture>;
+  private noFactureDoc: AngularFirestoreDocument<Numerotation>;
   constructor( private afs: AngularFirestore) {
    }
 
 
-  get nofacture (): Observable<NoFacture> | null {
-    let newInfo = new Observable<NoFacture>();
-    this.noFactureDoc = this.afs.doc<NoFacture>(`informations/factures`);
+  get nofacture (): Observable<Numerotation> | null {
+    let newInfo = new Observable<Numerotation>();
+    this.noFactureDoc = this.afs.doc<Numerotation>(`informations/numerotation`);
     newInfo = this.noFactureDoc.valueChanges();
     return newInfo;
   }
 
-  updateNoFacture(newNumber: NoFacture) {
+  updateNoFacture(newNumber: Numerotation) {
     this.noFactureDoc.update(newNumber);
   }
 

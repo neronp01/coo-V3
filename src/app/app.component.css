@@ -27,10 +27,12 @@
   background-color: #212121;
 }
 .titre_toolBar {
-  font-family: system-ui;
+
+  font-family: 'Great Vibes', cursive;
   position: absolute;
   top: 0px;
   left: 30px;
+  font-size: 40px;
 }
 .container_bas_page {
   margin-top: 50px;

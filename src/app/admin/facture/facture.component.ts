@@ -6,7 +6,7 @@ import { Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/timer';
 import 'rxjs/add/operator/take';
 import { AuthService} from '../../auth.service';
-import { FacturationService , NoFacture } from '../../services/facturation.service';
+import { FacturationService , Numerotation } from '../../services/facturation.service';
 import { HttpClient } from '@angular/common/http';
 import { ConfigService } from './config.service';
 import { EmailIdService } from '../../services/email-id.service';
@@ -23,7 +23,8 @@ import { EmailIdService } from '../../services/email-id.service';
 export class FactureComponent implements OnInit {
   @ Input() infMembre: Membre;
   @ Input() infConjouint: Membre;
-  endpoint = 'https://us-central1-coov3-f509c.cloudfunctions.net/helloWorld';
+  @ Input () itemsFacturation: object;
+  itemsPaiement: object;
   noFacture: number;
   count = 0; // ceci permet de pas enregistrer plusieurs noFacture;
   montant: BehaviorSubject<number>;
@@ -31,7 +32,7 @@ export class FactureComponent implements OnInit {
   typeCotisation: number;
   infoCotisation: object;
   courriel: string;
-  fraisPost;
+  fraisPost: number;
   total: number;
   typeAbonement: string;
   rowspan = 8;
@@ -48,8 +49,11 @@ export class FactureComponent implements OnInit {
         this.typeCotisation = this.inf.infoCotisation[this.infMembre['typeCotisation']];
         this.membre = this.auth.userToken['membre'];
         this.aUneAdhesion(this.membre);
+        this.infoFacture['numeroFacture'] = this.noFacture;
+        this.infoCotisation = this.inf.infoCotisation;
+        this.fraisPost = this.inf.fraisDePosteOrnitaouais;
      }
-      this.infoCotisation = this.inf.infoCotisation;
+    //  this.infoCotisation = this.inf.infoCotisation;
     });
     this.montant = new BehaviorSubject(0);
     this.montant.subscribe( y => {
@@ -59,28 +63,34 @@ export class FactureComponent implements OnInit {
   }
 
   ngOnInit() {
-        this.infoFacture['membre'] = this.infMembre;
-        this.infoFacture['numeroFacture'] = this.noFacture;
+    this.itemsPaiement = this.itemsFacturation;
+
+    this.infoFacture['membre'] = this.infMembre;
     this.total = 0;
     this.fac.nofacture.take(1).subscribe( x => {
+
       if (this.count === 0 ) {
-        this.noFacture = x.numero + 1;
-        this.updateNoFacture({numero: this.noFacture });
+        const noEmail = x['noEmail'];
+        this.noFacture = x['noFacture'] + 1;
+        this.updateNoFacture({ noFacture: this.noFacture, noEmail: noEmail });
         this.count++;
       }
     });
   }
+
   aUneAdhesion(oldData: Membre) {
     const tab = Object.getOwnPropertyNames(oldData);
+    const tabFact = Object.getOwnPropertyNames(oldData);
     // S'il y a une date d'adésion dans la base de donné, les données doivent être conservé.
     if (tab.includes('adhDate')) {
       this.infoFacture['membre']['adhDate'] = oldData.adhDate;
       this.infoFacture['conjouint']['adhDate'] = oldData.adhDate;
     }
-    console.log('aUne adhésion',  this.infoFacture['membre'], tab.includes('adhDate'));
+      this.infoFacture['membre']['infFacturation'] = oldData.infFacturation;
+      this.infoFacture['conjouint']['infFacturation'] = oldData.infFacturation;
   }
-  updateNoFacture(a: NoFacture) {
-    this.fac.updateNoFacture({numero: this.noFacture});
+  updateNoFacture(a: Numerotation) {
+    this.fac.updateNoFacture(a);
   }
   onKey(e: any ) {
     this.listeItem['don'] = Number(e);
@@ -89,14 +99,16 @@ export class FactureComponent implements OnInit {
   }
   addItem( key: string, value: number) {
     this.listeItem[key] = value;
-    this.total = this.listeItem['typeCotisation'] ? this.listeItem['typeCotisation'] : 0
-     + this.listeItem['don'] ? this.listeItem['don'] : 0
-     + this.listeItem['fraisDePosteOrnitaouais'] ? this.listeItem['fraisDePosteOrnitaouais'] : 0;
+    this.total = this.listeItem['typeCotisation']
+     + this.listeItem['don']
+     + this.listeItem['fraisDePosteOrnitaouais'];
   }
   addFraiOrnitouais(e) {
     if (e.checked) {
+      console.log('check - true', e.checked);
      this.addItem('fraisDePosteOrnitaouais', this.inf.fraisDePosteOrnitaouais);
     } else {
+      console.log('check - false', e.checked);
       this.addItem('fraisDePosteOrnitaouais', 0);
     }
     this.montant.next(this.total * 100);

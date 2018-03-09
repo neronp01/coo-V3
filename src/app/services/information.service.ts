@@ -4,6 +4,7 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/switchMap';
+import { Item } from './item.model';
 
 export interface Information {
   CotisationIndividuelle ?: number;
@@ -22,21 +23,50 @@ export interface Information {
 export class InformationService {
   infoDoc:  AngularFirestoreDocument<object>;
   roleDoc:  AngularFirestoreDocument<object>;
+  private itemsCollection: AngularFirestoreCollection<Item>;
+  items: Observable<Item[]>;
+  tabItem: Array<object>;
 infoCotisation: object;
   fraisDePosteOrnitaouais: number;
   constructor( private dbc: AngularFirestore) {
-    this.info.subscribe( x => {
-      this.infoCotisation = {familiale: x['cotisationFamiliale'],
-        individuelle: x['CotisationIndividuelle'], organisme: x['cotisationOrganisme'] };
-      this.fraisDePosteOrnitaouais = x['fraisDePosteOrnitaouais'];
-    });
-  }
+    this.listItem();
 
+  }
+getInfoFactureAdhesion() {
+
+  let cotFam: number;
+  let cotInd: number;
+  let cotCor: number;
+  this.tabItem.forEach( x => {
+    switch ( x['nom'] ) {
+      case 'cotisationFamiliale':
+      cotFam = x['prix'];
+      break;
+      case 'cotisationIndividuelle':
+      cotInd = x['prix'];
+      break;
+      case 'cotisationOrganisme':
+      cotCor = x['prix'];
+      break;
+      case 'ornitaouais':
+      this.fraisDePosteOrnitaouais = x['prix'];
+      break;
+    }
+  });
+  this.infoCotisation = {familiale: cotFam, individuelle: cotInd, organisme: cotCor };
+}
   get info(): Observable<object> {
     let newInfo = new Observable<object>();
     this.infoDoc = this.dbc.doc<object>('informations/prix');
     newInfo = this.infoDoc.valueChanges();
     return newInfo;
+  }
+  get itemsInfo(): Observable<Item[]> {
+    let listeItem = new Observable<Item[]>();
+    this.itemsCollection = this.dbc.collection<Item>('informations/listeItemes/itemes');
+    this.items = this.itemsCollection.valueChanges();
+    listeItem = this.items;
+    return listeItem;
   }
   prixAbonement(a: string): number {
     let prix: number;
@@ -60,7 +90,12 @@ infoCotisation: object;
     this.roleDoc = this.dbc.doc<object>('informations/role');
     return newInfo = this.roleDoc.valueChanges();
   }
-
+listItem() {
+  this.itemsInfo.subscribe( x => {
+    this.tabItem = x;
+    this.getInfoFactureAdhesion();
+  });
+}
   updateRole( role: object) {
     this.roleDoc = this.dbc.doc<object>('informations/role');
     this.roleDoc.update(role);

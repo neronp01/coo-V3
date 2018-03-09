@@ -12,6 +12,7 @@ import 'rxjs/add/observable/timer';
 import 'rxjs/add/operator/take';
 import { slideInDownAnimation } from './../animations';
 import { BehaviorSubject} from 'rxjs/BehaviorSubject';
+import { Router, NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'app-front-page',
@@ -39,15 +40,15 @@ import { BehaviorSubject} from 'rxjs/BehaviorSubject';
   ],
 ),
 trigger('animationSquar', [
-  state('void', style({ opacity: 0 , transform: 'translate(550px , 250px)'})),
+  state('void', style({ opacity: 0 , transform: 'translate(0px , 350px)'})),
   state('in', style({ opacity: 1 ,
-   transform:  'translate(550px , 250px)'})),
-  state( 'rotate', style({ width: '1085px',
-  height: '485px' , transform:  'translate(7.5px , 7.5px)' })),
+   transform:  'translate(0px , 350px)'})),
+  state( 'rotate', style({ width: '1070px',
+  height: '470px' , transform:  'translate(7.5px , 7.5px)' })),
   transition('void => in', [
     style({
       opacity: 0 ,
-      transform: 'translate(550px , 250px)'
+      transform: 'translate(0px , 350px)'
     }),
     animate('3.75s ease-in')
   ]),
@@ -55,7 +56,7 @@ trigger('animationSquar', [
     style({
       width: '15px',
       height: '15px',
-      transform:  'translate(550px , 250px)'
+      transform:  'translate(0px , 350px)'
     }),
     animate('2.75s ease-in')
   ]),
@@ -68,7 +69,7 @@ trigger('animationSquarSmall', [
   transition('void => in', [
     style({
       opacity: 0 ,
-      transform: 'translate(250px , 150px)'
+      transform: 'translate(200px , 150px)'
     }),
     animate('3.75s ease-in')
   ]),
@@ -76,7 +77,7 @@ trigger('animationSquarSmall', [
     style({
       width: '15px',
       height: '15px',
-      transform:  'translate(550px , 250px)'
+      transform:  'translate(550px , 600px)'
     }),
     animate('2.75s ease-in')
   ]),
@@ -123,21 +124,21 @@ trigger('p_container', [
   ]),
 ]),
 trigger('p_containerTranslate', [
-  state( 'void', style({ transform: 'translateY(0px) scale(.35)'})),
-  state('translateY', style({   transform: 'translateY(600px) scale(.35)'})),
-  state('scale', style({  height: '80px', transform: 'translateY(600px) scale(1)'})),
-  state('buttonHeight', style({ height: '500px',  transform: 'translateY(600px) scale(1)'})),
+  state( 'void', style({ transform: 'translateY(0px) scale(1)'})),
+  state('translateY', style({   transform: 'translateY(0px) scale(1)'})),
+  state('scale', style({  height: '80px', transform: 'translateY(0px) scale(1)'})),
+  state('buttonHeight', style({ height: '500px',  transform: 'translateY(0px) scale(1)'})),
   transition('void => translateY', [
     style({
-      transform: 'translateY(0px) scale(.35)',
+      transform: 'translateY(0px) scale(1)',
     }),
-    animate('2.75s ease-in')
+    animate('0s ease-in')
   ]),
   transition('translateY => scale', [
     style({
-      transform: 'translateY(600px) scale(.35)',
+      transform: 'translateY(0px) scale(1)',
     }),
-    animate('1s ease-in')
+    animate('0s ease-in')
   ]),
   transition('scale => buttonHeight', [
     style({
@@ -147,11 +148,11 @@ trigger('p_containerTranslate', [
   ]),
 ]),
 trigger('p_backGround', [
-  state( 'void', style({ transform: 'translateY(600px)' , display: 'none', width: '0px'})),
-  state('expend', style({ transform: 'translateY(600px)' , display: 'block',  width: '1200px'})),
+  state( 'void', style({ transform: 'translateY(0px)' , display: 'none', width: '0px'})),
+  state('expend', style({ transform: 'translateY(0px)' , display: 'block',  width: '1000px'})),
   transition('void => expend', [
     style({
-      transform: 'translateY(600px)' , display: 'none', width: '0px'
+      transform: 'translateY(0px)' , display: 'none', width: '0px'
     }),
     animate('1s ease-in')
   ]),
@@ -186,19 +187,19 @@ trigger('i_container', [
   ]),
 ]),
 trigger('I_containerTranslate', [
-  state( 'void', style({ transform: 'translateY(0px) scale(.35)'})),
-  state('ItranslateY', style({   transform: 'translateY(600px) scale(.35)'})),
-  state('Iscale', style({  height: '80px', transform: 'translateY(600px) scale(1)'})),
-  state('IbuttonHeight', style({ height: '500px',  transform: 'translateY(600px) scale(1)'})),
+  state( 'void', style({ transform: 'translateY(0px) scale(1)'})),
+  state('ItranslateY', style({   transform: 'translateY(0px) scale(1)'})),
+  state('Iscale', style({  height: '80px', transform: 'translateY(0px) scale(1)'})),
+  state('IbuttonHeight', style({ height: '500px',  transform: 'translateY(0px) scale(1)'})),
   transition('void => ItranslateY', [
     style({
-      transform: 'translateY(0px) scale(.35)',
+      transform: 'translateY(0px) scale(1)',
     }),
     animate('2.75s ease-in')
   ]),
   transition('ItranslateY => Iscale', [
     style({
-      transform: 'translateY(600px) scale(.35)',
+      transform: 'translateY(0px) scale(1)',
     }),
     animate('1s ease-in')
   ]),
@@ -210,11 +211,11 @@ trigger('I_containerTranslate', [
   ]),
 ]),
 trigger('i_backGround', [
-  state( 'void', style({ transform: 'translateY(600px)' , display: 'none', width: '0px'})),
-  state('Iexpend', style({ transform: 'translateY(600px)' , display: 'block',  width: '1200px'})),
+  state( 'void', style({ transform: 'translateY(0px)' , display: 'none', width: '0px'})),
+  state('Iexpend', style({ transform: 'translateY(0px)' , display: 'block',  width: '1000px'})),
   transition('void => Iexpend', [
     style({
-      transform: 'translateY(600px)' , display: 'none', width: '0px'
+      transform: 'translateY(0px)' , display: 'none', width: '0px'
     }),
     animate('1s ease-in')
   ]),
@@ -223,6 +224,69 @@ trigger('i_image', [
   state( 'void', style({ opacity: 0})),
   state( 'Ishow', style({ opacity: 1})),
   transition('void => Ishow', [
+    style({
+      opacity: 0
+    }),
+    animate('1s ease-in')
+  ]),
+]),
+trigger('c_container', [
+  state( 'void', style({ opacity: 0,   transform: 'scale(1)'})),
+  state('inC', style({ opacity: 1,  transform: 'scale(1)'})),
+  state('inCTranslateY', style({ position: 'relative', opacity: 1,  transform: 'translateY(-200px)'})),
+  transition('void => inC', [
+    style({
+     transform: 'scale(1)',
+     opacity: 0
+    }),
+    animate('2.75s ease-in')
+  ]),
+  transition('inC => translateY', [
+    style({
+     transform: 'translateY(0px) ',
+     opacity: 0
+    }),
+    animate('2.75s ease-in')
+  ]),
+]),
+trigger('c_containerTranslate', [
+  state( 'void', style({ transform: 'translateY(0px) scale(1)'})),
+  state('CtranslateY', style({   transform: 'translateY(0px) scale(1)'})),
+  state('Cscale', style({  height: '80px', transform: 'translateY(0px) scale(1)'})),
+  state('CbuttonHeight', style({ height: '500px',  transform: 'translateY(0px) scale(1)'})),
+  transition('void => CtranslateY', [
+    style({
+      transform: 'translateY(0px) scale(1)',
+    }),
+    animate('2.75s ease-in')
+  ]),
+  transition('CtranslateY => Cscale', [
+    style({
+      transform: 'translateY(0px) scale(1)',
+    }),
+    animate('1s ease-in')
+  ]),
+  transition('Cscale => CbuttonHeight', [
+    style({
+      height: '80px',
+    }),
+    animate('1s ease-in')
+  ]),
+]),
+trigger('c_backGround', [
+  state( 'void', style({ transform: 'translateY(0px)' , display: 'none', width: '0px'})),
+  state('Cexpend', style({ transform: 'translateY(0px)' , display: 'block',  width: '1000px'})),
+  transition('void => Cexpend', [
+    style({
+      transform: 'translateY(0px)' , display: 'none', width: '0px'
+    }),
+    animate('1s ease-in')
+  ]),
+]),
+trigger('c_image', [
+  state( 'void', style({ opacity: 0})),
+  state( 'Cshow', style({ opacity: 1})),
+  transition('void => Cshow', [
     style({
       opacity: 0
     }),
@@ -240,12 +304,16 @@ export class FrontPageComponent implements OnInit {
   stateSVG= 'void';
   statePhoto = 'void';
   stateP = 'void';
+  stateC = 'void';
   stateTranslateP = 'void';
   stateTranslateI = 'void';
+  stateTranslateC = 'void';
   stateBackGround = 'void';
   stateBackGround_I = 'void';
+  stateBackGround_C = 'void';
   stateImpI = 'void';
   stateImpP = 'void';
+  stateImpC = 'void';
   stateIContainer = 'void';
   countPic= 0;
   countP = 0;
@@ -257,7 +325,7 @@ p_pic_texte = 'abc ipsum dolor sit amet, consectetuer adipiscing elit. Aenean co
  'vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. ' +
  'Integer tincidunt. Cras dapibus.';
  p_pic_texte_tabe = [];
-  constructor(zone: NgZone) {
+  constructor(zone: NgZone , private router: Router) {
     window.onscroll = () => {
       zone.run(() => {
         if (window.pageYOffset > 200 && window.pageYOffset < 300) {
@@ -269,8 +337,8 @@ p_pic_texte = 'abc ipsum dolor sit amet, consectetuer adipiscing elit. Aenean co
           if (this.countP === 0) {
             this.stateTranslateP  = 'translateY';
             this.stateTranslateI = 'ItranslateY';
+            this.stateTranslateC = 'CtranslateY';
             this.countP++;
-            console.log('150');
           }
         } else {
           this.isShrunk = false;
@@ -308,14 +376,23 @@ animNext(e: any) {
     this.stateSquar = 'rotate';
     this.stateSVG = 'rotate';
   } else if ( e['toState'] === 'inPhoto' ) {
+    this.stateC = 'inC';
     this.stateP = 'inP';
     this.stateIContainer = 'inI';
+    console.log('inC-----');
   } else if ( e['toState'] === 'translateY' ) {
     this.stateTranslateP = 'scale';
   } else if ( e['toState'] === 'ItranslateY' ) {
   this.stateTranslateI = 'Iscale';
+} else if ( e['toState'] === 'CtranslateY' ) {
+
+  this.stateTranslateC = 'Cscale';
+  console.log('stateTranslateC', this.stateTranslateC);
 } else if ( e['toState'] === 'scale' ) {
     this.stateTranslateP = 'buttonHeight';
+  } else if ( e['toState'] === 'Cscale' ) {
+    this.stateTranslateC = 'CbuttonHeight';
+    console.log('stateTranslateC', this.stateTranslateC);
   }else if ( e['toState'] === 'Iscale' ) {
     this.stateTranslateI = 'IbuttonHeight';
   } else if ( e['toState'] === 'buttonHeight') {
@@ -323,22 +400,31 @@ animNext(e: any) {
   } else if ( e['toState'] === 'expend') {
     this.stateImpP = 'show';
   } else if ( e['toState'] === 'show') {
-    console.log('------marde');
     this.pic_texte();
   }else if ( e['toState'] === 'IbuttonHeight') {
     this.stateBackGround_I = 'Iexpend';
   } else if ( e['toState'] === 'Iexpend') {
     this.stateImpI = 'Ishow';
+    console.log('Iexpend');
   } else if ( e['toState'] === 'Ishow') {
-    console.log('------marde');
+    console.log('Ishow');
+    this.pic_texte();
+  }else if ( e['toState'] === 'CbuttonHeight') {
+      this.stateBackGround_C = 'Cexpend';
+      console.log('CbuttonHeight', this.stateBackGround_C);
+  } else if ( e['toState'] === 'Cexpend') {
+    console.log('Cexpend');
+    this.stateImpC = 'Cshow';
+  } else if ( e['toState'] === 'Cshow') {
     this.pic_texte();
   }
 }
 clickAccederP() {
+  this.router.navigate(['/accueil']);
   if (this.stateTranslateP === 'void') {
     this.stateTranslateP = 'translateY';
+    this.stateTranslateC = 'CtranslateY';
   }
 
 }
-
 }

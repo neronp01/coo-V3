@@ -64,6 +64,7 @@ export class AdminComponent implements OnInit {
   ];
 
   constructor(public auth: AuthService, private router: Router, zone: NgZone) {
+    window.scroll(0, 0);
     this.auth.user.subscribe( x => {
       if (x !== null) {
         this.isConnected = true;
@@ -71,6 +72,7 @@ export class AdminComponent implements OnInit {
 
       }
     });
+
     const numbers = Observable.timer(0, 1000).take(3); // Call after 10 second.. Please set your time
 
     numbers.subscribe(x => {

@@ -37,7 +37,7 @@
                         #consAdm
                         (change)="addFraiOrnitouais($event)"
                         class="checkbox">
-                        <p class="checkbox_p">Je souhaite recevoir l’Ornitaouais papier et payer les frais de poste de {{inf.fraisDePosteOrnitaouais}} $.</p>
+                        <p class="checkbox_p">Je souhaite recevoir l’Ornitaouais papier et payer les frais de poste de {{fraisPost}} $.</p>
                       </mat-checkbox>
                   </mat-list-item>
                   <mat-list-item>
@@ -80,6 +80,7 @@
           </mat-grid-tile>
         </mat-grid-list>
         <make-payment
+          [itemsPaiement] = "itemsPaiement"
           [infoFacture] ="infoFacture"
           class="paiement"></make-payment>
         <!--<send-email></send-email>-->
@@ -192,8 +193,10 @@
             </mat-grid-tile>
           </mat-grid-list>
           <make-payment
+            [itemsPaiement] = "itemsPaiement"
             [infoFacture] ="infoFacture"
-            class="paiement"></make-payment>
+            class="paiement">
+          </make-payment>
           <!--<send-email></send-email>-->
 
 

@@ -20,8 +20,8 @@ top:140px;
   position: absolute;
   width: 1100px;
   color:#C51162;
-  font-size: 150%;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 200%;
+  font-family: 'Open Sans Condensed', sans-serif;
 }
 .image_coo_longue_vue{
   position: absolute;
@@ -40,7 +40,15 @@ display: none;
 width:1100px;
 height: 500px;
 transform: translateY(100px)
-
+}
+.borderPhoto{
+  margin-top:100px;
+  margin-right: 5px;
+  height: 0.1px;
+  width: 0.1px;
+border-style: solid;
+border-color: #C51162;
+border-width: 14px;
 }
 
 .rect_photo{
@@ -81,28 +89,30 @@ transform: translateY(100px)
   height: 800px;
   text-align: left;
 }
-.p_pic_container{
+
+.p_pic_container, .c_pic_container{
   display: flex;
   justify-content: center;
   height: 500px;
+
 }
+
 .i_pic_button{
   height:80px ;
   width: 80px;
   background-color: #03A9F4
 }
 
-.p_pic_button{
+.p_pic_button, .c_pic_button{
   height:80px ;
   width: 80px;
 }
 .acceder_text {
   display: none;
 }
-.p_pic_backGround{
+.p_pic_backGround, .c_pic_backGround{
   height: 500px;
   background-color: #ffffff;
-
 }
 
 .i_pic_backGround{
@@ -111,7 +121,7 @@ transform: translateY(100px)
   border-color: #424242;
   border-width: 1px;
 }
-.p_pic_image{
+.p_pic_image, .c_pic_image{
   margin-right: 10px;
    float: right;
   -webkit-transform: scale(.7);
@@ -120,7 +130,9 @@ transform: translateY(100px)
   -o-transform:      scale(.7);
   transform:         scale(.7);
 }
-
+.c_pic_image{
+  margin-top: 90px;
+}
 .i_pic_image {
   margin-right: 60px;
    float: right;
@@ -131,7 +143,7 @@ transform: translateY(100px)
   transform:         scale(.5);
 }
 
-.p_pic_layout {
+.p_pic_layout, .c_pic_layout {
   margin-top: 100px;
   margin-left: 100px;
   float: left;
@@ -141,7 +153,8 @@ transform: translateY(100px)
     justify-content: center;
     align-items: center;
 }
-.p_pic_titre{
+
+.p_pic_titre, .c_pic_titre{
   width: 600px;
   order:1;
   color:#727272;
@@ -150,15 +163,16 @@ transform: translateY(100px)
   font-weight: bold;
 
 }
-.p_pic_texte {
-order:2;
 
+.p_pic_texte, .c_pic_texte {
+order:2;
 line-height:0px;
 width: 600px;
 color:#727272;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
-.p_pic_ligne{
+
+.p_pic_ligne, .c_pic_ligne{
   line-height:0px;
   display: flex;
   flex-direction: row;
@@ -166,12 +180,12 @@ color:#727272;
   height: 200px;
   text-align: left;
   justify-content:  flex-start
-
 }
 
-.p_pic_mot{
+.p_pic_mot, .c_pic_mot{
   height: auto;
 }
+
 .div_pic_image{display: block}
 
 @media only screen and (min-width: 200px) and (max-width: 760px){

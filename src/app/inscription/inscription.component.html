@@ -19,7 +19,7 @@
         </mat-grid-tile>
         <mat-grid-tile colspan = "4" rowspan="1" >
           <mat-form-field class="full-width cotisation">
-            <mat-select placeholder="Type de cotisations" name="inscription" (selectionChange)="cotisationSelcted($event)"  formControlName="cotisationsCtrl" [value]="courriel" required>
+            <mat-select placeholder="Types de cotisation annuelle" name="inscription" (selectionChange)="cotisationSelcted($event)"  formControlName="cotisationsCtrl" [value]="courriel" required>
               <mat-option *ngFor="let cotisation of cotisations"
                           [value]="cotisation.value">
                 {{cotisation.viewValue}}
@@ -140,7 +140,7 @@
   </mat-step>
   <mat-step *ngIf="cotisation === 'familiale'" [stepControl]="infoPersoConjFormGroup" >
     <form [formGroup]="infoPersoConjFormGroup">
-      <ng-template matStepLabel>Renseignements conjouint(e)</ng-template>
+      <ng-template matStepLabel>Renseignements autre membre</ng-template>
       <mat-grid-list cols="1" rowHeight="700px">
         <mat-grid-tile colspan = "1" rowspan="1">
           <mat-card class="card_perso">
@@ -360,7 +360,7 @@
   <mat-step>
     <ng-template matStepLabel>Paiement</ng-template>
     <section class="section_facture">
-    <app-facture [infMembre]="infMembreFacturation" [infConjouint]="infConjouintFacturation"></app-facture>
+    <app-facture [itemsFacturation]="itemsFacturation" [infMembre]="infMembreFacturation" [infConjouint]="infConjouintFacturation"></app-facture>
     </section>
     <div>
       <button mat-button matStepperPrevious>Retour</button>
@@ -390,7 +390,7 @@
                   </mat-grid-tile>
                   <mat-grid-tile colspan = "4" rowspan="1" >
                     <mat-form-field class="full-width cotisation">
-                      <mat-select placeholder="Type de cotisations" name="inscription" (selectionChange)="cotisationSelcted($event)"  formControlName="cotisationsCtrl" [value]="courriel" required>
+                      <mat-select placeholder="Types de cotisation annuelle" name="inscription" (selectionChange)="cotisationSelcted($event)"  formControlName="cotisationsCtrl" [value]="courriel" required>
                         <mat-option *ngFor="let cotisation of cotisations"
                                     [value]="cotisation.value">
                           {{cotisation.viewValue}}

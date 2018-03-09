@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { slideInDownAnimation } from './animations';
 import { EmailService } from './services/email.service';
+import { AuthService, User} from './auth.service';
 
 @Component({
   templateUrl: './compose-message.component.html',
@@ -16,12 +17,21 @@ export class ComposeMessageComponent {
 
   details: string;
   sending = false;
+  message: string;
 
-  constructor(private router: Router, private email: EmailService) {}
+  constructor(private router: Router, private email: EmailService,  private auth: AuthService) {}
 
-  send() {
+  send(e: string) {
     this.sending = true;
     this.details = 'Sending Message...';
+    this.email.getEmailNumber.take(1).subscribe( x => {
+      const temp = x['noEmail'] + 1;
+      this.email.UpdateEmailNumber(temp);
+      const emailObject = {from: this.auth.userToken['email'], to: this.email.email, type: 'communication' , texte: e};
+      console.log('email:', temp, this.auth.userToken['email'], emailObject);
+      this.email.setSendEmail(temp, this.auth.userToken['email'], emailObject);
+
+    });
 
     setTimeout(() => {
       this.sending = false;

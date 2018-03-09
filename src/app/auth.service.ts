@@ -125,7 +125,7 @@ export class AuthService {
       displayName: '',
       photoURL: '',
       membre : {
-        adhDate: memb.adhDate ? memb.adhDate : '',
+        adhDate: memb.adhDate ? memb.adhDate : 0,
         infFacturation : memb.infFacturation,
         estMembreActif: true,
         email: memb.email,
@@ -184,7 +184,7 @@ console.log('_isInDataBase' , _isInDataBase);
       displayName: this.userToken['displayName'],
       photoURL: this.userToken['photoURL'],
       membre : {
-        adhDate: memb.adhDate ? memb.adhDate : '',
+        adhDate: memb.adhDate ? memb.adhDate : 0,
         infFacturation : memb.infFacturation,
         estMembreActif: true,
         email: memb.email,

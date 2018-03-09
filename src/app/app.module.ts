@@ -30,6 +30,8 @@ import { EmailService} from './services/email.service';
 import { FacturationService } from './services/facturation.service';
 import { MessageService } from './services/message.service';
 import { HttpErrorHandler } from './services/http-error-handler.service';
+import { InformationService } from './services/information.service';
+
 
 
 
@@ -57,7 +59,7 @@ import { HttpErrorHandler } from './services/http-error-handler.service';
     PageNotFoundComponent,
   ],
   providers: [
-    DialogService, EmailService , FacturationService, MessageService, HttpErrorHandler
+    DialogService, EmailService , FacturationService, MessageService, HttpErrorHandler, InformationService
   ],
   bootstrap: [ AppComponent ]
 })

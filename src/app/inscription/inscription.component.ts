@@ -8,6 +8,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { AuthService, User} from '../auth.service';
 import {VALID} from '@angular/forms/src/model';
 import { Membre } from '../services/membre.model';
+import { InformationService } from '../services/information.service';
 
 
 /** Data structure for holding telephone number. */
@@ -150,6 +151,7 @@ export class InscriptionComponent implements OnInit {
   membreConjouint: User;
   membreInfo: BehaviorSubject<Membre>;
   _membre: Membre;
+  itemsFacturation = {type: 'adhesion', tabItems: [1] };
   conjouintInfo: BehaviorSubject<Membre>;
   infoCotisation: BehaviorSubject<string>;
   infoPersoFormGroup: FormGroup;
@@ -172,33 +174,44 @@ export class InscriptionComponent implements OnInit {
   _dateNaissanceConjouint = '';
   value: MyTel;
   valueConJouint: MyTel;
-  constructor(private _formBuilder: FormBuilder, private auth: AuthService) {
+  constructor(private _formBuilder: FormBuilder, private auth: AuthService, private inf: InformationService) {
+    this.initUserConjouint();
     this.membre = this.auth.userToken;
     if (this.auth.memberIsInDataBase) {
-
       this.infMembreFacturation = auth.userToken['membre'];
         this.initForm();
         this._membre = this.membre.membre;
         this._dateNaissance = this.membre.membre['dateNaissance'];
         this.telephoneHolder();
         if (this.membre.membre['typeCotisation'] === 'familiale') {
+
           this.auth.getConjouintInfo(this.membre.membre['courrielConjouint']).subscribe(y => {
             this.cotisation = 'familiale';
-              this.initialisationConjouint();
-              this.membreConjouint['membre'] = y['membre'];
+            console.log('sdfsdfsdgssg');
+            this.initialisationConjouint();
+            this.membreConjouint['membre'] = y['membre'];
+
             this.initFormConjouint();
-            this._dateNaissanceConjouint = this.membreConjouint.membre['dateNaissance'];
+            this._dateNaissanceConjouint = this.membreConjouint.membre['dateNaissance'] ? this.membreConjouint.membre['dateNaissance'] : '';
             this.telephoneHolderConjouint();
+            this.conjouintInfo = new BehaviorSubject(this.membreConjouint.membre);
+            this.conjouintInfo.subscribe( x => {
+              this.infConjouintFacturation = x;
+            });
           });
       } else {
         }
     } else {
+
       this.initialisationMembre();
       this.initialisationConjouint();
       this._membre = this.membre.membre;
        this.initForm();
     }
-    this.conjouintInfo = new BehaviorSubject(this.membreConjouint.membre);
+    // initialisation conjouint object
+
+      this.initialisationConjouint();
+      this.conjouintInfo = new BehaviorSubject(this.membreConjouint.membre);
       this.conjouintInfo.subscribe( x => {
         this.infConjouintFacturation = x;
       });
@@ -215,6 +228,14 @@ this.membre['email'] = this.auth.currentUserEmail;
     this.factureFormGroup = this._formBuilder.group({
       factureCtrl: ['', Validators.required]
     });
+  }
+  initUserConjouint() {
+    const uid = '';
+    const email = '';
+    const displayName = '';
+    const photoURL = '';
+    const membre = {};
+    this.membreConjouint = {uid, email, displayName , photoURL, membre };
   }
 telephoneHolder () {
   const area = this.membre.membre['telephone'].substring( 0 , 3 );
@@ -351,9 +372,7 @@ telephoneHolderConjouint () {
     };
   }
   initialisationConjouint() {
-    this.membreConjouint = {
-        uid: '',
-        membre: {
+    this.membreConjouint.membre = {
         infFacturation : [],
         estMembreActif: false,
         email: '',
@@ -376,14 +395,8 @@ telephoneHolderConjouint () {
         redacRevi: false,
         promoPubli: false,
         autre: ''
-      },
-      favoriteColor: '',
-      photoURL: '',
-      displayName: '',
-      email: ''
-      };
+  };
   }
-
   membreInfoAdd(key: string, value: string) {
     switch (key) {
       case 'nom':

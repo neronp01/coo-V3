@@ -15,12 +15,12 @@
     <label style="color: white">Message: </label>
   </div>
   <div>
-    <textarea  [(ngModel)]="message" rows="10" cols="35" [disabled]="sending"></textarea>
+    <textarea #texte [(ngModel)]="message" rows="10" cols="35" [disabled]="sending"></textarea>
   </div>
 </div>
   <div class="button_container">
 <p *ngIf="!sending">
-  <button mat-button (click)="send()">Envoyer</button>
+  <button mat-button (click)="send(texte.value)">Envoyer</button>
   <button mat-button (click)="cancel()">Retour</button>
 </p>
   </div>

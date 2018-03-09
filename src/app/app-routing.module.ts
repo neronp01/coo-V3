@@ -24,8 +24,12 @@ const appRoutes: Routes = [
     loadChildren: 'app/crisis-center/crisis-center.module#CrisisCenterModule',
     data: { preload: true }
   },
+  {
+    path: '404',
+    component: PageNotFoundComponent,
+  },
   { path: '',   redirectTo: '/coo', pathMatch: 'full' },
-  { path: '**', component: PageNotFoundComponent }
+  { path: '**', redirectTo: '/404' }
 ];
 
 @NgModule({
