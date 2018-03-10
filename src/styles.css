@@ -18,7 +18,9 @@ a {
   cursor: hand;
 }
 
-
+title{
+  font-family: 'Open Sans Condensed', sans-serif;
+}
 
 /* Navigation link styles */
 nav a {
