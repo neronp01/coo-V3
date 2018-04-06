@@ -1,3 +1,5 @@
+
+
 .header_nav {
   width:100%;
   background-color:#C51162;
@@ -15,7 +17,10 @@
 }
 
 .header_nav--small {
+  z-index: 100;
   height:80px;
+  opacity: 1;
+  padding-top: 20px;
   top:0px;
 }
 
@@ -41,26 +46,31 @@
 .flex-item {
   flex: 1 80%;
 }
-.container{
-
-}
 .flex-spacer-item {
   flex: 1 20%;
 }
 .flex-item-titre {
-  flex: 1 80%;
-  text-align: center;
+  flex: 1;
+  text-align: left;
 }
 .toolbar_frame {
   flex-flow: row wrap;
+  /* align-content: center; */
   /* Then we define how is distributed the remaining space */
-  justify-content: space-around;
+  justify-content: center;
   display: -webkit-box;
   display: -moz-box;
   display: -ms-flexbox;
   display: -webkit-flex;
   display: flex;
   width: 100%;
+}
+.bottom_menu_big{
+  flex:0;
+  position: absolute;
+  right: 10px;
+  display: none;
+  background-color: none;
 }
 .button_accueil{
   width: 100%;
@@ -79,7 +89,13 @@
 .bar_petit_ecrant{
   display: none;
 }
+.buttonCell{
+  color: #ffffff;
+}
 @media only screen and (min-width: 200px) and (max-width: 770px){
+  .flex-item-button{
+    display: none;
+  }
 .flex-spacer-item{
   display: none;
 }

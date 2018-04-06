@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { AuthService } from '../auth.service';
+import { AuthService, User } from '../auth.service';
 import { InformationService } from '../services/information.service';
 export interface Paiement {
   id: number;
@@ -27,9 +27,7 @@ export class PaymentService {
   processPayment(token: any, amount: number, numberFac: number, itemsPaiement: object) {
 
     const montant = amount['montant'];
-    const factInfo = {id: 1, montant: 34, type: 'insc' , item: [{isnc: 'blablabla'}]};
     const payment = { token, amount};
-    console.log('noFac', numberFac);
     const paiement  = this.afs.doc(`users/${ this.userEmail}/numerosFac/${numberFac}`);
     return paiement.set(payment);
   }

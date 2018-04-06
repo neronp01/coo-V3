@@ -1,0 +1,72 @@
+@mixin transform($scales, $translateY){
+  -webkit-transform: scale($scales) translateY($translateY);
+  -moz-transform: scale($scales) translateY($translateY);
+  -ms-transform: scale($scales) translateY($translateY);
+  -o-transform: scale($scales) translateY($translateY);
+  transform: scale($scales) translateY($translateY);
+}
+
+@mixin flexbox() {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+@mixin flex($values) {
+  -webkit-box-flex: $values;
+  -moz-box-flex:  $values;
+  -webkit-flex:  $values;
+  -ms-flex:  $values;
+  flex:  $values;
+}
+@mixin order($val) {
+  -webkit-box-ordinal-group: $val;
+  -moz-box-ordinal-group: $val;
+  -ms-flex-order: $val;
+  -webkit-order: $val;
+  order: $val;
+}
+.container_principal {
+  @include flexbox();
+  flex-flow: row;
+  justify-content: center;
+  .card_orni{
+    @include flexbox();
+    @include flex(.5);
+    flex-flow: column;
+    justify-content: center;
+  .input_data{
+    @include flexbox();
+    @include flex(.5);
+    flex-flow: column;
+    justify-content: center;
+    .input_data_line1{
+      @include flexbox();
+    @include flex(1);
+    flex-flow: row;
+    justify-content: center;
+    .full-width{
+      @include flex(.7);
+    }
+    .date_orni{
+      @include flex(.3);
+    }
+    }
+  }
+  }
+}
+.form-oiseaux, .form-evenement {
+  margin-top: 15px;
+  @include flex(.4);}
+  .button_add{
+width: 100%;
+
+  }
+.div_button_add{
+  @include flex(.2);
+  margin-top: 25px;
+}
+.example-full-width {
+  width: 100%;
+}

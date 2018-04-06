@@ -1,10 +1,11 @@
 
-<div [formGroup]="parts" >
-  <input myNumberOnly class="area"   formControlName="area" size="3" maxlength="3" [disabled]="disabled" (keyup)="onKey()" required>
-  <span>&ndash;</span>
-  <input myNumberOnly class="exchange" formControlName="exchange" size="3" maxlength="3" [disabled]="disabled" (keyup)="onKey()" required>
-  <span>&ndash;</span>
-  <input myNumberOnly class="subscriber" formControlName="subscriber" size="4" maxlength="4" [disabled]="disabled" (keyup)="onKey()" required>
+<div [formGroup]="parts"
+>
+  <input  [appAutofocus]="( focus === 'telephone' )" myNumberOnly class="area" #area  formControlName="area" size="3" maxlength="3" [disabled]="disabled" (keyup)="onKey(area.value, 'area')" required>
+  <span>&#45;</span>
+  <input myNumberOnly [appAutofocus]="( focus === 'exchange' )" class="exchange" #exchange formControlName="exchange" size="3" maxlength="3" [disabled]="disabled" (keyup)="onKey(exchange.value, 'exchange')" required>
+  <span>	&#45;</span>
+  <input myNumberOnly [appAutofocus]="( focus === 'subscriber' )" class="subscriber" #subscriber formControlName="subscriber" size="4" maxlength="4" [disabled]="disabled" (keyup)="onKey(subscriber.value, 'subscriber')" required>
 </div>
 
 

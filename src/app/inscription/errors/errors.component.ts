@@ -33,7 +33,7 @@ export class ErrorsComponent {
 
   listOfErrors(): string[] {
    // console.log('message' , Object.keys(this.control.errors))
-    console.log('message' , Object.keys(this.control.errors));
+   console.log(Object.keys(this.control.errors));
     return  Object.keys(this.control.errors)
       .map(field =>  this.getMessage(field, this.control.errors[field]));
   }

@@ -3,10 +3,11 @@ import { AuthService } from './../auth.service';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import { Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/timer';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import 'rxjs/add/operator/take';
 import * as moment from 'moment';
 import { Membre } from '../services/membre.model';
+import { BehaviorSubject} from 'rxjs/BehaviorSubject';
 
 @Component({
   styleUrls: ['./admin.component.css'],
@@ -50,6 +51,7 @@ import { Membre } from '../services/membre.model';
   ],
 })
 export class AdminComponent implements OnInit {
+  url: BehaviorSubject<string>;
   isShrunk = false;
   sideState = 'voidSide';
   toolbarState = 'void';
@@ -57,6 +59,7 @@ export class AdminComponent implements OnInit {
   titre = 'Accueil';
   isConnected = false;
   _isMembre = false;
+  test = '';
   foods = [
     {value: 'steak-0', viewValue: 'Steak'},
     {value: 'pizza-1', viewValue: 'Pizza'},
@@ -64,6 +67,7 @@ export class AdminComponent implements OnInit {
   ];
 
   constructor(public auth: AuthService, private router: Router, zone: NgZone) {
+
     window.scroll(0, 0);
     this.auth.user.subscribe( x => {
       if (x !== null) {
@@ -94,7 +98,12 @@ export class AdminComponent implements OnInit {
       });
     };
   }
-
+redirection(url: string) {
+  const temp = [];
+  temp.push(url);
+console.log(' temp', temp);
+  this.router.navigateByUrl(url);
+}
   ngOnInit() {
 
   }
@@ -103,6 +112,14 @@ export class AdminComponent implements OnInit {
       case 'inscription': this.titre = 'Inscription / Adhésion';
       break;
       case 'liste_membres': this.titre = 'Liste de membres';
+      break;
+      case 'infoPerso': this.titre = 'Informations personnelles';
+      break;
+      case 'boutique_en_ligne': this.titre = 'Boutique en ligne';
+      break;
+      case 'ornithologie': this.titre = 'Ornithologie';
+      break;
+      case 'redaction': this.titre = 'Rédaction';
       break;
       //  this.router.navigate(['/inscription']);
     }
@@ -115,7 +132,7 @@ export class AdminComponent implements OnInit {
 
     // S'il y a une date d'adésion dans la base de donné, les données doivent être conservé.
     if (tab.includes('adhDate')) {
-      if (!moment(membre['adhDate']).isBefore(moment(Date.now()).format('YYYYMMDD'))){
+      if (!moment(membre['adhDate']).isBefore(moment(Date.now()).format('YYYYMMDD'))) {
         aUneAdhesion = true;
       }
     }

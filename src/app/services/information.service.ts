@@ -28,6 +28,9 @@ export class InformationService {
   tabItem: Array<object>;
 infoCotisation: object;
   fraisDePosteOrnitaouais: number;
+  cotFamillial: number;
+  cotInd: number;
+  cotOrg: number;
   constructor( private dbc: AngularFirestore) {
     this.listItem();
 
@@ -40,12 +43,15 @@ getInfoFactureAdhesion() {
   this.tabItem.forEach( x => {
     switch ( x['nom'] ) {
       case 'cotisationFamiliale':
+      this.cotFamillial = x['prix'];
       cotFam = x['prix'];
       break;
       case 'cotisationIndividuelle':
+      this.cotInd = x['prix'];
       cotInd = x['prix'];
       break;
       case 'cotisationOrganisme':
+      this.cotOrg = x['prix'];
       cotCor = x['prix'];
       break;
       case 'ornitaouais':
@@ -67,6 +73,22 @@ getInfoFactureAdhesion() {
     this.items = this.itemsCollection.valueChanges();
     listeItem = this.items;
     return listeItem;
+  }
+  getItemInfo(no: number) {
+    const _item = this.dbc.doc<Item>(`informations/listeItemes/itemes/${no}`);
+    return _item;
+  }
+  getPrixAbonement(a: string): number {
+    let cotisation: number;
+    switch (a) {
+      case 'familiale': cotisation = this.cotFamillial;
+      break;
+      case 'individuelle': cotisation = this.cotInd;
+        break;
+      case 'organisme': cotisation = this.cotOrg;
+        break;
+    }
+    return cotisation;
   }
   prixAbonement(a: string): number {
     let prix: number;

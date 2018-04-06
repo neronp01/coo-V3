@@ -1,4 +1,4 @@
-<section class="mat-typography ecrant_large">
+<section class="mat-typography ecrant_large" (mouseover)="mouseover_Card()">
 <mat-grid-list cols="1" rowHeight="1100px" class="grid_list_login">
   <mat-grid-tile colspan="1" class="title">
     <mat-card  class="md_card_facture">
@@ -80,6 +80,7 @@
           </mat-grid-tile>
         </mat-grid-list>
         <make-payment
+        [infoPersoFormGroup] = "infoPersoFormGroup"
           [itemsPaiement] = "itemsPaiement"
           [infoFacture] ="infoFacture"
           class="paiement"></make-payment>
@@ -193,6 +194,7 @@
             </mat-grid-tile>
           </mat-grid-list>
           <make-payment
+          [infoPersoFormGroup] = "infoPersoFormGroup"
             [itemsPaiement] = "itemsPaiement"
             [infoFacture] ="infoFacture"
             class="paiement">

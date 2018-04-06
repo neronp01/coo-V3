@@ -10,6 +10,7 @@ import { FacturationService , Numerotation } from '../../services/facturation.se
 import { HttpClient } from '@angular/common/http';
 import { ConfigService } from './config.service';
 import { EmailIdService } from '../../services/email-id.service';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 
 
@@ -24,7 +25,8 @@ export class FactureComponent implements OnInit {
   @ Input() infMembre: Membre;
   @ Input() infConjouint: Membre;
   @ Input () itemsFacturation: object;
-  itemsPaiement: object;
+  @ Input () infoPersoFormGroup: FormGroup;
+  itemsPaiement= {type: 'adhesion', tabItems: []};
   noFacture: number;
   count = 0; // ceci permet de pas enregistrer plusieurs noFacture;
   montant: BehaviorSubject<number>;
@@ -36,13 +38,15 @@ export class FactureComponent implements OnInit {
   total: number;
   typeAbonement: string;
   rowspan = 8;
+  factObect = {};
   membre: Membre;
+  takeOneItem= 0;
   listeItem = {typeCotisation: 0, don: 0, fraisDePosteOrnitaouais: 0};
   constructor( private inf: InformationService, private auth: AuthService, private fac: FacturationService,
      private http: HttpClient, private conf: ConfigService, private emailId: EmailIdService) {
     const numbers = Observable.timer(0, 1000); // Call after 10 second.. Please set your time
     numbers.subscribe(x => {
-     if (x > 3) {
+     if (x > 1) {
         this.infoFacture['conjouint'] = this.infConjouint ? this.infConjouint : {};
         this.addItem('typeCotisation', this.inf.infoCotisation[this.infMembre['typeCotisation']]);
         this.montant.next(this.total * 100);
@@ -61,9 +65,43 @@ export class FactureComponent implements OnInit {
     });
 
   }
+  itemFactureCotisation() {
+
+    switch (this.infMembre['typeCotisation']) {
+case 'familiale' :
+this.itemsPaiement = {type: 'adhesion', tabItems: [{
+     id: 2, nom: 'Cotisation familiale', montant: this.inf.cotFamillial}] };
+     break;
+     case 'individuelle' :
+     this.itemsPaiement = {type: 'adhesion', tabItems: [{
+      id: 1, nom: 'Cotisation individuelle', montant: this.inf.cotInd}] };
+      break;
+      case 'organisme' :
+      this.itemsPaiement = {type: 'adhesion', tabItems: [{
+      id: 3, nom: 'Cotisation organisme', montant: this.inf.cotOrg}] };
+      break;
+    }
+
+console.log('cotisation____', this.infMembre['typeCotisation'], this.itemsPaiement );
+  }
+  // if (e.value === 'familiale' ) {
+  //   this.itemsFacturation = {type: 'adhesion', tabItems: [{
+  //     id: 2, nom: 'Cotisation familiale', montant: this.inf.cotFamillial}] };
+  //   if (this.membre.membre['courrielConjouint'] === '') {
+  //     this.initialisationConjouint();
+  //   }
+  // } else if (e.value === 'individuelle') {
+  //   this.itemsFacturation = {type: 'adhesion', tabItems: [{
+  //     id: 2, nom: 'Cotisation individuelle', montant: this.inf.cotInd}] };
+  // } else {
+  //   this.itemsFacturation = {type: 'adhesion', tabItems: [{
+  //     id: 2, nom: 'Cotisation organisme', montant: this.inf.cotOrg}] };
+  // }
 
   ngOnInit() {
-    this.itemsPaiement = this.itemsFacturation;
+
+
+   // this.itemsPaiement = this.itemsFacturation;
 
     this.infoFacture['membre'] = this.infMembre;
     this.total = 0;
@@ -105,15 +143,20 @@ export class FactureComponent implements OnInit {
   }
   addFraiOrnitouais(e) {
     if (e.checked) {
-      console.log('check - true', e.checked);
-     this.addItem('fraisDePosteOrnitaouais', this.inf.fraisDePosteOrnitaouais);
+    this.addItem('fraisDePosteOrnitaouais', this.inf.fraisDePosteOrnitaouais);
+    this.itemsPaiement['tabItems'].push({id: 4, nom: 'frais de poste Ornitaouais', montant: this.inf.fraisDePosteOrnitaouais});
     } else {
-      console.log('check - false', e.checked);
+      this.itemsPaiement['tabItems'].pop();
       this.addItem('fraisDePosteOrnitaouais', 0);
     }
     this.montant.next(this.total * 100);
   }
   test() {
   }
-
+  mouseover_Card() {
+    if (this.takeOneItem === 0) {
+    this.itemFactureCotisation();
+    this.takeOneItem++;
+}
+  }
 }

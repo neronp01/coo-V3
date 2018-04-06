@@ -36,6 +36,10 @@ import { InformationService } from './services/information.service';
 
 
 
+
+
+
+
 @NgModule({
   imports: [
  //   CoreModule,

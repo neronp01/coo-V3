@@ -3,7 +3,6 @@
   <mat-card-header   class="header_card">
     <h1 class="titre_toolBar">GrandPic</h1>
     <span class="example-spacer"></span>
-
     <p *ngIf="!auth.isLoggedIn" style="margin-right: 20px" routerLink="/login" routerLinkActive="active">Se connecter</p>
     <p *ngIf="auth.isLoggedIn" (click)="auth.signOut()" routerLink="/coo" style="margin-right: 20px" >Se déconnecter</p>
     <button mat-mini-fab class="bottom_menu_small" [matMenuTriggerFor]="menu"> <i class="material-icons iconeMenuSmall">menu</i></button>
@@ -11,7 +10,9 @@
     <mat-menu #menu="matMenu" class="matMenuBackGroung" >
       <button mat-menu-item class="matMenu" (click)="enter()">Accueil</button>
       <button mat-menu-item  class="matMenu" (click)="email.setEmail('cooutaouais@outlook.com')" [routerLink]="[{ outlets: { popup: ['compose'] } }]">Communiquer avec l'administrateur</button>
-
+      <button  *ngIf="_isMembre" class="button_accueil" routerLink="./accueil/informations_presonnelles" routerLinkActive="active" mat-button><span style="color:#ffffff">Renseignements personnels</span>  </button>
+        <button   routerLink="./accueil/inscription" routerLinkActive="active" class="button_accueil" mat-button><span style="color:#ffffff"> Adhésion/renouvellement</span> </button>
+        <button  routerLink="./accueil/liste_de_membres" routerLinkActive="active" class="button_accueil" *ngIf="_isMembre" mat-button> <span style="color:#ffffff">Liste de membres</span></button>
     </mat-menu>
   </mat-card-header>
 </mat-card>

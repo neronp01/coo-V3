@@ -1,19 +1,21 @@
-
+<div class="imageOuverture">
+<img src="./assets/chouette.jpg"  >
+</div>
 <!--photo coo grand écrant -->
-<div class="imageFront_container flex_center_line">
-    <p class="pImageCoo" [@photoClub]= "statePhoto"  (@photoClub.done) = "animNext($event)">CLUB DES ORNITHOLOGUES DES L'OUTAOUAIS</p>
-    <img src="./assets/photo1.png" [@photoClub]= "statePhoto" class="image_coo_longue_vue" >
+<!-- <div class="imageFront_container flex_center_line">
+    <p class="pImageCoo" [@photoClub]= "statePhoto"  (@photoClub.done) = "animNext($event)">CLUB DES ORNITHOLOGUES DE L'OUTAOUAIS</p>
+    <img src="./assets/photo1.png" [@photoClub]= "statePhoto" class="image_coo_longue_vue" > -->
   <!--  <img src="./assets/1x/1x/1x/club.png" [@photoClub]= "statePhoto" class="image_coo_longue_vue image_club" >-->
-  <section class="borderPhoto"
+  <!-- <section class="borderPhoto"
   [@animationSquar]="stateSquar"
   (@animationSquar.done) = "animNext($event)"
   ></section>
-</div>
+</div> -->
 
 
 <!--photo coo petit écrant -->
 <div class="imageFront_containerSmall flex_center_line">
-  <p class="pImageCooSmall" [@photoClub]= "statePhoto"  (@photoClub.done) = "animNext($event)">Club des Ornithologues de l'Outaouais</p>
+  <p class="pImageCooSmall" [@photoClub]= "statePhoto"  (@photoClub.done) = "animNext($event)">CLUB DES ORNITHOLOGUES DE L'OUTAOUAIS</p>
   <img src="./assets/photo1.png" [@photoClub]= "statePhoto" class="image_coo_longue_vueSmall" >
   <img src="./assets/photo2.png"  class="image_coo_longue_vueSmall2" >
 <!--  <img src="./assets/1x/1x/1x/club.png" [@photoClub]= "statePhoto" class="image_coo_longue_vue image_club" >-->
@@ -28,7 +30,7 @@
 
 
 <!-- *ngIf="false" -->
-<div class='p_pic_container'>
+<div class='p_pic_container' style="background-color:azure">
   <section class='p_pic_backGround' [@p_backGround] = 'stateBackGround'  (@p_backGround.done) = "animNext($event)">
     <div class="p_pic_layout" [@p_image]="stateImpP" (@p_image.done) = "animNext($event)">
         <div class="p_pic_titre">
@@ -54,12 +56,12 @@
     <section class='i_pic_backGround'  [@i_backGround] = 'stateBackGround_I'  (@i_backGround.done) = "animNext($event)">
         <div class="p_pic_layout" [@i_image]="stateImpI" (@i_image.done) = "animNext($event)">
             <div class="p_pic_titre">
-              <p>Accèder à la liste des membres</p>
+              <p>Consulter les Ornitaouais</p>
             </div>
             <div class="p_pic_texte" >
                <p class="p_pic_ligne">
                  <span class="p_pic_mot"
-                 *ngFor="let hero of p_pic_texte_tabe; let i = index;"  [@flyInOut] = "state[i]"
+                 *ngFor="let hero of i_pic_texte_tabe; let i = index;"  [@flyInOut] = "stateI[i]"
                  >{{hero}} &nbsp;
                 </span>
               </p>

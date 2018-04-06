@@ -22,7 +22,7 @@ import { Router, NavigationExtras } from '@angular/router';
     trigger('flyInOut', [
       state('void', style({ opacity: 0, transform: 'translateX(100px)'})),
       state('in', style({ opacity: 1, transform: 'translateX(0px)'})),
-      state('pink', style({ color: '#C51162', transform: 'scale(1.2)'})),
+      state('pink', style({ color: '#C51162', transform: 'scale(1)'})),
     transition('void => in', [
       style({
         opacity: 0,
@@ -33,7 +33,7 @@ import { Router, NavigationExtras } from '@angular/router';
     transition('in => pink', [
       style({
         color: '#C51162',
-        transform: 'scale(1.2)',
+        transform: 'scale(1)',
       }),
       animate('1.2s ease-in')
     ]),
@@ -168,9 +168,9 @@ trigger('p_image', [
   ]),
 ]),
 trigger('i_container', [
-  state( 'void', style({ opacity: 0,   transform: 'scale(.35)'})),
-  state('inI', style({ opacity: 1,  transform: 'scale(.35)'})),
-  state('inITranslateY', style({ position: 'relative', opacity: 1,  transform: 'translateY(-200px)'})),
+  state( 'void', style({ opacity: 0 ,   transform: 'scale(.35)'})),
+  state('inI', style({ opacity: 1,   transform: 'scale(.35)'})),
+  state('inITranslateY', style({ position: 'relative', opacity: 1,  transform: 'translateY(-400px)'})),
   transition('void => inI', [
     style({
      transform: 'scale(.35)',
@@ -188,24 +188,24 @@ trigger('i_container', [
 ]),
 trigger('I_containerTranslate', [
   state( 'void', style({ transform: 'translateY(0px) scale(1)'})),
-  state('ItranslateY', style({   transform: 'translateY(0px) scale(1)'})),
-  state('Iscale', style({  height: '80px', transform: 'translateY(0px) scale(1)'})),
+ // state('ItranslateY', style({ height: '80px', width: '80px'})),
+  state('Iscale', style({ height: '80px', transform: 'translateY(0px) scale(1)'})),
   state('IbuttonHeight', style({ height: '500px',  transform: 'translateY(0px) scale(1)'})),
   transition('void => ItranslateY', [
     style({
-      transform: 'translateY(0px) scale(1)',
+      transform: 'translateY(0px) scale(1)'
     }),
     animate('2.75s ease-in')
   ]),
-  transition('ItranslateY => Iscale', [
+  transition('void => Iscale', [
     style({
-      transform: 'translateY(0px) scale(1)',
+      transform: 'translateY(0px) scale(1)'
     }),
-    animate('1s ease-in')
+    animate('2s ease-in')
   ]),
   transition('Iscale => IbuttonHeight', [
     style({
-      height: '80px',
+      height: '80px', transform: 'translateY(0px) scale(1)'
     }),
     animate('1s ease-in')
   ]),
@@ -221,7 +221,7 @@ trigger('i_backGround', [
   ]),
 ]),
 trigger('i_image', [
-  state( 'void', style({ opacity: 0})),
+  state( 'void', style({ opacity: 0 })),
   state( 'Ishow', style({ opacity: 1})),
   transition('void => Ishow', [
     style({
@@ -299,7 +299,8 @@ export class FrontPageComponent implements OnInit {
   isShrunk = false;
   sideState = 'voidSide';
   toolbarState = 'void';
-  state=_.fill(Array(60), 'void');
+  state= _.fill(Array(70), 'void');
+  stateI= _.fill(Array(80), 'void');
   stateSquar= 'void';
   stateSVG= 'void';
   statePhoto = 'void';
@@ -317,14 +318,22 @@ export class FrontPageComponent implements OnInit {
   stateIContainer = 'void';
   countPic= 0;
   countP = 0;
+  countI = 0;
+
 
  // state: this.state = _.fill(Array(60), '');;
-p_pic_texte = 'abc ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.' +
- 'Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, ' +
- 'pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, ' +
- 'vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. ' +
- 'Integer tincidunt. Cras dapibus.';
+p_pic_texte = 'Le Club des ornithologues de l\'Outaouais (COO)  vous souhaite la bienvenue. Le COO est un organisme sans but ' +
+ 'lucratif regroupant les personnes et les organismes s\'intéressant à l\'observation et à la protection des oiseaux et de leurs' +
+ 'habitats. Nos membres pratiquent l\'ornithologie dans les régions de l\'Outaouais et le nord-ouest des Hautes-Laurentides, au Québec.' +
+ 'Cette application vous permet de vous inscrire ou de renouveler votre abonnement.';
+ i_pic_texte = 'Nous publions quatre fois par année L\'Ornitaouais, un bulletin de liaison entre le Club et ses membres. Il présente des' +
+ ' statistiques saisonnières d\'observation, des comptes-rendus d\'excursions et de voyages ornithologues, ainsi que des articles' +
+ ' d\'intérêt général sur les oiseaux. Parmi ses activités, le Club organise des excursions sur le terrain en toute saison, offre des' +
+  'cours d\'initiation à l\'observation des oiseaux, présente des conférences, réalise des recensements de Noël et s\'implique dans' +
+  ' divers projets touchant la nature et l\'ornithologie.';
+
  p_pic_texte_tabe = [];
+ i_pic_texte_tabe = [];
   constructor(zone: NgZone , private router: Router) {
     window.onscroll = () => {
       zone.run(() => {
@@ -335,9 +344,7 @@ p_pic_texte = 'abc ipsum dolor sit amet, consectetuer adipiscing elit. Aenean co
           this.isShrunk = true;
         } else if (window.pageYOffset < 199 && window.pageYOffset > 150 && this.stateP === 'inP') {
           if (this.countP === 0) {
-            this.stateTranslateP  = 'translateY';
-            this.stateTranslateI = 'ItranslateY';
-            this.stateTranslateC = 'CtranslateY';
+            this.stateTranslateP  = 'scale';
             this.countP++;
           }
         } else {
@@ -345,8 +352,10 @@ p_pic_texte = 'abc ipsum dolor sit amet, consectetuer adipiscing elit. Aenean co
         }
       });
     };
-    const temp = _.split(this.p_pic_texte, ' ', 60);
+   const temp = _.split(this.p_pic_texte, ' ', 70);
+    const tempI = _.split(this.i_pic_texte, ' ', 80);
     this.p_pic_texte_tabe = temp;
+    this.i_pic_texte_tabe = tempI;
    }
 
   ngOnInit() {
@@ -354,16 +363,26 @@ this.stateSquar = 'in';
   }
 
 pic_texte() {
-  const numbers = Observable.timer(0, 200).take(64); // Call after 10 second.. Please set your time
+  const numbers = Observable.timer(0, 200).take(163); // Call after 10 second.. Please set your time
     numbers.subscribe(x => {
-      if (x < 61) {
+      if (x < 70) {
         this.state[x] = 'in';
-      } else if ( x === 61) {
-        this.state[10] = 'pink';
-      } else if ( x === 62) {
-        this.state[32] = 'pink';
-      }else if ( x === 63) {
-        this.state[50] = 'pink';
+        if (x === 50 ) {
+          if (this.countI === 0) {
+            this.stateTranslateI = 'Iscale';
+            this.stateTranslateC = 'CtranslateY';
+            console.log(this.countI);
+            this.countI++;
+          }
+        }
+      }else if ( x < 160 && x > 69) {
+        this.stateI[x - 70] = 'in';
+      }else if ( x === 160) {
+        this.stateI[6] = 'pink';
+      } else if ( x === 161) {
+        this.stateI[38] = 'pink';
+      }else if ( x === 162) {
+        this.stateI[77] = 'pink';
       }
     });
 }
@@ -382,10 +401,7 @@ animNext(e: any) {
     console.log('inC-----');
   } else if ( e['toState'] === 'translateY' ) {
     this.stateTranslateP = 'scale';
-  } else if ( e['toState'] === 'ItranslateY' ) {
-  this.stateTranslateI = 'Iscale';
-} else if ( e['toState'] === 'CtranslateY' ) {
-
+  } else if ( e['toState'] === 'CtranslateY' ) {
   this.stateTranslateC = 'Cscale';
   console.log('stateTranslateC', this.stateTranslateC);
 } else if ( e['toState'] === 'scale' ) {

@@ -1,5 +1,5 @@
 <div class="center_element">
-<div class="example-container mat-elevation-z8 " >
+<div class="example-container mat-elevation-z8 ">
   <div class="example-header">
     <mat-form-field>
       <input class="input_filter" matInput (keyup)="applyFilter($event.target.value)" placeholder="Rechercher un membre">
@@ -12,8 +12,7 @@
     <ng-container matColumnDef=" ">
       <mat-header-cell *matHeaderCellDef></mat-header-cell>
       <mat-cell *matCellDef="let element2">
-        <div class="container_photo">
-
+        <div *ngIf="element2.photo !== ''"  class="container_photo">
           <img class="imageMembre" [src]="element2.photo">
       </div>
 

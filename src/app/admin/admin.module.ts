@@ -8,7 +8,7 @@ import { MatButtonModule , MatCheckboxModule, MatCardModule, MatGridListModule,
   MatInputModule, MatDatepickerModule, MatNativeDateModule, MatSlideToggleModule,
   MatListModule , MatTabsModule, MatSelectModule, MatTableModule, MatMenuModule,
   MatExpansionModule, MatToolbarModule, MatTooltipModule, MatDialogModule ,
-  MatStepperModule, MatProgressSpinnerModule, MatDividerModule} from '@angular/material';
+  MatStepperModule, MatProgressSpinnerModule, MatDividerModule, MatAutocompleteModule} from '@angular/material';
 
 import { AdminComponent } from './admin.component';
 import { AdminDashboardComponent } from './admin-dashboard.component';
@@ -30,6 +30,14 @@ import { ComposeMessageComponent } from './member-list/compose-message.component
 import { AdminRoutingModule } from './admin-routing.module';
 import { MemberListComponent } from './member-list/member-list.component';
 import { EmailIdService } from '../services/email-id.service';
+import { InfoPersoComponent } from './info-perso/info-perso.component';
+import { PhoneNumberDirective } from './info-perso/phoneNumber';
+import { PostalCodeDirective } from './info-perso/postal-code.directive';
+import { FocusDirectiveDirective } from '../inscription/focus-directive.directive';
+import { NameDirectiveDirective } from '../inscription/directiveValidation/name-directive.directive';
+import { BoxComportDirective } from './info-perso/box-comport.directive';
+import { OrnithoComponent } from './ornitho/ornitho.component';
+import { RedacComponent } from './redac/redac.component';
 
 @NgModule({
   imports: [
@@ -41,7 +49,7 @@ import { EmailIdService } from '../services/email-id.service';
     MatInputModule, MatDatepickerModule, MatNativeDateModule, MatSlideToggleModule,
     MatListModule , MatTabsModule, MatSelectModule, MatTableModule, MatMenuModule,
     MatExpansionModule, MatToolbarModule, MatTooltipModule, MatDialogModule , MatStepperModule, MatProgressSpinnerModule,
-    MatDividerModule,
+    MatDividerModule, MatAutocompleteModule
   //  MemberListRoutingModule
   ],
   declarations: [
@@ -49,6 +57,7 @@ import { EmailIdService } from '../services/email-id.service';
     AdminDashboardComponent,
     ManageCrisesComponent,
     ManageHeroesComponent,
+    FocusDirectiveDirective,
     InscriptionComponent,
      ErrorsComponent,
      MyTelInput,
@@ -57,6 +66,13 @@ import { EmailIdService } from '../services/email-id.service';
     MakePaymentComponent,
      FactureComponent,
      MemberListComponent,
+     InfoPersoComponent,
+     PhoneNumberDirective,
+     PostalCodeDirective,
+     NameDirectiveDirective,
+     BoxComportDirective,
+     OrnithoComponent,
+     RedacComponent
   //  ComposeMessageComponent
     // AccueilComponent,
   ],

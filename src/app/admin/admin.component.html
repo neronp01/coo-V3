@@ -9,28 +9,45 @@
   <mat-toolbar color="primary"  [@toolbar]="toolbarState">
     <div class="flex-spacer-item"></div>
     <h3 class="flex-item-titre">{{titre}}</h3>
+    <button color="primary" mat-fab [ngClass]="{'bottom_menu_big':!isShrunk}" [matMenuTriggerFor]="menuCell"> <i class="material-icons icon_menu">menu</i></button>
+    <mat-menu #menuCell="matMenu" >
+        <button  (click)="buttonClick('infoPerso')" *ngIf="_isMembre" class="button_accueil" routerLink="./informations_presonnelles" routerLinkActive="active" mat-button><span style="color:#ffffff">Renseignements personnels</span>  </button>
+        <button (click)="buttonClick('inscription')"  routerLink="./inscription" routerLinkActive="active" class="button_accueil" mat-button><span style="color:#ffffff"> Adhésion/renouvellement</span> </button>
+        <button (click)="buttonClick('liste_membres')"  routerLink="./liste_de_membres" routerLinkActive="active" class="button_accueil" *ngIf="_isMembre" mat-button> <span style="color:#ffffff">Liste de membres</span></button>
+      </mat-menu>
   </mat-toolbar>
   </div>
   <mat-toolbar color="primary" class="toolbar_frame" [@toolbar]="toolbarState">
     <div class="flex-spacer-item"></div>
+
     <h3 class="flex-item-titre">{{titre}}</h3>
+
   </mat-toolbar>
   <section class="inscription">
     <div [@toolbar]="sideState" class="flex-item-button">
       <mat-list>
+          <mat-list-item class="list_item_accueil">
+              <button class="button_accueil" (click)="buttonClick('infoPerso')" *ngIf="_isMembre" routerLink="./informations_presonnelles" routerLinkActive="active" mat-button> Renseignements personnels </button>
+            </mat-list-item>
         <mat-list-item class="list_item_accueil">
-          <button (click)="buttonClick('inscription')"  routerLink="./inscription" routerLinkActive="active" class="button_accueil" mat-button> Inscription / Adhésion </button>
+          <button (click)="buttonClick('inscription')"  routerLink="./inscription" routerLinkActive="active" class="button_accueil" mat-button> Adhésion/renouvellement </button>
         </mat-list-item>
         <mat-list-item class="list_item_accueil">
           <button (click)="buttonClick('liste_membres')"  routerLink="./liste_de_membres" routerLinkActive="active" class="button_accueil" *ngIf="_isMembre" mat-button> Liste de membres </button>
         </mat-list-item>
         <mat-list-item>
-          <button class="button_accueil" *ngIf="_isMembre" mat-button> Boutique en ligne </button>
+          <button (click)="buttonClick('boutique_en_ligne')" class="button_accueil" *ngIf="_isMembre" mat-button> Boutique en ligne </button>
         </mat-list-item>
+        <mat-list-item>
+          <button (click)="buttonClick('ornithologie')" class="button_accueil" *ngIf="_isMembre" routerLink="./ornithologie" routerLinkActive="active" mat-button> Ornithologie </button>
+        </mat-list-item>
+        <mat-list-item>
+            <button (click)="buttonClick('redaction')" class="button_accueil" *ngIf="_isMembre" routerLink="./redaction" routerLinkActive="active" mat-button> Rédaction </button>
+          </mat-list-item>
       </mat-list>
     </div>
     <div class="flex-item">
-    <router-outlet ></router-outlet>
+   <router-outlet ></router-outlet>
     </div>
     <!--<app-inscription *ngIf="titre === 'Inscription'" class="flex-item" ></app-inscription>-->
     <!--<app-accueil class="flex-item"></app-accueil>-->

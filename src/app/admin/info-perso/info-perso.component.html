@@ -1,0 +1,162 @@
+<div  *ngIf="infoMembre" [@routeAnimation] class="container" [appBoxComport]="stateBox"  >
+<form [formGroup]="infoPersoFormGroup">
+<div class="c_info">
+    <img class="b_g_i_infoPerso" src="./../../assets/SVG/backGroudInfo2.svg"/>
+<div class="c_h_info wrapper container_princip" >
+  <section class="sec_h_info wrapper">
+
+    <section class="d_urlPhoto">
+        <img class="transformPhoto" [src]="urlPhoto"/>
+    </section>
+    <div class="d_input_nom_info">
+      <h2 #test class="h2_name">{{infoMembre.prenom}}	&nbsp;{{infoMembre.nom}}</h2>
+    </div>
+    </section>
+</div>
+<div class="c_d_info wrapper container_princip"(mouseover)="inputElement(true)" (mouseleave)="inputElement(false)">
+    <section class="sec_d_info wrapper">
+      <div [@flyInBoxFact]="stateBox" class="facturesInfo wrapper">
+        <div class="ngfor wrapper">
+          <div class="nav_facture wrapper">
+              <button mat-button  class="botton_facture" [matMenuTriggerFor]="menu"><i class="material-icons">description</i></button>
+              <mat-menu #menu="matMenu" >
+                  <button *ngFor="let facture of infosFacture; let i = index" (click)="factureClick(i)" mat-menu-item >
+                    <span>Facture:&nbsp; </span>
+                    <span>{{facture['numberFac']}}</span>
+                  </button>
+                </mat-menu>
+          </div>
+          <div class="fact_line1 wrapper">
+              <p class="name_facture">Facture:</p>
+              <span class="separateur"></span>
+              <p class="no_facture">{{showFacture['numberFac']}}</p>
+          </div>
+          <div class="fact_line1 wrapper">
+              <p class="name_date">Date:</p>
+              <span class="separateur_date"></span>
+              <p class="date">{{showFacture['date']}}</p>
+          </div>
+        <mat-divider></mat-divider>
+            <div *ngFor="let item of showFacture['tabItems'];" class="ngforItems wrapper">
+                   <p class="name_item" >{{item.nom}}</p>
+                   <p class="montant">{{item.montant}}.00$</p>
+            </div>
+            <div class="don_line wrapper">
+                <p class="name_don" >Don</p>
+                <p class="montant_don">{{showFacture['don']}}.00$</p>
+            </div>
+            <mat-divider></mat-divider>
+            <div class= "total_facture wrapper">
+                <p class="name_total" >Total</p>
+                <p class="montant_total">{{showFacture['montant']/100}}.00$</p>
+            </div>
+        </div>
+      </div>
+      <div  [@flyInBoxAdh]="stateBox" class="adhesionInfo wrapper"><p class="p_dateAdhesion" >Votre adhésion se terminera le {{date}}.</p></div>
+      <div  [@flyInBox]="stateBox" class="d_cordonnées wrapper">
+          <div class="pic_image">
+            <img  class="pic_image_svg"  src="./../../assets/SVG/pic_map.svg"/>
+          </div>
+          <div class="inp_coordonne wrapper">
+
+          <div *ngIf="!_inputElement" class="h2_inf_label label_adresse">
+            <h2 >{{infoMembre.adresse}}</h2>
+            </div>
+            <div class="h2_inf_input input_adresse" *ngIf="_inputElement">
+            <mat-form-field class="full-width" >
+                <input matInput
+                      (keyup)="inputWriting($event,'adresse')"
+                       type="text"
+                       class="input"
+                       placeholder="Adresse"
+                       #adresse
+                       formControlName="adresseCtrl"
+                       required>
+                <mat-error>Ce champ est obligatoire</mat-error>
+              </mat-form-field>
+             </div>
+             <div class="h2_inf_label" *ngIf="!_inputElement">
+            <h2 >{{infoMembre.ville}}</h2>
+            </div>
+            <div class="h2_inf_input" *ngIf="_inputElement">
+            <mat-form-field class="full-width" >
+                <input matInput
+                       type="text"
+                       class="input"
+                       (keyup)="inputWriting(ville.value,'ville')"
+                       placeholder="Ville"
+                       #ville
+                       formControlName="villeCtrl"
+                       required>
+                <mat-error>Ce champ est obligatoire</mat-error>
+              </mat-form-field>
+          </div>
+          <div class="h2_inf_label" *ngIf="!_inputElement">
+            <h2 >{{infoMembre.codePostal}}</h2>
+          </div>
+          <div class="h2_inf_input" *ngIf="_inputElement">
+            <mat-form-field class="full-width" >
+                <input matInput
+                       minlength="7"
+                       (keyup)="inputWriting($event,'codePostal')"
+                       appPostalCode
+                       type="text"
+                       class="input"
+                       placeholder="Code postal"
+                       #codePostal
+                       formControlName="codePostalCtrl"
+                       required>
+                <mat-error>Ce champ est obligatoire</mat-error>
+              </mat-form-field>
+          </div>
+            </div>
+          </div>
+      <div  [@flyInBox]="stateBox" class="d_tel wrapper">
+          <div class="d_tel_image">
+              <img  class="tel_svg"  src="./../../assets/SVG/tel.svg"/>
+            </div>
+            <div class="inp_tel wrapper"
+           >
+                  <div class="h2_tel_label email_label" >
+                    <h2>{{infoMembre.email}}</h2>
+                  </div>
+                    <div class="h2_tel_label input_tel">
+                      <h2 *ngIf="!_inputElement">{{infoMembre.telephone}}</h2>
+                      </div>
+                      <div class="h2_tel_input input_tel">
+                      <mat-form-field class="full-width" *ngIf="_inputElement">
+                          <input matInput
+                                phoneNumberOnly
+                                (keyup)="inputWriting($event,'telephone')"
+                                (blur)= "testBlur($event)"
+                                 minlength="12"
+                                 type="tel"
+                                 class="input"
+                                 placeholder="Téléphone"
+                                 #telephone
+                                 formControlName="telephoneCtrl"
+                                 required>
+                          <mat-error>Ce champ est obligatoire</mat-error>
+                        </mat-form-field>
+                    </div>
+              </div>
+      </div>
+      </section>
+</div>
+<div class="c_f_info wrapper">
+    <section class="sec_f_info wrapper">
+      <div class="f_space"></div>
+      <div class="f_space_b" >
+          <button mat-raised-button (click)="bottonClick('none')" [@flyInOut]="state" class="button_info b_i" color="primary">Info</button>
+          <button mat-raised-button  (click)="bottonClick('adhesion')" [@flyInOut]="state" class="button_info" color="primary">Adhésion</button>
+          <button mat-raised-button  (click)="bottonClick('achats')" [@flyInOut]="state" class="button_info b_dollar" color="primary" >Achats</button>
+          <button mat-raised-button   (click)="sauverClick()" *ngIf="_isDirty" [@flyInSave]="state" class="button_info b_dollar" color="primary" [disabled] = infoPersoDisabled>Enregistrer</button>
+      </div>
+
+      <div class="f_space"></div>
+      </section>
+</div>
+
+</div>
+</form>
+</div>

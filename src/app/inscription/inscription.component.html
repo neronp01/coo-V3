@@ -1,12 +1,14 @@
 <!--linear-->
-<div class="ecrant_large">
-<mat-horizontal-stepper class="stepper">
-  <mat-step [stepControl]="infoPersoFormGroup">
+<div *ngIf="auth.isLoggedIn">
+<form  [formGroup]="infoPersoFormGroup" >
+<form class="ecrant_large">
+<mat-horizontal-stepper class="stepper" linear (selectionChange)="clickinfoPerso()">
+  <mat-step [stepControl]="infoPersoFormGroupAll" >
     <form [formGroup]="infoPersoFormGroup">
       <ng-template matStepLabel>Renseignements personnels</ng-template>
       <mat-grid-list cols="1" rowHeight="700px">
         <mat-grid-tile colspan = "1" rowspan="1">
-      <mat-card class="card_perso">
+      <mat-card class="card_perso"  >
       <mat-grid-list cols="4" rowHeight="70px">
         <div>
         <mat-grid-tile colspan = "4" rowspan="1" >
@@ -19,7 +21,7 @@
         </mat-grid-tile>
         <mat-grid-tile colspan = "4" rowspan="1" >
           <mat-form-field class="full-width cotisation">
-            <mat-select placeholder="Types de cotisation annuelle" name="inscription" (selectionChange)="cotisationSelcted($event)"  formControlName="cotisationsCtrl" [value]="courriel" required>
+            <mat-select placeholder="Types de cotisation annuelle" name="inscription" (selectionChange)="cotisationSelcted($event)"  formControlName="typeCotisationCtrl" [value]="courriel" required>
               <mat-option *ngFor="let cotisation of cotisations"
                           [value]="cotisation.value">
                 {{cotisation.viewValue}}
@@ -30,9 +32,11 @@
         <mat-grid-tile colspan = "2" rowspan="1" >
           <mat-form-field class="full-width">
             <input matInput id="prenom"
+                   [appAutofocus]="( focus === 'prenom' )"
                    minlength="2"
                    formControlName="prenomCtrl"
                    required
+                   (blur)="membreInfoAdd('prenom',prenom1.value)"
                    (keyup)="membreInfoAdd('prenom',prenom1.value)"
                    #prenom1
                    placeholder="Prénom" >
@@ -42,9 +46,11 @@
         <mat-grid-tile colspan = "2" rowspan="1">
           <mat-form-field class="full-width">
             <input matInput
+
                    formControlName="nomCtrl"
                    minlength="2"
                    required
+                   (blur)="membreInfoAdd('nom',nom1.value)"
                    (keyup)="membreInfoAdd('nom',nom1.value)"
                    placeholder="Nom" #nom1 >
             <mat-error>Ce champ est obligatoire</mat-error>
@@ -56,6 +62,7 @@
                    formControlName="adresseCtrl"
                    minlength="4"
                    required
+                   (blur)="membreInfoAdd('adresse',adresse1.value)"
                    (keyup)="membreInfoAdd('adresse',adresse1.value)"
                    placeholder="Adresse" #adresse1 >
             <mat-error>Ce champ est obligatoire</mat-error>
@@ -67,6 +74,7 @@
                    placeholder="Ville"
                    formControlName="villeCtrl"
                    minlength="3"
+                   (blur)="membreInfoAdd('ville',ville1.value)"
                    (keyup)="membreInfoAdd('ville',ville1.value)"
                    required
                    #ville1>
@@ -74,11 +82,13 @@
           </mat-form-field>
         </mat-grid-tile>
         <mat-grid-tile colspan = "2" rowspan="1" >
-          <mat-form-field class="full-width">
+          <mat-form-field class="full-width"(click)="clearFocus('')">
+              <!-- appPostalCode   -->
             <input matInput
-                   minlength="6"
+                   minlength="7"
                    formControlName="codePostalCtrl"
                    required
+                   (blur)="membreInfoAdd('codePostal',codePostal1.value)"
                    (keyup)="membreInfoAdd('codePostal',codePostal1.value)"
                    placeholder="Code Postal" #codePostal1 >
             <mat-error>Ce champ est obligatoire</mat-error>
@@ -86,24 +96,28 @@
         </mat-grid-tile>
         </div>
         <mat-grid-tile colspan = "2" rowspan="1" >
-          <mat-form-field class="full-width">
+          <mat-form-field class="full-width" (click)="clearFocus('')">
               <my-tel-input
-                (tel)="tel($event,prenom1.value,nom1.value,adresse1.value,ville1.value,codePostal1.value)"
-                placeholder="Téléphone"
+              (parts2)= "formTel($event)"
+                (tel)="tel($event)"
                 [value]="value"
+                [focus]="focus"
+                formControlName="telephoneCtrl"
+                (focusTel)="focusTel($event)"
                 required></my-tel-input>
+                <mat-error>Ce champ est obligatoire</mat-error>
           </mat-form-field>
         </mat-grid-tile>
         <mat-grid-tile colspan = "2" rowspan="1" >
           <mat-form-field class="full-width">
             <input matInput
+                  [appAutofocus]="( focus === 'profession' )"
                    formControlName="professionCtrl"
                    (keyup)="membreInfoAdd('profession',profession1.value)"
                    placeholder="Profession" #profession1>
           </mat-form-field>
         </mat-grid-tile>
         <mat-grid-tile colspan = "2" rowspan="1">
-
           <mat-form-field class="full-width">
             <form #myForm="ngForm" novalidate>
               <input matInput
@@ -114,9 +128,10 @@
                      [(ngModel)]="_dateNaissance"
                      class="form-control"
                      placeholder="Date de naisssance"
+                     (blur)="membreInfoAdd('dateNaissance',dateNaissance1.value)"
                      (keyup)="membreInfoAdd('dateNaissance',dateNaissance1.value)"
               >
-              <app-errors [control]="dateNaissance"></app-errors>
+            <app-errors [control]="dateNaissance1"></app-errors>
             </form>
           </mat-form-field>
         </mat-grid-tile>
@@ -126,7 +141,9 @@
         <mat-grid-tile colspan = "4" rowspan="1">
       <div>
         <button mat-button
+                (click) = "clickinfoPerso()"
                 matStepperNext
+
                 [disabled] = infoPersoisDisabled
         >Suivant</button>
       </div>
@@ -151,7 +168,7 @@
                          type="email"
                          class="card_perso email"
                          placeholder="Courriel"
-                         formControlName="emailCtrl"
+                         formControlName="c_emailCtrl"
                          #courrielConjouint1
                          (keyup)="membreInfoAdd('courrielConjouint',courrielConjouint1.value)"
                          required>
@@ -161,9 +178,10 @@
               <mat-grid-tile colspan = "2" rowspan="1" >
                 <mat-form-field class="full-width">
                   <input matInput
+
                          minlength="2"
                          required
-                         formControlName="prenomCtrl"
+                         formControlName="c_prenomCtrl"
                          #prenomConjouint1
                          (keyup)="membreInfoAdd('prenomConjouint',prenomConjouint1.value)"
                          placeholder="Prénom" >
@@ -173,9 +191,10 @@
               <mat-grid-tile colspan = "2" rowspan="1">
                 <mat-form-field class="full-width">
                   <input matInput
+
                          minlength="2"
                          required
-                         formControlName="nomCtrl"
+                         formControlName="c_nomCtrl"
                          placeholder="Nom"
                          (keyup)="membreInfoAdd('nomConjouint',nomConjouint1.value)"
                          #nomConjouint1 >
@@ -183,10 +202,13 @@
                 </mat-form-field>
               </mat-grid-tile>
               <mat-grid-tile colspan = "2" rowspan="1" >
-                <mat-form-field class="full-width">
+                <mat-form-field class="full-width" (click)="clearFocus('')">
                   <my-tel-input
+                  (focusTel)="focusTel($event)"
                     (tel)="telConjouint($event, courrielConjouint1.value, prenomConjouint1.value,nomConjouint1.value, professionConjouint1.value)"
                     [value]="valueConJouint"
+                    [focus]="focus"
+                    (focusTel)="focusTel($event)"
                     placeholder="Téléphone"
                     required></my-tel-input>
                 </mat-form-field>
@@ -194,7 +216,8 @@
               <mat-grid-tile colspan = "2" rowspan="1" >
                 <mat-form-field class="full-width">
                   <input matInput
-                         formControlName="professionCtrl"
+                        [appAutofocus]="( focus === 'profession' )"
+                         formControlName="c_professionCtrl"
                          (keyup)="membreInfoAdd('professionConjouint',professionConjouint1.value)"
                          placeholder="Profession" #professionConjouint1>
                 </mat-form-field>
@@ -204,18 +227,18 @@
                 <mat-form-field class="full-width">
                   <form #myForm="ngForm" novalidate>
                     <input matInput
+                          name="dateNaissanceConjouint"
                            #dateNaissanceConjouint1="ngModel"
                            dateNaissanceValidation
                            [(ngModel)]="_dateNaissanceConjouint"
                            type="text"
-                           name="dateNaissanceConjouint"
                            (keyup)="membreInfoAdd('dateNaissanceConjouint',dateNaissanceConjouint1.value)"
                            class="form-control"
                            placeholder="Date de naisssance"
                     >
                     <!--#dateNaissanceConjouint="ngModel"-->
                     <!--[(ngModel)]="_dateNaissance"-->
-                    <app-errors [control]="dateNaissanceConjouint"></app-errors>
+                    <app-errors [control]="dateNaissanceConjouint1"></app-errors>
                   </form>
                 </mat-form-field>
               </mat-grid-tile>
@@ -223,8 +246,8 @@
               </mat-grid-tile>
               <mat-grid-tile colspan = "4" rowspan="1">
                 <div>
-                  <button mat-button matStepperPrevious>Retour</button>
-                  <button mat-button matStepperNext  [disabled] = infoPersoConjisDisabled>Suivant</button>
+                  <button mat-button  (click) = "clickinfoPerso()" matStepperPrevious>Retour</button>
+                  <button mat-button matStepperNext  (click) = "clickinfoPerso()" [disabled] = infoPersoConjisDisabled>Suivant</button>
                 </div>
               </mat-grid-tile>
             </mat-grid-list>
@@ -245,25 +268,27 @@
                   <mat-slide-toggle
                     [checked]= "_membre.teleList"
                     #teleListe1
+                    formControlName="teleListCtrl"
                     (change)="autorisationsTelephone($event)">
                   </mat-slide-toggle>
-                  <div *ngIf="!autorisationTel">
+                  <div *ngIf="false">
                     <p class="text"><a>{{_autorisationsTelephone[0]}}</a><a class="bold">{{_autorisationsTelephone[1]}}</a><a>{{_autorisationsTelephone[2]}}</a></p>
                   </div>
-                  <div *ngIf="autorisationTel">
+                  <div *ngIf="true">
                     <p class="text"><a>{{_autorisationsTelephone[0]}}</a><a class="pink">{{_autorisationsTelephone[1]}}</a><a>{{_autorisationsTelephone[2]}}</a></p>
                   </div>
                 </mat-list-item>
                 <mat-list-item>
                   <mat-slide-toggle
                     #nomListe1
+                    formControlName="nomListeCtrl"
                     [checked]= "_membre.nomListe"
                     (change)="autorisationsNom($event)">
                   </mat-slide-toggle>
-                  <div *ngIf="!autorisationNom">
+                  <div *ngIf="false">
                     <p class="text"><a>{{_autorisationsNom[0]}}</a><a class="bold">{{_autorisationsNom[1]}}</a><a>{{_autorisationsNom[2]}}</a></p>
                   </div>
-                  <div *ngIf="autorisationNom">
+                  <div *ngIf="true">
                     <p class="text"><a>{{_autorisationsNom[0]}}</a><a class="pink">{{_autorisationsNom[1]}}</a><a>{{_autorisationsNom[2]}}</a></p>
                   </div>
                 </mat-list-item>
@@ -277,6 +302,7 @@
                     <mat-checkbox
                       (change)="checkBox('animExc',$event)"
                       #animExc
+                      formControlName="animExcCtrl"
                       [checked]= "_membre.animExc"
                       class="example-margin">
                       Animation d’une excursion
@@ -287,6 +313,7 @@
                       #recenNoel
                       (change)="checkBox('recenNoel',$event)"
                       [checked]= "_membre.recenNoel"
+                      formControlName="recenNoelCtrl"
                       class="example-margin">
                       Recensement de Noël
                     </mat-checkbox>
@@ -296,6 +323,7 @@
                       #animKio
                       (change)="checkBox('animKio',$event)"
                       [checked]= "_membre.animKio"
+                      formControlName="animKioCtrl"
                       class="example-margin">
                       Animation d’un kiosque
                     </mat-checkbox>
@@ -309,6 +337,7 @@
                       #consAdm
                       [checked]= "_membre.consAdm"
                       (change)="checkBox('consAdm',$event)"
+                      formControlName="consAdmCtrl"
                       class="example-margin">
                       Conseil d’administration
                     </mat-checkbox>
@@ -318,6 +347,7 @@
                       #redacRevi
                       [checked]= "_membre.redacRevi"
                       (change)="checkBox('redacRevi',$event)"
+                      formControlName="redacReviCtrl"
                       class="example-margin">
                       Rédaction/révision
                     </mat-checkbox>
@@ -327,6 +357,7 @@
                       #promoPubli
                       [checked]= "_membre.promoPubli"
                       (change)="checkBox('promoPubli',$event)"
+                      formControlName="promoPubliCtrl"
                       class="example-margin">
                       Promotion/publicité
                     </mat-checkbox>
@@ -339,13 +370,14 @@
                          matInput
                          [value]="_membre.autre"
                          (keyup)="membreInfoAdd('autre',autre.value)"
+                         formControlName="autreCtrl"
                          placeholder="Autre :">
                 </mat-form-field>
               </mat-grid-tile>
               <mat-grid-tile colspan="2" rowspan="1">
                 <div>
-                  <button mat-button matStepperPrevious>Retour</button>
-                  <button mat-button matStepperNext>Suivant</button>
+                  <button mat-button  (click) = "clickinfoPerso()" matStepperPrevious>Retour</button>
+                  <button mat-button  (click) = "clickinfoPerso()" matStepperNext>Suivant</button>
                 </div>
               </mat-grid-tile>
             </mat-grid-list>
@@ -360,18 +392,21 @@
   <mat-step>
     <ng-template matStepLabel>Paiement</ng-template>
     <section class="section_facture">
-    <app-facture [itemsFacturation]="itemsFacturation" [infMembre]="infMembreFacturation" [infConjouint]="infConjouintFacturation"></app-facture>
+    <app-facture [infoPersoFormGroup]="infoPersoFormGroup" [itemsFacturation]="itemsFacturation" [infMembre]="infMembreFacturation" [infConjouint]="infConjouintFacturation"></app-facture>
     </section>
     <div>
       <button mat-button matStepperPrevious>Retour</button>
     </div>
   </mat-step>
+
+
 </mat-horizontal-stepper>
-</div>
+</form>
+
 
 
 <div class="ecrant_petit">
-  <mat-vertical-stepper class="stepper" linear>
+  <mat-vertical-stepper class="stepper" linear (selectionChange)="clickinfoPerso()" >
     <mat-step [stepControl]="infoPersoFormGroup">
       <form [formGroup]="infoPersoFormGroup">
         <ng-template matStepLabel>Renseignements personnels</ng-template>
@@ -390,7 +425,7 @@
                   </mat-grid-tile>
                   <mat-grid-tile colspan = "4" rowspan="1" >
                     <mat-form-field class="full-width cotisation">
-                      <mat-select placeholder="Types de cotisation annuelle" name="inscription" (selectionChange)="cotisationSelcted($event)"  formControlName="cotisationsCtrl" [value]="courriel" required>
+                      <mat-select placeholder="Types de cotisation annuelle" name="inscription" (selectionChange)="cotisationSelcted($event)"  formControlName="typeCotisationCtrl" [value]="courriel" required>
                         <mat-option *ngFor="let cotisation of cotisations"
                                     [value]="cotisation.value">
                           {{cotisation.viewValue}}
@@ -402,6 +437,8 @@
                     <mat-form-field class="full-width">
                       <input matInput id="prenom"
                              minlength="2"
+
+                            [appAutofocus]="( focus === 'prenom' )"
                              formControlName="prenomCtrl"
                              required
                              (keyup)="membreInfoAdd('prenom',prenom.value)"
@@ -413,6 +450,7 @@
                   <mat-grid-tile colspan = "4" rowspan="1">
                     <mat-form-field class="full-width">
                       <input matInput
+
                              formControlName="nomCtrl"
                              minlength="2"
                              required
@@ -445,9 +483,10 @@
                     </mat-form-field>
                   </mat-grid-tile>
                   <mat-grid-tile colspan = "4" rowspan="1" >
-                    <mat-form-field class="full-width">
+                    <mat-form-field class="full-width" (click)="clearFocus('')">
                       <input matInput
-                             minlength="6"
+                             minlength="7"
+                             appPostalCode
                              formControlName="codePostalCtrl"
                              required
                              (keyup)="membreInfoAdd('codePostal',codePostal.value)"
@@ -457,10 +496,12 @@
                   </mat-grid-tile>
                 </div>
                 <mat-grid-tile colspan = "4" rowspan="1" >
-                  <mat-form-field class="full-width">
+                  <mat-form-field class="full-width" (click)="clearFocus('')">
                     <my-tel-input
                       (tel)="tel($event,prenom.value,nom.value,adresse.value,ville.value,codePostal.value)"
                       placeholder="Téléphone"
+                      [focus]="focus"
+                      (focusTel)="focusTel($event)"
                       [value]="value"
                       required></my-tel-input>
                   </mat-form-field>
@@ -468,6 +509,7 @@
                 <mat-grid-tile colspan = "4" rowspan="1" >
                   <mat-form-field class="full-width">
                     <input matInput
+                    [appAutofocus]="( focus === 'profession' )"
                            formControlName="professionCtrl"
                            (keyup)="membreInfoAdd('profession',profession.value)"
                            placeholder="Profession" #profession>
@@ -497,6 +539,7 @@
                 <mat-grid-tile colspan = "4" rowspan="1">
                   <div>
                     <button mat-button
+                    (click) = "clickinfoPerso()"
                             matStepperNext
                             [disabled] = infoPersoisDisabled
                     >Suivant</button>
@@ -511,7 +554,7 @@
     </mat-step>
     <mat-step *ngIf="cotisation === 'familiale'" [stepControl]="infoPersoConjFormGroup" >
       <form [formGroup]="infoPersoConjFormGroup" class="stepper_conjouint">
-        <ng-template matStepLabel>Renseignements conjouint(e)</ng-template>
+        <ng-template matStepLabel>Renseignements autre membre</ng-template>
         <mat-grid-list cols="1" rowHeight="500px">
           <mat-grid-tile colspan = "1" rowspan="1">
             <div class="card_perso">
@@ -522,7 +565,7 @@
                            type="email"
                            class="card_perso email"
                            placeholder="Courriel"
-                           formControlName="emailCtrl"
+                           formControlName="c_emailCtrl"
                            #courrielConjouint
                            (keyup)="membreInfoAdd('courrielConjouint',courrielConjouint.value)"
                            required>
@@ -534,7 +577,7 @@
                     <input matInput
                            minlength="2"
                            required
-                           formControlName="prenomCtrl"
+                           formControlName="c_prenomCtrl"
                            #prenomConjouint
                            (keyup)="membreInfoAdd('prenomConjouint',prenomConjouint.value)"
                            placeholder="Prénom" >
@@ -546,7 +589,7 @@
                     <input matInput
                            minlength="2"
                            required
-                           formControlName="nomCtrl"
+                           formControlName="c_nomCtrl"
                            placeholder="Nom"
                            (keyup)="membreInfoAdd('nomConjouint',nomConjouint.value)"
                            #nomConjouint >
@@ -554,10 +597,13 @@
                   </mat-form-field>
                 </mat-grid-tile>
                 <mat-grid-tile colspan = "4" rowspan="1" >
-                  <mat-form-field class="full-width">
+                  <mat-form-field class="full-width" (click)="clearFocus('')">
                     <my-tel-input
                       (tel)="telConjouint($event, courrielConjouint.value, prenomConjouint.value,nomConjouint.value, professionConjouint.value)"
                       [value]="valueConJouint"
+                      [focus]="focus"
+                      (focusTel)="focusTel($event)"
+                      formControlName="c_telephoneCtrl"
                       placeholder="Téléphone"
                       required></my-tel-input>
                   </mat-form-field>
@@ -565,7 +611,8 @@
                 <mat-grid-tile colspan = "4" rowspan="1" >
                   <mat-form-field class="full-width">
                     <input matInput
-                           formControlName="professionCtrl"
+                    [appAutofocus]="( focus === 'profession' )"
+                           formControlName="c_professionCtrl"
                            (keyup)="membreInfoAdd('professionConjouint',professionConjouint.value)"
                            placeholder="Profession" #professionConjouint>
                   </mat-form-field>
@@ -618,10 +665,10 @@
                     #teleListe
                     (change)="autorisationsTelephone($event)">
                   </mat-slide-toggle>
-                  <div *ngIf="!autorisationTel">
+                  <div *ngIf="false">
                     <p class="text"><a>{{_autorisationsTelephone[0]}}</a><a class="bold">{{_autorisationsTelephone[1]}}</a><a>{{_autorisationsTelephone[2]}}</a></p>
                   </div>
-                  <div *ngIf="autorisationTel">
+                  <div *ngIf="true">
                     <p class="text"><a>{{_autorisationsTelephone[0]}}</a><a class="pink">{{_autorisationsTelephone[1]}}</a><a>{{_autorisationsTelephone[2]}}</a></p>
                   </div>
                 </mat-list-item>
@@ -631,10 +678,10 @@
                     [checked]= "_membre.nomListe"
                     (change)="autorisationsNom($event)">
                   </mat-slide-toggle>
-                  <div *ngIf="!autorisationNom">
+                  <div *ngIf="false">
                     <p class="text"><a>{{_autorisationsNom[0]}}</a><a class="bold">{{_autorisationsNom[1]}}</a><a>{{_autorisationsNom[2]}}</a></p>
                   </div>
-                  <div *ngIf="autorisationNom">
+                  <div *ngIf="true">
                     <p class="text"><a>{{_autorisationsNom[0]}}</a><a class="pink">{{_autorisationsNom[1]}}</a><a>{{_autorisationsNom[2]}}</a></p>
                   </div>
                 </mat-list-item>
@@ -726,11 +773,13 @@
     <mat-step>
       <ng-template matStepLabel>Paiement</ng-template>
       <section class="section_facture">
-        <app-facture  [itemsFacturation]="itemsFacturation" [infMembre]="infMembreFacturation" [infConjouint]="infConjouintFacturation"></app-facture>
+        <app-facture [infoPersoFormGroup]="infoPersoFormGroup" [itemsFacturation]="itemsFacturation" [infMembre]="infMembreFacturation" [infConjouint]="infConjouintFacturation"></app-facture>
       </section>
       <!--<div>-->
         <!--<button mat-button matStepperPrevious>Back</button>-->
       <!--</div>-->
     </mat-step>
   </mat-vertical-stepper>
+</div>
+</form>
 </div>

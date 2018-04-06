@@ -9,6 +9,11 @@ import { ManageHeroesComponent } from './manage-heroes.component';
 import { AuthGuard } from '../auth-guard.service';
 import {InscriptionComponent} from '../inscription/inscription.component';
 import {MemberListComponent} from './member-list/member-list.component';
+import { InfoPersoComponent } from './info-perso/info-perso.component';
+import { OrnithoComponent } from './ornitho/ornitho.component';
+import { RedacComponent } from './redac/redac.component';
+
+
 
 const adminRoutes: Routes = [
   {
@@ -24,11 +29,14 @@ const adminRoutes: Routes = [
           { path: 'heroes', component: ManageHeroesComponent },
           { path: 'inscription', component: InscriptionComponent },
           { path: 'liste_de_membres', component: MemberListComponent },
+          { path: 'informations_presonnelles', component: InfoPersoComponent },
+          { path: 'ornithologie', component: OrnithoComponent },
+          { path: 'redaction', component: RedacComponent },
           { path: '', component: AdminDashboardComponent }
         ]
       }
-    ]
-  }
+    ],
+  },
 ];
 
 @NgModule({
