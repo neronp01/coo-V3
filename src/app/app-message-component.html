@@ -1,0 +1,30 @@
+
+<div class="container_message">
+  <div class= "sous_container_message">
+  <button (click)="test()" mat-mini-fab class="close_message">x</button>
+  <div *ngIf="message==='remerciement'">
+  <h2 class="titre_remerciement">Merci d’avoir adhérer au Club des ornithologues de l’Outaouais</h2>
+    <h3 class="text_remerciement">
+        Votre adhésion au COO vous permet de participer aux nombreuses activités du Club qui sont organisées tout au long de l’année et vous donne accès au format numérique du journal du Club, L’Ornitaouais, publié quatre fois par année.
+      </h3>
+      </div>
+      <div *ngIf="message==='inscription'">
+        <img class="svgInfo" src="./assets/SVG/info.svg">
+          <h2 class="titre_remerciement">Merci d'utiliser le sytème d'inscription web du Club des ornithologues de l’Outaouais</h2>
+          <h3 class="text_remerciement">
+              Veuillez noter que tous les champs ayant un * sont obligatoire. Le prix des types d'inscription sont:   </h3>
+              <mat-list>
+                  <mat-list-item>
+                      <h3 class="text_remerciement">Cotisation familiale: {{famil}}:00$</h3>
+                    </mat-list-item>
+                <mat-list-item>
+                  <h3 class="text_remerciement">Cotisation individuelle: {{indiv}}:00$</h3>
+                </mat-list-item>
+                <mat-list-item>
+                    <h3 class="text_remerciement">Cotisation organisme: {{org}}:00$</h3>
+                  </mat-list-item>
+              </mat-list>
+
+      </div>
+    </div>
+</div>

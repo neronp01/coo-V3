@@ -1,38 +1,59 @@
-<div class="imageOuverture">
-<img src="./assets/chouette.jpg"  >
-</div>
+
 <!--photo coo grand écrant -->
-<!-- <div class="imageFront_container flex_center_line">
-    <p class="pImageCoo" [@photoClub]= "statePhoto"  (@photoClub.done) = "animNext($event)">CLUB DES ORNITHOLOGUES DE L'OUTAOUAIS</p>
-    <img src="./assets/photo1.png" [@photoClub]= "statePhoto" class="image_coo_longue_vue" > -->
+ <!-- <div class="">
+    <p class="pImageCoo" [@photoClub]= "statePhoto"  (@photoClub.done) = "animNext($event)">CLUB DES ORNITHOLOGUES DE L'OUTAOUAIS</p> -->
+    <!-- <img src="./assets/photo1.png" [@photoClub]= "statePhoto" class="image_coo_longue_vue" > -->
   <!--  <img src="./assets/1x/1x/1x/club.png" [@photoClub]= "statePhoto" class="image_coo_longue_vue image_club" >-->
   <!-- <section class="borderPhoto"
   [@animationSquar]="stateSquar"
   (@animationSquar.done) = "animNext($event)"
-  ></section>
-</div> -->
+  ></section> -->
+<!-- </div> -->
 
 
 <!--photo coo petit écrant -->
-<div class="imageFront_containerSmall flex_center_line">
+<!-- <div class="imageFront_containerSmall flex_center_line">
   <p class="pImageCooSmall" [@photoClub]= "statePhoto"  (@photoClub.done) = "animNext($event)">CLUB DES ORNITHOLOGUES DE L'OUTAOUAIS</p>
   <img src="./assets/photo1.png" [@photoClub]= "statePhoto" class="image_coo_longue_vueSmall" >
-  <img src="./assets/photo2.png"  class="image_coo_longue_vueSmall2" >
+  <img src="./assets/photo2.png"  class="image_coo_longue_vueSmall2" > -->
 <!--  <img src="./assets/1x/1x/1x/club.png" [@photoClub]= "statePhoto" class="image_coo_longue_vue image_club" >-->
-<svg class="svg_photoSmall" >
+<!-- <svg class="svg_photoSmall" >
 <rect x="0" y="0" [@animationSquarSmall]="stateSquar"
 (@animationSquar.done) = "animNext($event)"
  class="rect_photoSmall"/>
   </svg>
-</div>
+</div> -->
 
 
+<div class="containerScroll">
+<div class="imageOuverture parallax__layer--base wrapper imageWrapper" >
 
-
-<!-- *ngIf="false" -->
-<div class='p_pic_container' style="background-color:azure">
-  <section class='p_pic_backGround' [@p_backGround] = 'stateBackGround'  (@p_backGround.done) = "animNext($event)">
-    <div class="p_pic_layout" [@p_image]="stateImpP" (@p_image.done) = "animNext($event)">
+    <!-- <img class="chouette" src="./assets/chouette.jpg"  > -->
+    <img class="chouette" [src] = "urlOuiseau" [ngClass]="{'in:imageFrontPic[0] ,out:!imageFrontPic[0], chouette:true, stage1':imageFrontPic[0]}" >
+    <!-- <img class="chouette" src="./assets/chouette.jpg" [ngClass]="{'in:!imageFrontPic[0] ,out:imageFrontPic[0], chouette:true, stage1':!imageFrontPic[0]}" > -->
+    </div>
+    <div class="titreClub parallax__layer--back titreWrapper wrapper">
+        <!-- <img class="imagePique" src="./assets/SVG/test.svg"  > -->
+        <p class="pImageCoo" [@photoClub]= "statePhoto"  (@photoClub.done) = "animNext($event)">CLUB DES ORNITHOLOGUES DE L'OUTAOUAIS</p>
+        <p class="pCitation" [@photoClub]= "statePhoto"  (@photoClub.done) = "animNext($event)">{{p_citation}}</p>
+        <p class="pAuteur" [@photoClub]= "statePhoto"  (@photoClub.done) = "animNext($event)">- Boris Vian -</p>
+      </div>
+        <!-- *ngIf="false" -->
+<div class="parallax__layer--back" (mouseenter)=test() >
+  <div class="button_front wrapper">
+    <div class="spacerButton"></div>
+      <div class="pouinteur" [@photoClub]= "statePhoto">
+          <svg  class="circleOiseau" viewBox="-2 -2 210 210"><g id="Layer_pouinteux" data-name="Layer 1"><circle class="cls-2 circle1" cx="102.02" cy="102.34" r="100.66"/><path class="cls-2 circle1" d="M136.94,86.35a26.54,26.54,0,0,1,0,3.61c-1.23,19.07-34.32,62.61-34.32,62.61s-33-46.33-35.27-62a25.08,25.08,0,0,1-.25-4.21C67.48,72.3,80,51.43,102,51.43,123.84,51.43,136,72.52,136.94,86.35Z"/><circle class="cls-2 circle1" cx="102.02" cy="83.34" r="18.66"/></g></svg>
+          <svg  class="line" viewBox="-2 -2 210 210"><line x1="-200" y1="100" x2="300" y2="100" style="stroke:#ffffff;stroke-width:4" /></svg>
+          <svg  class="circlePointeur" viewBox="-2 -2 210 210"><g id="Layer_ouiseau" data-name="Layer 1"><circle class="cls-2 circle1" cx="102.02" cy="102.34" r="100.66"/><path class="cls-1 circle2" d="M60.63,57.25A10.07,10.07,0,1,1,50.56,67.31,10.07,10.07,0,0,1,60.63,57.25m0-4A14.07,14.07,0,1,0,74.69,67.31,14.07,14.07,0,0,0,60.63,53.25Z"/><path class="cls-1 circle2" d="M144.25,57.25a10.07,10.07,0,1,1-10.06,10.06,10.07,10.07,0,0,1,10.06-10.06m0-4a14.07,14.07,0,1,0,14.06,14.06,14.06,14.06,0,0,0-14.06-14.06Z"/><path class="cls-2 circle2" d="M132.47,111.78,102,159,71.53,111.78"/></g></svg>
+          <svg  class="line" viewBox="-2 -2 210 210"><line x1="-200" y1="100" x2="300" y2="100" style="stroke:#ffffff;stroke-width:4" /></svg>
+          <svg  class="circleMembre" viewBox="-2 -2 210 210"><g id="Layer_membre" data-name="Layer 1"><circle class="cls-2 circle1" cx="102.02" cy="102.34" r="100.66"/><path class="cls-2 circle1" d="M139,72.55c15.29,8.37,40.26,33.08,38.47,45.18-.87,5.88-8.31,9.21-10.56,10.22a23.69,23.69,0,0,1-8.57,2.46C155.63,162.72,131.79,188,102.77,188s-52.88-25.29-55.54-57.62C43.06,130.72,39.28,129,37,128s-9.7-4.34-10.57-10.22C24.34,103.82,57.65,73.24,71,70a37.72,37.72,0,1,1,63.33.43A31.85,31.85,0,0,1,139,72.55Z"/></g></svg>
+      </div>
+      <div class="spacerButton"></div>
+  </div>
+<div class="p_pic_container ">
+  <section class="p_pic_backGround" [@p_backGround] = "stateBackGround"  (@p_backGround.done) = "animNext($event)">
+    <div class="p_pic_layout wrapper" [@p_image]="stateImpP" (@p_image.done) = "animNext($event)">
         <div class="p_pic_titre">
           <p>Système de gestion de membres</p>
         </div>
@@ -52,9 +73,9 @@
 <button class="p_pic_button" (click)="clickAccederP()" [@p_container]= "stateP"  [@p_containerTranslate]="stateTranslateP"  (@p_containerTranslate.done) = "animNext($event)" mat-raised-button color="primary"><span [@p_image]="stateImpP" >Accéder</span></button>
 </div>
 
-<div class='p_pic_container'>
-    <section class='i_pic_backGround'  [@i_backGround] = 'stateBackGround_I'  (@i_backGround.done) = "animNext($event)">
-        <div class="p_pic_layout" [@i_image]="stateImpI" (@i_image.done) = "animNext($event)">
+<div class="p_pic_container">
+    <section class="i_pic_backGround"  [@i_backGround] = "stateBackGround_I"  (@i_backGround.done) = "animNext($event)">
+        <div class="p_pic_layout wrapper" [@i_image]="stateImpI" (@i_image.done) = "animNext($event)">
             <div class="p_pic_titre">
               <p>Consulter les Ornitaouais</p>
             </div>
@@ -76,9 +97,9 @@
 <!--<div class="backGround_titre">
 </div>
  <h1 class="titre_photo">Club des ornithologues de l'Outaouais</h1>-->
- <div class='c_pic_container'>
-    <section class='c_pic_backGround' [@c_backGround] = 'stateBackGround_C'  (@c_backGround.done) = "animNext($event)">
-      <div class="c_pic_layout" [@c_image]="stateImpC" (@c_image.done) = "animNext($event)">
+ <div class="c_pic_container">
+    <section class="c_pic_backGround" [@c_backGround] = "stateBackGround_C"  (@c_backGround.done) = "animNext($event)">
+      <div class="c_pic_layout wrapper" [@c_image]="stateImpC" (@c_image.done) = "animNext($event)">
           <div class="c_pic_titre">
             <p>Système de gestion de membres</p>
           </div>
@@ -97,3 +118,5 @@
   </section>
   <button class="c_pic_button" (click)="clickAccederP()" [@c_container]= "stateC"  [@c_containerTranslate]="stateTranslateC"  (@c_containerTranslate.done) = "animNext($event)" mat-raised-button color="primary"><span [@c_image]="stateImpC" >Accéder</span></button>
   </div>
+</div>
+</div>

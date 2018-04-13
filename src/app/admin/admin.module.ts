@@ -38,6 +38,8 @@ import { NameDirectiveDirective } from '../inscription/directiveValidation/name-
 import { BoxComportDirective } from './info-perso/box-comport.directive';
 import { OrnithoComponent } from './ornitho/ornitho.component';
 import { RedacComponent } from './redac/redac.component';
+import { DropZoneDirective } from './drop-zone.directive';
+
 
 @NgModule({
   imports: [
@@ -72,7 +74,9 @@ import { RedacComponent } from './redac/redac.component';
      NameDirectiveDirective,
      BoxComportDirective,
      OrnithoComponent,
-     RedacComponent
+     RedacComponent,
+     DropZoneDirective,
+
   //  ComposeMessageComponent
     // AccueilComponent,
   ],

@@ -9,6 +9,7 @@ import { AuthService, User} from '../auth.service';
 import {VALID} from '@angular/forms/src/model';
 import { Membre } from '../services/membre.model';
 import { InformationService } from '../services/information.service';
+import { MessagesService } from '../services/messages.service';
 
 import {
   trigger,
@@ -114,7 +115,7 @@ parts: FormGroup;
               renderer: Renderer2) {
                 setTimeout(() => {
                   this.parts2.emit(this.parts);
-                }, 1000);
+                }, 100);
                 this.focus = '1';
     this.parts =  fb.group({
       'area': ['', Validators.minLength(3)] ,
@@ -201,6 +202,7 @@ export class InscriptionComponent implements OnInit {
   infConjouintFacturation: Membre;
   cotisation: string;
   infoDatabaseMembre: User;
+  remerciement = false;
 
   cotisations = [
     {value: 'individuelle', viewValue: 'Cotisation individuelle'},
@@ -216,16 +218,15 @@ export class InscriptionComponent implements OnInit {
   value: MyTel;
   valueConJouint: MyTel;
   public focus: string;
-  constructor(private _formBuilder: FormBuilder, private auth: AuthService, private inf: InformationService) {
+  constructor(private _formBuilder: FormBuilder, private auth: AuthService,
+     private inf: InformationService, private message: MessagesService) {
     this.initUserConjouint();
-    console.log('iciAlloooooooooootelListe' );
     this.membre = this.auth.userToken;
     if (this.auth.memberIsInDataBase) {
         this.infMembreFacturation = auth.userToken['membre'];
         this.initForm();
         this._membre = this.membre.membre;
         this.listIni();
-        console.log('alllllllllllllllllwwwwwwwwwwwwww');
         this._dateNaissance = this.membre.membre['dateNaissance'];
         this.telephoneHolder();
         if (this.membre.membre['typeCotisation'] === 'familiale') {
@@ -265,6 +266,7 @@ export class InscriptionComponent implements OnInit {
   }
 
   ngOnInit() {
+    this._remerciement();
     this.initTelForm();
 this.membre['email'] = this.auth.currentUserEmail;
     this.membre.membre['email'] = this.auth.currentUserEmail;
@@ -631,5 +633,9 @@ telephoneHolderConjouint () {
   }
   clickinfoPerso() {
   }
-
+  _remerciement() {
+    setTimeout(() => {
+      this.message.message.next('inscription');
+    }, 2000);
+  }
 }

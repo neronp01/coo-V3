@@ -1,5 +1,6 @@
 <!--linear-->
 <div *ngIf="auth.isLoggedIn">
+  <div *ngIf="!remerciement">
 <form  [formGroup]="infoPersoFormGroup" >
 <form class="ecrant_large">
 <mat-horizontal-stepper class="stepper" linear (selectionChange)="clickinfoPerso()">
@@ -392,7 +393,7 @@
   <mat-step>
     <ng-template matStepLabel>Paiement</ng-template>
     <section class="section_facture">
-    <app-facture [infoPersoFormGroup]="infoPersoFormGroup" [itemsFacturation]="itemsFacturation" [infMembre]="infMembreFacturation" [infConjouint]="infConjouintFacturation"></app-facture>
+    <app-facture  [infoPersoFormGroup]="infoPersoFormGroup" [itemsFacturation]="itemsFacturation" [infMembre]="infMembreFacturation" [infConjouint]="infConjouintFacturation"></app-facture>
     </section>
     <div>
       <button mat-button matStepperPrevious>Retour</button>
@@ -782,4 +783,5 @@
   </mat-vertical-stepper>
 </div>
 </form>
+</div>
 </div>

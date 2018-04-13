@@ -1,9 +1,65 @@
+@mixin flexbox() {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+
+@mixin flex($values) {
+  -webkit-box-flex: $values;
+  -moz-box-flex:  $values;
+  -webkit-flex:  $values;
+  -ms-flex:  $values;
+  flex:  $values;
+}
+@mixin transform($scales, $translateY, $translateX){
+  -webkit-transform: scale($scales) translateY($translateY) translateX($translateX);
+  -moz-transform: scale($scales) translateY($translateY) translateX($translateX);
+  -ms-transform: scale($scales) translateY($translateY) translateX($translateX);
+  -o-transform: scale($scales) translateY($translateY) translateX($translateX);
+  transform: scale($scales) translateY($translateY) translateX($translateX);
+}
+.wrapper {
+  @include flexbox();
+}
+.svgInfo{
+  width: 70px;
+  height: 70px;
+  @include transform(1,50px,225px);
+}
+.sous_container_message{
+  flex-flow: column;
+  align-items: center;
+}
+
+.container_message{
+  background-image: url("/assets/background.png-1.jpg");
+  margin: 0px;
+  height: 700px;
+  width: 500px;
+}
+.titre_remerciement{
+  padding:50px 0px 0px 10px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+.text_remerciement{
+  padding:30px 10px 0px 10px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+color: #212121;
+}
+.close_message{
+  background-color: #eeeeee;
+  float: right;
+  margin: 10px;
+}
+
 .global_container{
   min-height: 800px;
   height: 2500px;
 }
 .nero{
-  Mrgin-top: 10px;
+  margin-top: 10px;
   color:#757575;
   text-align: center;
 }
@@ -18,6 +74,7 @@
 }
 .matMenuBackGroung{
   background-color: palegreen;
+
 }
 .example-spacer {
   flex: 1 1 auto;
@@ -47,6 +104,9 @@
 color: #757575;
 
  }
+.router_container{
+
+}
 .ornitho_link{
   text-decoration: none;
 }
@@ -129,6 +189,10 @@ display: none;
     width: 100%;
   }
 
+  .container_message{
+    height: 500px;
+  }
+
 
 }
 
@@ -143,5 +207,11 @@ display: none;
   .bar {
     display: none;
   }
+  }
+
+  @media only screen and (min-width: 200px) and (max-width: 420px){
+    .container_message {
+      display: none;
+    }
   }
 

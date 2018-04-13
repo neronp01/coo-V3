@@ -7,7 +7,6 @@ import 'rxjs/add/observable/timer';
 import 'rxjs/add/operator/take';
 import { AuthService} from '../../auth.service';
 import { FacturationService , Numerotation } from '../../services/facturation.service';
-import { HttpClient } from '@angular/common/http';
 import { ConfigService } from './config.service';
 import { EmailIdService } from '../../services/email-id.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -43,7 +42,7 @@ export class FactureComponent implements OnInit {
   takeOneItem= 0;
   listeItem = {typeCotisation: 0, don: 0, fraisDePosteOrnitaouais: 0};
   constructor( private inf: InformationService, private auth: AuthService, private fac: FacturationService,
-     private http: HttpClient, private conf: ConfigService, private emailId: EmailIdService) {
+     private conf: ConfigService, private emailId: EmailIdService) {
     const numbers = Observable.timer(0, 1000); // Call after 10 second.. Please set your time
     numbers.subscribe(x => {
      if (x > 1) {

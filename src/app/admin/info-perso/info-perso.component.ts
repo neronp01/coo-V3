@@ -19,6 +19,7 @@ import {
 
 
 
+
 @Component({
   selector: 'app-info-perso',
   templateUrl: './info-perso.component.html',
@@ -31,7 +32,7 @@ import {
       })
     ),
     transition(':enter', [
-     style({ opacity: 0, transform: 'translateX(-200px)' })
+     style({ opacity: 0, transform: 'translateX(0px)' })
       , animate('.5s ease-out'),
     ]),
   ]),

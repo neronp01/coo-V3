@@ -57,35 +57,35 @@
   @include flex(.8);
   width: 100%;
   height: 450px;
-  .d_cordonnées{
-    @include flexbox();
-    margin: 0% 7% 3% 7%;
-    @include flex(1);
-    background-color: #333333;
-    flex-flow: row;
-    justify-content: center;
-    .pic_image{
-      @include flex(.7);
-      .pic_image_svg{
-        @include transform(.5,-50px);
-      }
-    }
-    .inp_coordonne{
-      @include flex(1.3);
-      flex-flow: column;
-      justify-content: center;
-    .h2_inf_label, .h2_inf_input{
-      @include flex(1);
-      color:#ffffff;
-    }
-    .label_adresse, .input_adresse{
-      margin-top: 20px;
-    }
-  }
-  }
-}
-}
 
+}
+}
+.d_cordonnées{
+  @include flexbox();
+  margin: 0% 7% 3% 7%;
+  @include flex(1);
+  background-color: #333333;
+  flex-flow: row;
+  justify-content: center;
+  .pic_image{
+    @include flex(.7);
+    .pic_image_svg{
+      @include transform(.5,-50px);
+    }
+  }
+  .inp_coordonne{
+    @include flex(1.3);
+    flex-flow: column;
+    justify-content: center;
+  .h2_inf_label, .h2_inf_input{
+    @include flex(1);
+    color:#ffffff;
+  }
+  .label_adresse, .input_adresse{
+    margin-top: 20px;
+  }
+}
+}
 .d_tel{
   margin: 3% 7% 0% 7%;
   @include flex(1);
@@ -143,6 +143,7 @@
 }
 
 .container_princip{
+  z-index: 0;
   position: relative;
   top: -600px;
   flex-flow: row;
@@ -202,6 +203,7 @@ h1, h2{
   @include flexbox();
   flex-flow: row;
   justify-content: center;
+  z-index: -50;
 }
 .adhesionInfo, .facturesInfo{
   display: none;
@@ -316,4 +318,70 @@ p {
 
 mat-divider{
   @include flex2( 5, 1, auto);
+}
+@media only screen and (min-width: 200px) and (max-width: 420px){
+
+  .b_g_i_infoPerso{
+    display: none;
+  }
+  .pic_image, .d_tel_image{
+    display: none
+  }
+  .c_info{
+    width: 100%;
+  }
+  .h2_name{
+    @include transform(1,410px);
+  }
+  .transformPhoto {
+   display:none;
+
+    }
+    .sec_f_info{
+      @include flex(1);
+
+    }
+    .f_space_b{
+      min-width: 300px;
+
+    }
+    .c_f_info{
+      z-index: -51;
+      @include transform(1,-240px);
+      .sec_f_info{
+        @include flex(.4);
+        flex-flow: row;
+        justify-content: center;
+        width: 50px;
+        .f_space{
+          @include flex(.10);
+          background-color: #444444;
+        }
+        .f_space_b{
+          @include flex(.1);
+          .button_info{
+            margin: 1%;
+            min-width: 1%;
+          }
+        }
+      }
+
+    }
+    .sec_d_info{
+      @include flex(1);
+    }
+      .full-width, .h2_inf_label, .input_tel, .h2_tel_label{
+        margin-left: 10px;
+      }
+      .d_tel,  .d_cordonnées{
+        margin: 0px;
+        width: 100%;
+        @include transform(1,400px);
+      }
+      .c_d_info, .sec_d_info{
+           width: 400px;
+      }
+      .d_tel{
+        margin-top: 15px;
+      }
 }

@@ -5,20 +5,30 @@ import { EmailService } from './services/email.service';
 import { FacturationService } from './services/facturation.service';
 import * as moment from 'moment';
 import { Membre } from './services/membre.model';
+import {MatSnackBar} from '@angular/material';
+import { MessagesService } from './services/messages.service';
+import { MessageService } from './services/message.service';
+import { BehaviorSubject} from 'rxjs/BehaviorSubject';
+import { InformationService } from './services/information.service';
+
+
+
 
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
+  styleUrls: ['./app.component.scss'],
   providers: []
 })
 export class AppComponent implements OnInit {
   _isMembre = false;
   test = false;
-  constructor(private auth: AuthService, private router: Router, public email: EmailService ) {
+  constructor(private auth: AuthService, private router: Router, public email: EmailService
+  , public snackBar: MatSnackBar, private message: MessagesService ) {
   }
   ngOnInit() {
+    this.getMessage();
     this.auth.user.take(1).subscribe( x => {
       if (x !== null) {
         this._isMembre = this.isMembre;
@@ -46,4 +56,45 @@ get isMembre(): boolean {
   return aUneAdhesion;
 }
 
+openSnackBar() {
+  console.log('test');
+  this.message.message.next('Bordel de merde ca marche');
+
+
 }
+getMessage() {
+  this.message.message.subscribe( x => {
+    if (x !== '') {
+      this.snackBar.openFromComponent(MessageComponent, {
+        duration: 105000,
+      });
+    }
+  });
+}
+}
+
+
+@Component({
+  selector: 'app-message-component',
+  templateUrl: 'app-message-component.html',
+  styleUrls: ['./app.component.scss'],
+})
+export class MessageComponent {
+  message: string;
+  famil: number;
+  indiv: number;
+  org: number;
+
+  constructor( private _message: MessagesService, private snac: MatSnackBar, private info: InformationService) {
+    this.message = this._message.message.value;
+setTimeout(() => {
+  this.famil = info.cotFamillial;
+    this.indiv = info.cotInd;
+    this.org = info.cotOrg;
+}, 200);
+  }
+test() {
+  this.snac.dismiss();
+}
+}
+

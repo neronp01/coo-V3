@@ -8,6 +8,7 @@ import 'rxjs/add/operator/take';
 import * as moment from 'moment';
 import { Membre } from '../services/membre.model';
 import { BehaviorSubject} from 'rxjs/BehaviorSubject';
+import { MessagesService } from '../services/messages.service';
 
 @Component({
   styleUrls: ['./admin.component.css'],
@@ -66,7 +67,7 @@ export class AdminComponent implements OnInit {
     {value: 'tacos-2', viewValue: 'Tacos'}
   ];
 
-  constructor(public auth: AuthService, private router: Router, zone: NgZone) {
+  constructor(public auth: AuthService, private router: Router, zone: NgZone, private message: MessagesService) {
 
     window.scroll(0, 0);
     this.auth.user.subscribe( x => {

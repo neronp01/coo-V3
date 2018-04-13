@@ -17,7 +17,7 @@ import { Router, NavigationExtras } from '@angular/router';
 @Component({
   selector: 'app-front-page',
   templateUrl: './front-page.component.html',
-  styleUrls: ['./front-page.component.css'],
+  styleUrls: ['./front-page.component.scss'],
   animations: [
     trigger('flyInOut', [
       state('void', style({ opacity: 0, transform: 'translateX(100px)'})),
@@ -296,6 +296,8 @@ trigger('c_image', [
 ]
 })
 export class FrontPageComponent implements OnInit {
+  urlOuiseau = './assets/Pic.png';
+  imageFrontPic = [false];
   isShrunk = false;
   sideState = 'voidSide';
   toolbarState = 'void';
@@ -319,8 +321,10 @@ export class FrontPageComponent implements OnInit {
   countPic= 0;
   countP = 0;
   countI = 0;
+  countIm = 0;
 
-
+p_citation = '“Les oiseaux sont responsables de trois au moins des grandes malédictions qui pèsent sur l’homme.' +
+' Ils lui ont donné le désir de grimper aux arbres, celui de voler, celui de chanter…”'
  // state: this.state = _.fill(Array(60), '');;
 p_pic_texte = 'Le Club des ornithologues de l\'Outaouais (COO)  vous souhaite la bienvenue. Le COO est un organisme sans but ' +
  'lucratif regroupant les personnes et les organismes s\'intéressant à l\'observation et à la protection des oiseaux et de leurs' +
@@ -337,6 +341,7 @@ p_pic_texte = 'Le Club des ornithologues de l\'Outaouais (COO)  vous souhaite la
   constructor(zone: NgZone , private router: Router) {
     window.onscroll = () => {
       zone.run(() => {
+        console.log('scroll', window.pageYOffset);
         if (window.pageYOffset > 200 && window.pageYOffset < 300) {
           if (this.countPic === 0) {
             this.countPic++;
@@ -352,6 +357,7 @@ p_pic_texte = 'Le Club des ornithologues de l\'Outaouais (COO)  vous souhaite la
         }
       });
     };
+
    const temp = _.split(this.p_pic_texte, ' ', 70);
     const tempI = _.split(this.i_pic_texte, ' ', 80);
     this.p_pic_texte_tabe = temp;
@@ -359,9 +365,36 @@ p_pic_texte = 'Le Club des ornithologues de l\'Outaouais (COO)  vous souhaite la
    }
 
   ngOnInit() {
+    this.animImageOiseau();
 this.stateSquar = 'in';
+setTimeout(() => {
+  this.animNext('inPhoto');
+}, 2000);
   }
+animImageOiseau() {
+  setInterval( (x) => {
+    this.countIm++;
+    this.testInt(); }
+     , 1000);
+}
+testInt() {
+  const pic = './assets/Pic.png';
+  const harfan = './assets/chouette.jpg';
 
+  if (this.countIm < 4) {
+    this.imageFrontPic[0] = true;
+  } else if (this.countIm % 15 > 1 && this.countIm % 15 < 7 ) {
+    this.imageFrontPic[0] = false;
+  } else if  (this.countIm % 15 === 7) {
+   if (this.urlOuiseau === './assets/Pic.png') {
+    this.urlOuiseau = harfan;
+  } else {
+    this.urlOuiseau = pic;
+  }
+  }else if (this.countIm % 15 > 7) {
+    this.imageFrontPic[0] = true;
+  }
+}
 pic_texte() {
   const numbers = Observable.timer(0, 200).take(163); // Call after 10 second.. Please set your time
     numbers.subscribe(x => {
@@ -394,21 +427,22 @@ animNext(e: any) {
   } else if ( e['toState'] === 'in' ) {
     this.stateSquar = 'rotate';
     this.stateSVG = 'rotate';
-  } else if ( e['toState'] === 'inPhoto' ) {
+  } else if ( e === 'inPhoto' ) {
     this.stateC = 'inC';
     this.stateP = 'inP';
     this.stateIContainer = 'inI';
-    console.log('inC-----');
+    this.statePhoto = 'inPhoto';
+
   } else if ( e['toState'] === 'translateY' ) {
     this.stateTranslateP = 'scale';
   } else if ( e['toState'] === 'CtranslateY' ) {
   this.stateTranslateC = 'Cscale';
-  console.log('stateTranslateC', this.stateTranslateC);
+
 } else if ( e['toState'] === 'scale' ) {
     this.stateTranslateP = 'buttonHeight';
   } else if ( e['toState'] === 'Cscale' ) {
     this.stateTranslateC = 'CbuttonHeight';
-    console.log('stateTranslateC', this.stateTranslateC);
+
   }else if ( e['toState'] === 'Iscale' ) {
     this.stateTranslateI = 'IbuttonHeight';
   } else if ( e['toState'] === 'buttonHeight') {
@@ -421,15 +455,11 @@ animNext(e: any) {
     this.stateBackGround_I = 'Iexpend';
   } else if ( e['toState'] === 'Iexpend') {
     this.stateImpI = 'Ishow';
-    console.log('Iexpend');
   } else if ( e['toState'] === 'Ishow') {
-    console.log('Ishow');
     this.pic_texte();
   }else if ( e['toState'] === 'CbuttonHeight') {
       this.stateBackGround_C = 'Cexpend';
-      console.log('CbuttonHeight', this.stateBackGround_C);
   } else if ( e['toState'] === 'Cexpend') {
-    console.log('Cexpend');
     this.stateImpC = 'Cshow';
   } else if ( e['toState'] === 'Cshow') {
     this.pic_texte();
@@ -442,5 +472,12 @@ clickAccederP() {
     this.stateTranslateC = 'CtranslateY';
   }
 
+}
+test() {
+//  console.log('-scroll' , window.pageYOffset);
+if (this.countP === 0) {
+  this.stateTranslateP  = 'scale';
+  this.countP++;
+}
 }
 }

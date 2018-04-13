@@ -7,7 +7,7 @@ import { AuthService, User} from './auth.service';
 
 @Component({
   templateUrl: './compose-message.component.html',
-  styleUrls: ['./app.component.css'],
+  styleUrls: ['./app.component.scss'],
   animations: [ slideInDownAnimation ]
 })
 export class ComposeMessageComponent {

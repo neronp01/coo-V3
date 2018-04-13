@@ -8,11 +8,13 @@ import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/dat
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { environment } from '../environments/environment';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
+import 'firebase/storage'; // only import firebase storage
+
 
 
 import { Router } from '@angular/router';
 
-import { AppComponent } from './app.component';
+import { AppComponent, MessageComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { HeroesModule } from './heroes/heroes.module';
@@ -22,7 +24,8 @@ import { LoginComponent } from './login/login.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AuthService} from './auth.service';
 import { CoreModule} from './core/core.module';
-import {  MatToolbarModule, MatCardModule,  MatMenuModule, MatButtonModule, MatListModule, MatGridListModule  } from '@angular/material';
+import {  MatToolbarModule, MatCardModule,  MatMenuModule, MatButtonModule, MatListModule, MatGridListModule,
+   MatDividerModule, MatSnackBarModule  } from '@angular/material';
 
 import { DialogService } from './dialog.service';
 import {FrontPageModule} from './front-page/front-page.module';
@@ -31,6 +34,8 @@ import { FacturationService } from './services/facturation.service';
 import { MessageService } from './services/message.service';
 import { HttpErrorHandler } from './services/http-error-handler.service';
 import { InformationService } from './services/information.service';
+import { MessagesService } from './services/messages.service';
+
 
 
 
@@ -54,16 +59,20 @@ import { InformationService } from './services/information.service';
     AngularFireModule.initializeApp(environment.firebase, 'COO'), // imports firebase/app needed for everything
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features
-    MatToolbarModule, MatCardModule,  MatMenuModule, MatButtonModule, MatListModule, MatGridListModule
+    MatToolbarModule, MatCardModule,  MatMenuModule, MatButtonModule, MatListModule, MatGridListModule,
+    MatDividerModule, MatSnackBarModule,
+
   ],
+  entryComponents: [AppComponent, MessageComponent],
   declarations: [
+    MessageComponent,
     AppComponent,
     ComposeMessageComponent,
     LoginComponent,
     PageNotFoundComponent,
   ],
   providers: [
-    DialogService, EmailService , FacturationService, MessageService, HttpErrorHandler, InformationService
+    DialogService, EmailService , FacturationService, MessageService, HttpErrorHandler, InformationService, MessagesService
   ],
   bootstrap: [ AppComponent ]
 })

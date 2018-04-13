@@ -4,6 +4,8 @@ import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection 
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AuthService, User } from '../auth.service';
 import { InformationService } from '../services/information.service';
+import { MessagesService } from '../services/messages.service';
+
 export interface Paiement {
   id: number;
   accept?: boolean;
@@ -15,7 +17,8 @@ export interface Paiement {
 export class PaymentService {
   userId: string;
   userEmail: string;
-  constructor(private db: AngularFireDatabase, private afAuth: AngularFireAuth, private authS: AuthService, private afs: AngularFirestore) {
+  constructor(private db: AngularFireDatabase, private afAuth: AngularFireAuth, private authS: AuthService, private afs: AngularFirestore,
+     private message: MessagesService) {
     this.afAuth.authState.subscribe((auth) => {
       if (auth) {
         this.userId = auth.uid;
@@ -29,6 +32,13 @@ export class PaymentService {
     const montant = amount['montant'];
     const payment = { token, amount};
     const paiement  = this.afs.doc(`users/${ this.userEmail}/numerosFac/${numberFac}`);
+    this.remerciement();
     return paiement.set(payment);
+  }
+
+  remerciement() {
+    setTimeout(() => {
+      this.message.message.next('remerciement');
+    }, 1000);
   }
 }

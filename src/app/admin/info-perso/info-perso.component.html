@@ -4,7 +4,6 @@
     <img class="b_g_i_infoPerso" src="./../../assets/SVG/backGroudInfo2.svg"/>
 <div class="c_h_info wrapper container_princip" >
   <section class="sec_h_info wrapper">
-
     <section class="d_urlPhoto">
         <img class="transformPhoto" [src]="urlPhoto"/>
     </section>
@@ -53,7 +52,8 @@
         </div>
       </div>
       <div  [@flyInBoxAdh]="stateBox" class="adhesionInfo wrapper"><p class="p_dateAdhesion" >Votre adhésion se terminera le {{date}}.</p></div>
-      <div  [@flyInBox]="stateBox" class="d_cordonnées wrapper">
+      <!-- [@flyInBox]="stateBox" -->
+      <div   class="d_cordonnées wrapper">
           <div class="pic_image">
             <img  class="pic_image_svg"  src="./../../assets/SVG/pic_map.svg"/>
           </div>
@@ -111,7 +111,8 @@
           </div>
             </div>
           </div>
-      <div  [@flyInBox]="stateBox" class="d_tel wrapper">
+          <!-- [@flyInBox]="stateBox" -->
+      <div   class="d_tel wrapper">
           <div class="d_tel_image">
               <img  class="tel_svg"  src="./../../assets/SVG/tel.svg"/>
             </div>

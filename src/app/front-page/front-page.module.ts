@@ -22,7 +22,7 @@ import {FrontPageComponent} from './front-page.component';
     BrowserAnimationsModule,
     CommonModule,
     FormsModule,
-    FrontPageRoutingModule, MatChipsModule, MatButtonModule
+    FrontPageRoutingModule, MatChipsModule, MatButtonModule, MatDividerModule
   ],
   declarations: [
     FrontPageComponent

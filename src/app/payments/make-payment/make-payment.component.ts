@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, Input } from '@angular/core';
+import { Component, OnInit, HostListener, Input} from '@angular/core';
 import { PaymentService } from '../payment.service';
 import { environment } from '../../../environments/environment';
 import { AuthService } from '../../auth.service';
@@ -6,6 +6,7 @@ import { Membre } from '../../services/membre.model';
 import * as moment from 'moment';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { InformationService} from '../../services/information.service';
+import { MessagesService } from '../../services/messages.service';
 
 
 @Component({
@@ -20,7 +21,8 @@ export class MakePaymentComponent implements OnInit {
   handler: any;
   membre: Membre;
   fr = moment.locale('fr');
-  constructor(private paymentSvc: PaymentService, private auth: AuthService, private inf: InformationService) { }
+  constructor(private paymentSvc: PaymentService, private auth: AuthService, private inf: InformationService,
+  private message: MessagesService) { }
   ngOnInit() {
     const temp = this.infoFacture['membre'];
       this.handler = StripeCheckout.configure({
@@ -40,7 +42,6 @@ export class MakePaymentComponent implements OnInit {
       amount: this.infoFacture['montant']
     });
     this.auth.updateMembre(this.updateMembreWithItem);
-
     setTimeout(() => {
       const tempInfoFact = this.infoFacture['membre']['infFacturation'];
       tempInfoFact.push(this.addPaiementItem(this.itemsPaiement, this.infoFacture['montant'],
@@ -52,6 +53,7 @@ export class MakePaymentComponent implements OnInit {
         this.auth.addUserConjouint(this.infoFacture['conjouint']);
       }
     }, 1000);
+
   }
   @HostListener('window:popstate')
   onPopstate() {
@@ -64,14 +66,12 @@ export class MakePaymentComponent implements OnInit {
     const dateFormat = moment(date).format('dddd, Do MMMM YYYY');
     const itemsFacturation = {date: dateFormat, type: itemsPaiement['type'], tabItems: itemsPaiement['tabItems'],
      montant: amount, numberFac: numberFac};
-console.log('addPaiement', itemsFacturation);
      return itemsFacturation;
    }
    get updateMembreWithItem(): Membre {
     const memb: Membre = this.infoFacture['membre'];
     memb.infFacturation.push(this.addPaiementItem(this.itemsPaiement, this.infoFacture['montant'],
     this.infoFacture['numeroFacture']));
-    console.log('memb', memb);
     return memb;
    }
 }
