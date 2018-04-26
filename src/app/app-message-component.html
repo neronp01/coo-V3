@@ -1,5 +1,8 @@
 
-<div class="container_message">
+<div *ngIf="data === '/accueil/inscription' && message==='inscription'
+|| data === '/accueil' && message==='remerciement'
+; else noneTemplate">
+<div  class="container_message" >
   <div class= "sous_container_message">
   <button (click)="test()" mat-mini-fab class="close_message">x</button>
   <div *ngIf="message==='remerciement'">
@@ -28,3 +31,7 @@
       </div>
     </div>
 </div>
+</div>
+<ng-template #noneTemplate >
+  <div>{{test()}}</div>
+</ng-template>

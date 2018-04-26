@@ -1,4 +1,27 @@
-
+@mixin flexbox() {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+@mixin flex($values) {
+  -webkit-box-flex: $values;
+  -moz-box-flex:  $values;
+  -webkit-flex:  $values;
+  -ms-flex:  $values;
+  flex:  $values;
+}
+@mixin order($val) {
+  -webkit-box-ordinal-group: $val;
+  -moz-box-ordinal-group: $val;
+  -ms-flex-order: $val;
+  -webkit-order: $val;
+  order: $val;
+}
+.wrapper{
+  @include flexbox();
+}
 
 .header_nav {
   width:100%;
@@ -31,20 +54,20 @@
 
   flex-flow: row wrap;
   /* Then we define how is distributed the remaining space */
-  justify-content: space-around;
+  justify-content: flex-start;
   display: -webkit-box;
   display: -moz-box;
   display: -ms-flexbox;
   display: -webkit-flex;
   display: flex;
-
+  text-align: left;
 }
 
 .flex-item-button {
-  flex: 1 20%;
+  @include flex(1);
 }
 .flex-item {
-  flex: 1 80%;
+  @include flex(7);
 }
 .flex-spacer-item {
   flex: 1 20%;
@@ -57,7 +80,7 @@
   flex-flow: row wrap;
   /* align-content: center; */
   /* Then we define how is distributed the remaining space */
-  justify-content: center;
+  justify-content: flex-start;
   display: -webkit-box;
   display: -moz-box;
   display: -ms-flexbox;
@@ -75,6 +98,7 @@
 .button_accueil{
   width: 100%;
   font-size: large;
+  text-align: left;
 }
 .list_item_accueil{
   margin-top: 10px;

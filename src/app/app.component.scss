@@ -23,6 +23,10 @@
 .wrapper {
   @include flexbox();
 }
+.displayNone{
+  display: none;
+  color: aqua
+}
 .svgInfo{
   width: 70px;
   height: 70px;

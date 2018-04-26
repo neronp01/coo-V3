@@ -11,7 +11,7 @@ import { BehaviorSubject} from 'rxjs/BehaviorSubject';
 import { MessagesService } from '../services/messages.service';
 
 @Component({
-  styleUrls: ['./admin.component.css'],
+  styleUrls: ['./admin.component.scss'],
   templateUrl: './admin.component.html',
   animations: [trigger(
     'openClose',
@@ -30,14 +30,14 @@ import { MessagesService } from '../services/messages.service';
         state('void', style({ height: '0px'})),
         state('in', style({ height: '50px'})),
         state('voidSide', style({  flex: '0 0%', transform: 'translate(-200px,0px)'})),
-        state('inSide', style({  flex: '1 20%', transform: 'translate(0px,0px)'})),
+        state('inSide', style({  flex: '1 10%', transform: 'translate(0px,0px)'})),
         state('out', style({transform: 'translate(600px,0px)', opacity: '0'})),
         transition(
           'void <=> in', [animate('0.7s 0.1s ease-out', style({ height: '50px'})), animate('0.7s 0.1s ease-out')]),
         transition(
           'in <=> out', [animate('0.7s 0.1s ease-out', style({transform: 'translate(600px,-100px)', opacity: '0'})), animate('0.7s 0.1s ease-out')]),
         transition(
-          'voidSide <=> inSide', [animate('0.5s 0.1s ease-out', style({  flex: '1 20%', transform: 'translate(0px,0px)'})), animate('0.5s 0.1s ease-out')])
+          'voidSide <=> inSide', [animate('0.5s 0.1s ease-out', style({  flex: '1 10%', transform: 'translate(0px,0px)'})), animate('0.5s 0.1s ease-out')])
       ]), trigger(
       'sidebar',
       [

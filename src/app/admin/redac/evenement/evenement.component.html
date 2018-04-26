@@ -1,0 +1,23 @@
+<div >
+<mat-card class= "card_event">
+    <form  [formGroup]="input_obj" >
+    <mat-form-field class="full-width" >
+        <input
+         matInput
+         type="text"
+         class="input_titre"
+         placeholder="titre"
+         formControlName="titreCtrl"
+         #titre
+         required>
+         <mat-error>Ce champ est obligatoire</mat-error>
+         </mat-form-field>
+         </form>
+         <!-- (change)="startUpload($event.target.files)" -->
+         <input class="file-input" type="file" (change)="startUpload($event)">
+    <p>
+        evenement works!
+      </p>
+</mat-card>
+</div>
+<file-upload (clear)="clear($event)" [input_obj]= "input_obj" [parent]= "parent"></file-upload>

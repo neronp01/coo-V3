@@ -1,0 +1,45 @@
+@mixin flexbox() {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+
+@mixin flex($values) {
+  -webkit-box-flex: $values;
+  -moz-box-flex:  $values;
+  -webkit-flex:  $values;
+  -ms-flex:  $values;
+  flex:  $values;
+}
+.card_orni{
+  max-width: 350px;
+}
+.example-container {
+  @include flexbox();
+  flex-direction: column;
+  min-width: 300px;
+}
+
+.mat-column-date{
+  max-width: 75px;
+}
+.mat-column-downLoadPath{
+  max-width: 30px;
+}
+
+.example-header {
+  min-height: 64px;
+  padding: 8px 24px 0;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+.mat-table {
+  overflow: auto;
+  max-height: 500px;
+}

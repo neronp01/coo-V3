@@ -1,4 +1,4 @@
-<mat-tab-group class="demo-tab-group">
+<mat-tab-group class="demo-tab-group" (selectedTabChange)="_parent($event)">
     <mat-tab label="Oiseaux">
       <div class="demo-tab-content">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue.
@@ -9,66 +9,84 @@
       </div>
     </mat-tab>
     <mat-tab label="Ornitaouais">
-      <div class="container_principal">
+        <form  [formGroup]="infoOrnitaouais" >
+      <div class="container_principal"  >
         <mat-card class="card_orni">
-          <div class="input_data">
+          <div class="input_data" >
             <div class="input_data_line1">
+              <div class="interDataLeftside wrapper">
+                <div class="titre wrapper">
               <mat-form-field class="full-width" >
               <input
                matInput
-               type="text"
+               formControlName="volumeCtrl"
+               type="number"
                class="input_titre"
-               placeholder="Titre du document"
-               #titre
+               placeholder="Volume"
+               #volume
                required>
                <mat-error>Ce champ est obligatoire</mat-error>
                </mat-form-field>
+               <mat-form-field class="full-width" >
+                  <input
+                   matInput
+                   type="number"
+                   class="input_titre"
+                   placeholder="Numéro"
+                   formControlName="numeroCtrl"
+                   #numero
+                   required>
+                   <mat-error>Ce champ est obligatoire</mat-error>
+                   </mat-form-field>
+                  </div>
                     <!-- formControlName="titreCtrl" -->
 
                     <mat-form-field class="date_orni">
-                        <input matInput [matDatepicker]="picker" placeholder="Date de parution">
+                        <input matInput
+                        #dateParu
+                        formControlName="dateParutionCtrl"
+                        [matDatepicker]="picker" placeholder="Date de parution">
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
+                        <mat-error>Ce champ est obligatoire</mat-error>
                       </mat-form-field>
-                  </div>
-                  <div class="input_data_line1" >
+                      <div class="input_data_line1">
                       <form class="form-oiseaux">
                           <mat-form-field class="example-full-width">
-                            <input matInput placeholder="Choisir l'oiseau" aria-label="State" [matAutocomplete]="auto" [formControl]="stateCtrl">
+                            <input #birdSelected matInput placeholder="Choisir l'oiseau" aria-label="State" [matAutocomplete]="auto" [formControl]="stateCtrl" >
                             <mat-autocomplete
                              #auto="matAutocomplete">
-                              <mat-option *ngFor="let state of filteredStates | async" [value]="state.name">
+                              <mat-option  *ngFor="let state of filteredStates | async" [value]="state.name">
                                 <span>{{ state.name }}</span> |
                                 <small>info complémentaire: {{state.population}}</small>
                               </mat-option>
                             </mat-autocomplete>
                           </mat-form-field>
                         </form>
-                        <form class="form-evenement">
-                            <mat-form-field class="example-full-width">
-                              <input matInput placeholder="Choisir l'évenement" aria-label="State" [matAutocomplete]="auto" [formControl]="stateCtrl">
-                              <mat-autocomplete
-                               #auto="matAutocomplete">
-                                <mat-option *ngFor="let state of filteredStates | async" [value]="state.name">
-                                  <span>{{ state.name }}</span> |
-                                  <small>info complémentaire: {{state.population}}</small>
-                                </mat-option>
-                              </mat-autocomplete>
-                            </mat-form-field>
-                          </form>
-                          <div class="div_button_add">
-                          <button mat-button class="button_add" color="primary">Ajouter</button>
+                        <div class="div_button_add">
+                            <button mat-button class="button_add"  (click)="selectedBird(birdSelected.value, numero.value, volume.value, dateParu.value )" color="primary">Ajouter</button>
+                          </div>
                         </div>
+                    </div>
+                      <div class="selectedBird">
+                        <mat-list>
+                          <h3 mat-subheader>Oiseaux selectionnés</h3>
+                          <mat-list-item *ngFor="let bird of birds">
+                            <h1 mat-line class="p_oiseaux">{{bird}}</h1>
+                          </mat-list-item>
+                        </mat-list>
+                      </div>
                   </div>
-
                 </div>
-          <div class="tab_oiseau"></div>
-          <div class="pdf"></div>
-
+          <div class="pdf">
+            <file-upload (clear)="clear($event)" [input_obj]= "infoOrnitaouais" [parent]= "parent"></file-upload>
+          </div>
           </mat-card>
-      </div>
+        </div>
+        </form>
       </mat-tab>
-      <mat-tab label="Évenements">
+      <mat-tab label="Événements">
+        <app-evenement></app-evenement>
         </mat-tab>
     <mat-tab label="Items à vendre">
       </mat-tab>

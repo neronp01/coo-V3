@@ -1,0 +1,67 @@
+<mat-card class="card_orni">
+  <mat-card-header >
+    <div style="text-align:center; width:100%">
+    <h2>L’Ornitaouais</h2>
+  </div>
+  </mat-card-header>
+<div class="example-container mat-elevation-z8">
+    <div class="example-header">
+      <mat-form-field>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtre">
+      </mat-form-field>
+    </div>
+
+    <mat-table #table [dataSource]="dataSource">
+
+      <!-- Position Column -->
+      <ng-container matColumnDef="date" class="date">
+        <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.date | date:'MM/dd/yyyy'}} </mat-cell>
+      </ng-container>
+
+      <!-- Name Column -->
+
+      <!-- <ng-container matColumnDef="volume">
+        <mat-header-cell *matHeaderCellDef> Vol. </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.volume}} </mat-cell>
+      </ng-container>-->
+
+      <!-- Weight Column -->
+   <!--<ng-container matColumnDef="numero" class="numb">
+        <mat-header-cell *matHeaderCellDef> Num. </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.numero}} </mat-cell>
+      </ng-container> -->
+
+
+
+      <ng-container matColumnDef="data" class="data">
+          <mat-header-cell *matHeaderCellDef>  </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+              <mat-expansion-panel (opened)="panelOpenState = true"
+              (closed)="panelOpenState = false">
+<mat-expansion-panel-header>
+<mat-panel-title>
+Sujets
+</mat-panel-title>
+</mat-expansion-panel-header>
+<div *ngFor="let sujet of element.data">
+<p >{{sujet}}</p>
+</div>
+</mat-expansion-panel>
+           </mat-cell>
+        </ng-container>
+
+
+ <!-- Symbol Column -->
+ <ng-container matColumnDef="downLoadPath" class="numb" >
+    <mat-header-cell *matHeaderCellDef >  </mat-header-cell>
+    <mat-cell *matCellDef="let element" style="text-align:right">
+        <a [href]="element.downLoadPath" target="_blank" rel="noopener" ><i style="color:#ffffff" class="material-icons">picture_as_pdf</i></a>
+     </mat-cell>
+  </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </div>
+</mat-card>

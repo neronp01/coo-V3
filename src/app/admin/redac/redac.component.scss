@@ -27,38 +27,71 @@
   -webkit-order: $val;
   order: $val;
 }
+.wrapper{
+  @include flexbox();
+}
+.selectedBird{
+  background-color: #212121;
+  @include flex(.5);
+}
+.p_oiseaux {
+  font-size: 300%;
+  color:#717171;
+
+}
+.interDataLeftside{
+  margin-top: 10px;
+  padding:10px;
+  @include flex(.8);
+  flex-flow: column;
+  justify-content: flex-start;
+}
+.titre{
+
+  @include flex(1);
+  flex-flow: row;
+  justify-content: flex-start;
+}
+.borderRight {
+  border-right-style: solid;
+  border-color: #717171;
+}
 .container_principal {
   @include flexbox();
   flex-flow: row;
   justify-content: center;
   .card_orni{
+    height: 600px;
     @include flexbox();
     @include flex(.5);
     flex-flow: column;
     justify-content: center;
   .input_data{
     @include flexbox();
-    @include flex(.5);
+    @include flex(1);
     flex-flow: column;
     justify-content: center;
     .input_data_line1{
+      height: 500px;
       @include flexbox();
     @include flex(1);
     flex-flow: row;
     justify-content: center;
     .full-width{
-      @include flex(.7);
+      @include flex(1);
     }
     .date_orni{
-      @include flex(.3);
+      @include flex(1);
     }
     }
+  }
+  .pdf{
+    @include flex(1);
   }
   }
 }
 .form-oiseaux, .form-evenement {
-  margin-top: 15px;
-  @include flex(.4);}
+  @include flex(1);}
   .button_add{
 width: 100%;
 

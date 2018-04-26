@@ -8,7 +8,8 @@ import { MatButtonModule , MatCheckboxModule, MatCardModule, MatGridListModule,
   MatInputModule, MatDatepickerModule, MatNativeDateModule, MatSlideToggleModule,
   MatListModule , MatTabsModule, MatSelectModule, MatTableModule, MatMenuModule,
   MatExpansionModule, MatToolbarModule, MatTooltipModule, MatDialogModule ,
-  MatStepperModule, MatProgressSpinnerModule, MatDividerModule, MatAutocompleteModule} from '@angular/material';
+  MatStepperModule, MatProgressSpinnerModule, MatDividerModule, MatAutocompleteModule,
+  MatProgressBarModule} from '@angular/material';
 
 import { AdminComponent } from './admin.component';
 import { AdminDashboardComponent } from './admin-dashboard.component';
@@ -25,6 +26,7 @@ import { InformationService} from '../services/information.service';
 import { MakePaymentComponent} from '../payments/make-payment/make-payment.component';
 import { MemberListRoutingModule} from './member-list/member-list.routing.module';
 import { ComposeMessageComponent } from './member-list/compose-message.component';
+import { AngularFireStorageModule } from 'angularfire2/storage';
 
 
 import { AdminRoutingModule } from './admin-routing.module';
@@ -39,6 +41,17 @@ import { BoxComportDirective } from './info-perso/box-comport.directive';
 import { OrnithoComponent } from './ornitho/ornitho.component';
 import { RedacComponent } from './redac/redac.component';
 import { DropZoneDirective } from './drop-zone.directive';
+import { FileUploadComponent } from './file-upload/file-upload.component';
+import { FileSizePipe } from './file-size.pipe';
+import { OrnitaouaisService } from './ornitaouais.service';
+import { OrnitaouaisComponent } from './ornitho/ornitaouais/ornitaouais.component';
+import { EvenementComponent } from './redac/evenement/evenement.component';
+import { TexteService } from './redac/evenement/texte.service';
+import { MessageService } from './redac/evenement/message.service';
+
+
+
+
 
 
 @NgModule({
@@ -51,7 +64,7 @@ import { DropZoneDirective } from './drop-zone.directive';
     MatInputModule, MatDatepickerModule, MatNativeDateModule, MatSlideToggleModule,
     MatListModule , MatTabsModule, MatSelectModule, MatTableModule, MatMenuModule,
     MatExpansionModule, MatToolbarModule, MatTooltipModule, MatDialogModule , MatStepperModule, MatProgressSpinnerModule,
-    MatDividerModule, MatAutocompleteModule
+    MatDividerModule, MatAutocompleteModule, AngularFireStorageModule, MatProgressBarModule
   //  MemberListRoutingModule
   ],
   declarations: [
@@ -76,10 +89,15 @@ import { DropZoneDirective } from './drop-zone.directive';
      OrnithoComponent,
      RedacComponent,
      DropZoneDirective,
+     FileUploadComponent,
+     FileSizePipe,
+     OrnitaouaisComponent,
+     EvenementComponent
+
 
   //  ComposeMessageComponent
     // AccueilComponent,
   ],
-  providers: [PaymentService, InformationService, EmailIdService]
+  providers: [PaymentService, InformationService, EmailIdService, OrnitaouaisService, TexteService, MessageService]
 })
 export class AdminModule {}

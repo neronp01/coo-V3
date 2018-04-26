@@ -26,7 +26,7 @@ export class InformationService {
   private itemsCollection: AngularFirestoreCollection<Item>;
   items: Observable<Item[]>;
   tabItem: Array<object>;
-infoCotisation: object;
+  infoCotisation: object;
   fraisDePosteOrnitaouais: number;
   cotFamillial: number;
   cotInd: number;

@@ -8,7 +8,8 @@ import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/dat
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { environment } from '../environments/environment';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
-import 'firebase/storage'; // only import firebase storage
+import { AngularFireStorageModule } from 'angularfire2/storage';
+
 
 
 
@@ -45,6 +46,7 @@ import { MessagesService } from './services/messages.service';
 
 
 
+
 @NgModule({
   imports: [
  //   CoreModule,
@@ -60,7 +62,7 @@ import { MessagesService } from './services/messages.service';
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features
     MatToolbarModule, MatCardModule,  MatMenuModule, MatButtonModule, MatListModule, MatGridListModule,
-    MatDividerModule, MatSnackBarModule,
+    MatDividerModule, MatSnackBarModule, AngularFireStorageModule
 
   ],
   entryComponents: [AppComponent, MessageComponent],

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import {AuthService} from './auth.service';
 import { Router, NavigationExtras } from '@angular/router';
 import { EmailService } from './services/email.service';
@@ -10,6 +10,8 @@ import { MessagesService } from './services/messages.service';
 import { MessageService } from './services/message.service';
 import { BehaviorSubject} from 'rxjs/BehaviorSubject';
 import { InformationService } from './services/information.service';
+import {MAT_SNACK_BAR_DATA} from '@angular/material';
+
 
 
 
@@ -25,14 +27,13 @@ export class AppComponent implements OnInit {
   _isMembre = false;
   test = false;
   constructor(private auth: AuthService, private router: Router, public email: EmailService
-  , public snackBar: MatSnackBar, private message: MessagesService ) {
+  , public snackBar: MatSnackBar, private message: MessagesService,  ) {
   }
   ngOnInit() {
     this.getMessage();
     this.auth.user.take(1).subscribe( x => {
       if (x !== null) {
         this._isMembre = this.isMembre;
-
       }
       console.log('app' , x, this.auth.currentUserEmail);
       this.auth.isInDatabase(this.auth.currentUserEmail);
@@ -57,6 +58,7 @@ get isMembre(): boolean {
 }
 
 openSnackBar() {
+
   console.log('test');
   this.message.message.next('Bordel de merde ca marche');
 
@@ -65,8 +67,10 @@ openSnackBar() {
 getMessage() {
   this.message.message.subscribe( x => {
     if (x !== '') {
+      const url = this.router.routerState.snapshot['url'];
       this.snackBar.openFromComponent(MessageComponent, {
         duration: 105000,
+        data: url
       });
     }
   });
@@ -85,9 +89,11 @@ export class MessageComponent {
   indiv: number;
   org: number;
 
-  constructor( private _message: MessagesService, private snac: MatSnackBar, private info: InformationService) {
+  constructor( private _message: MessagesService, private snac: MatSnackBar, private info: InformationService,
+    @Inject(MAT_SNACK_BAR_DATA) public data: any) {
     this.message = this._message.message.value;
 setTimeout(() => {
+  console.log(this.data);
   this.famil = info.cotFamillial;
     this.indiv = info.cotInd;
     this.org = info.cotOrg;
