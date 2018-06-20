@@ -3,10 +3,94 @@
 <!--<mat-progress-spinner color="primary" mode = "indeterminate"></mat-progress-spinner>-->
 <!--</mat-grid-tile>-->
 <!--</mat-grid-list>-->
+<div appMenu class="wrapper bar" (change)="test2($event)" >
+    <!-- <div class="bar_petit_ecrant" [ngClass]="{'header_nav':true, 'header_nav--big':!isShrunk, 'header_nav--small':isShrunk}"> -->
+    <mat-toolbar class= "wrapper line"  >
+        <div class="button_menu">
+            <button mat-button [matMenuTriggerFor]="menu">  <i class="material-icons" >menu</i></button>
+                 <mat-menu  #menu="matMenu">
+                    <button *ngFor="let item of tabMenu | async" mat-menu-item class="button_accueil" (click)="buttonClick(item['theme'])"  [routerLink]="item['routerLink']" routerLinkActive="active" ><span><i class="material-icons menue">{{item['icone']}}</i></span><span class="texte_button">{{item['titre']}}</span>  </button>
+                 </mat-menu>
+               </div>
+        <div class="flex-spacer-item"></div>
+        <div class="div_connect">
+            <p class="connect" *ngIf="!auth.isLoggedIn"  routerLink="/login" routerLinkActive="active">Se connecter</p>
+            <p class="connect" *ngIf="auth.isLoggedIn" (click)="auth.signOut()" routerLink="/coo"  >Se déconnecter</p>
+              </div>
 
-<div class="container">
+    </mat-toolbar>
+
+    <mat-toolbar  class= "wrapper line" color="primary">
+
+
+        <h3 class="flex-item-titre" >{{titre}}</h3>
+    </mat-toolbar>
+    <div class ="wrapper content">
+    <mat-card class="toolbar_menu wrapper"  [ngClass]="{'toolbar_menu_open':inter.menuOpen, 'toolbar_menu_close':!inter.menuOpen, 'menue_small':menue_small, 'menue_medium': menue_medium, 'menue_tall': menue_tall}">
+        <div class="header_card wrapper">
+           <div class="titre_toolBar_div">
+             <h1 class="titre_toolBar">GrandPic</h1>
+           </div >
+           <span class="spacer"></span>
+           <div class="spacer_icone">
+             <i class="material-icons  inconeMenu" (click)="iconClick()">{{inter.icon}}</i>
+           </div>
+
+        </div>
+        <div class="space_bar">
+            <mat-list >
+                <mat-list-item *ngFor="let item of tabMenu | async" class="list_item_accueil">
+                    <button class="button_accueil" (click)="buttonClick(item['theme'])" [routerLink]="item['routerLink']" routerLinkActive="active" mat-button><span><i class="material-icons menue">{{item['icone']}}</i></span><span class="texte_button">{{item['titre']}}</span>  </button>
+                  </mat-list-item>
+                <!-- <mat-list-item class="list_item_accueil">
+                    <button class="button_accueil" (click)="buttonClick('infoPerso')" *ngIf="_isMembre" routerLink="./informations_presonnelles" routerLinkActive="active" mat-button><span><i class="material-icons menue">person</i></span><span class="texte_button">Renseignements personnels</span></button>
+                  </mat-list-item>
+              <mat-list-item class="list_item_accueil">
+                <button (click)="buttonClick('inscription')"  routerLink="./inscription" routerLinkActive="active" class="button_accueil" mat-button> <span><i class="material-icons menue">launch</i></span><span class="texte_button">Adhésion/renouvellement</span></button>
+              </mat-list-item>
+              <mat-list-item class="list_item_accueil">
+                <button (click)="buttonClick('liste_membres')"  routerLink="./liste_de_membres" routerLinkActive="active" class="button_accueil" *ngIf="_isMembre" mat-button><span><i class="material-icons menue">people</i></span><span class="texte_button">Liste de membres</span></button>
+              </mat-list-item>
+              <mat-list-item>
+                <button (click)="buttonClick('ornithologie')" class="button_accueil" *ngIf="_isMembre" routerLink="./ornithologie" routerLinkActive="active" mat-button> <span><i class="material-icons menue">picture_as_pdf</i></span><span class="texte_button">L’Ornitaouais</span></button>
+              </mat-list-item>
+              <mat-list-item>
+                <button mat-button  class="button_accueil" (click)="buttonClick('email')"  [routerLink]="[{ outlets: { popup: ['compose'] } }]"><span><i class="material-icons menue">email</i></span><span class="texte_button">Communiquer avec l'administrateur</span></button>
+              </mat-list-item>
+              <mat-list-item>
+                  <button (click)="buttonClick('redaction')" class="button_accueil" *ngIf="_isMembre" routerLink="./redaction" routerLinkActive="active" mat-button><span><i class="material-icons menue">create</i></span><span class="texte_button">Rédaction</span></button>
+                </mat-list-item> -->
+            </mat-list>
+        </div>
+    </mat-card>
+    <div class="flex-item wrapper" [ngClass]="{'flex-item_open':inter.menuOpen, 'flex-item_close':!inter.menuOpen}">
+        <div class="accueil wrapper" [ngClass]="{'accueilIn':accueil, 'accueilOut':!accueil}">
+          <div class="accueil_image wrapper" >
+            <div>
+            <img class="pic_image" src="./assets/Pic2.png">
+            </div>
+            <p class="pCitation"  >{{p_citation}}</p>
+            <p class="pAuteur"   >- Boris Vian -</p>
+
+                <p class="pinscription"  >{{p_pic_texte}}</p>
+
+
+                  <p class="pOrnita"  >{{i_pic_texte}}</p>
+
+          </div>
+      </div>
+        <div class="router_outlet" [ngClass]="{'router_outletIn':!accueil, 'router_outletOut':accueil}">
+            <router-outlet ></router-outlet>
+        </div>
+
+      </div>
+  </div>
+    </div>
+
+
+<!-- <div class="container">
   <div class="bar_petit_ecrant" [ngClass]="{'header_nav':true, 'header_nav--big':!isShrunk, 'header_nav--small':isShrunk}">
-  <mat-toolbar color="primary"  [@toolbar]="toolbarState">
+  <mat-toolbar color="primary">
     <div class="flex-spacer-item"></div>
     <h3 class="flex-item-titre">{{titre}}</h3>
     <button color="primary" mat-fab [ngClass]="{'bottom_menu_big':!isShrunk}" [matMenuTriggerFor]="menuCell"> <i class="material-icons icon_menu">menu</i></button>
@@ -17,52 +101,16 @@
       </mat-menu>
   </mat-toolbar>
   </div>
-  <mat-toolbar color="primary" class="toolbar_frame" [@toolbar]="toolbarState">
-    <div class="flex-spacer-item"></div>
+  <div class="wrapper">
 
-    <h3 class="flex-item-titre">{{titre}}</h3>
-
-  </mat-toolbar>
-  <section class="inscription wrapper" >
-    <div [@toolbar]="sideState" class="flex-item-button">
-      <mat-list>
-          <mat-list-item class="list_item_accueil">
-              <button class="button_accueil" (click)="buttonClick('infoPerso')" *ngIf="_isMembre" routerLink="./informations_presonnelles" routerLinkActive="active" mat-button> Renseignements personnels </button>
-            </mat-list-item>
-        <mat-list-item class="list_item_accueil">
-          <button (click)="buttonClick('inscription')"  routerLink="./inscription" routerLinkActive="active" class="button_accueil" mat-button> Adhésion/renouvellement </button>
-        </mat-list-item>
-        <mat-list-item class="list_item_accueil">
-          <button (click)="buttonClick('liste_membres')"  routerLink="./liste_de_membres" routerLinkActive="active" class="button_accueil" *ngIf="_isMembre" mat-button> Liste de membres </button>
-        </mat-list-item>
-        <mat-list-item>
-          <button (click)="buttonClick('boutique_en_ligne')" class="button_accueil" *ngIf="_isMembre" mat-button> Boutique en ligne </button>
-        </mat-list-item>
-        <mat-list-item>
-          <button (click)="buttonClick('ornithologie')" class="button_accueil" *ngIf="_isMembre" routerLink="./ornithologie" routerLinkActive="active" mat-button> Ornithologie </button>
-        </mat-list-item>
-        <mat-list-item>
-            <button (click)="buttonClick('redaction')" class="button_accueil" *ngIf="_isMembre" routerLink="./redaction" routerLinkActive="active" mat-button> Rédaction </button>
-          </mat-list-item>
-      </mat-list>
-    </div>
-    <div class="flex-item">
-   <router-outlet ></router-outlet>
-    </div>
-    <!--<app-inscription *ngIf="titre === 'Inscription'" class="flex-item" ></app-inscription>-->
-    <!--<app-accueil class="flex-item"></app-accueil>-->
-  </section>
-  <!--<make-payment></make-payment>-->
 </div>
 
 
+  <make-payment></make-payment>
+</div> -->
 
-<!--<h3>ADMIN</h3>-->
-<!--<nav>-->
-  <!--<a routerLink="./" routerLinkActive="active"-->
-     <!--[routerLinkActiveOptions]="{ exact: true }">Dashboard</a>-->
-  <!--<a routerLink="./crises" routerLinkActive="active">Manage Crises</a>-->
-  <!--<a routerLink="./heroes" routerLinkActive="active">Manage Heroes</a>-->
-<!--</nav>-->
+
+
+
 
 

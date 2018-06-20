@@ -1,0 +1,14 @@
+.container{
+  width: 800px;
+}
+.card_perso{
+  width: 750px;
+}
+.full-width {
+  width: 100%;
+}
+.titre{
+  color: #212121;
+  font-size: 150%;
+  font-family: 'Open Sans Condensed', sans-serif;
+}

@@ -42,7 +42,7 @@ const appRoutes: Routes = [
     path: '404',
     component: PageNotFoundComponent,
   },
-  { path: '',   redirectTo: '/coo', pathMatch: 'full' },
+  { path: '',   redirectTo: '/accueil', pathMatch: 'full' },
   { path: '**', redirectTo: '/404' }
 ];
 

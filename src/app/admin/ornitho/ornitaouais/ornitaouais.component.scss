@@ -14,16 +14,21 @@
   flex:  $values;
 }
 .card_orni{
-  max-width: 350px;
+  margin-top: 50px;
+  width: 400px;
 }
 .example-container {
   @include flexbox();
   flex-direction: column;
   min-width: 300px;
 }
-
 .mat-column-date{
-  max-width: 75px;
+  font-size: 150%;
+  font-family: 'Open Sans Condensed', sans-serif;
+  flex: .7 .7 70px;
+}
+.mat-column-data{
+  flex: 1 1 100px;
 }
 .mat-column-downLoadPath{
   max-width: 30px;
@@ -38,7 +43,10 @@
   font-size: 14px;
   width: 100%;
 }
-
+.p_sujet, .span_sujet, .mat-column-data{
+  font-size: 150%;
+  font-family: 'Open Sans Condensed', sans-serif;
+}
 .mat-table {
   overflow: auto;
   max-height: 500px;

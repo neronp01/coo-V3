@@ -39,6 +39,7 @@ export class LoginComponent implements OnInit {
     });
   this.auth.user.subscribe( x => {
     this.router.navigate(['/accueil']);
+    console.log('tweet', x);
   });
   }
 
@@ -59,6 +60,7 @@ login(a: string) {
      });
      break;
      case 't': this.auth.twitterLogin().then(() => {
+      this.outMove();
       // this.router.navigate(['/accueil']);
      });
    }
@@ -69,6 +71,7 @@ outMove() {
 if ( x === 0) {
   this.state = 'out';
 } else if ( x === 1) {
+
  // this.router.navigate(['/accueil']);
 }
 

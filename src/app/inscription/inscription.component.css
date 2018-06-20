@@ -7,16 +7,23 @@ width: 600px;
   width: 100%;
 }
 .stepper {
+  font-size: 110%;
+  font-family: 'Open Sans Condensed', sans-serif;
 }
 .spacer {
   flex: 1 1 auto;
 }
-
+.ecrant_large{
+  width: 80vw
+}
 .imageMembre{
-  transform:scale(0.1,0.1);
+  height: 50px;
+  width: 50px;
   border-radius: 50%;
 }
-
+.spanStep{
+  font-size: 150%;
+}
 .text{
   margin-left: 15px;
   float: right;
@@ -26,29 +33,30 @@ width: 600px;
 }
 
 .section_facture{
-  min-width: 900px;
+
 }
 .ecrant_petit{
   display: none;
 }
 
-@media only screen and (min-width: 200px) and (max-width: 770px){
+@media only screen and (min-width: 200px) and (max-width: 500px){
   .ecrant_large{
-    display: none;
+display: none;
+
   }
 
   .ecrant_petit{
-    display: block;
+display: block;
+width: 100vw;
   }
   .card_perso{
-    max-width: 300px;
     height: auto;
     margin: 5px;
     color: white;
   }
 
   .section_facture{
-    min-width: 200px;
+
   }
   .info_compl_list{
     margin-bottom: 20px;

@@ -12,6 +12,7 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/delay';
 import { FormGroup } from '@angular/forms';
+
 export interface User {
   uid: string;
   email?: string;
@@ -27,6 +28,7 @@ export class AuthService {
   private membreDoc: AngularFirestoreDocument<User>;
   private ismembreDoc: AngularFirestoreDocument<User>;
   private membresCollection: AngularFirestoreCollection<User>;
+  isActiveMembre: BehaviorSubject<boolean>;
   membres: Observable<User[]>;
   redirectUrl: string;
   isLoggedIn = false;
@@ -40,6 +42,7 @@ export class AuthService {
   constructor(private afAuth: AngularFireAuth,
               private afs: AngularFirestore,
               private router: Router) {
+              this.isActiveMembre = new BehaviorSubject(false);
     //// Get auth data, then get firestore user document || null
     this.user = this.afAuth.authState
       .switchMap(user => {
@@ -50,6 +53,7 @@ export class AuthService {
           this.userToken = {email: user.email, uid: user.uid, photoURL: user.photoURL, displayName: user.displayName};
           this.membre = this.membreDoc.valueChanges();
           this.isInDatabase(user.email);
+          console.log('users---' , this.userToken);
           return this.afs.doc<User>(`users/${user.email}`).valueChanges();
         } else {
           this.isLoggedIn = false;
@@ -58,21 +62,28 @@ export class AuthService {
         }
       });
       this.user.subscribe( x => {
-        console.log('_x_--' , x, this.currentUserEmail);
+
       });
     this.membresCollection = afs.collection<User>('users');
     this.membres = this.membresCollection.valueChanges();
   }
   getConjouintInfo (path: string): Observable<User> | null {
-    console.log('path' , path);
+
     let conjInf: Observable<User>;
     this.conjouintDoc = this.afs.doc<User>(`users/${path}`);
     this.conjouint = this.conjouintDoc.valueChanges();
     conjInf = this.conjouint;
     return conjInf;
   }
+  isActive(path: string): Observable<User> {
+    let membre: Observable<User>;
+    this.conjouintDoc = this.afs.doc<User>(`users/${path}`);
+    this.conjouint = this.conjouintDoc.valueChanges();
+    membre = this.conjouint;
+    return membre;
+  }
   googleLogin() {
-    const provider = new firebase.auth.GoogleAuthProvider();
+    const provider = new firebase.auth.GoogleAuthProvider() ;
     return this.oAuthLogin(provider);
   }
   FacebookLogin() {
@@ -86,7 +97,8 @@ export class AuthService {
   private oAuthLogin(provider) {
     return this.afAuth.auth.signInWithPopup(provider)
       .then((credential) => {
-     //   this.updateUserData(credential.user);
+        console.log('provider' , credential);
+       // this.updateUserData(credential.user);
       });
   }
   get authenticated(): boolean {
@@ -119,7 +131,7 @@ export class AuthService {
 
   addUserConjouint( memb: Membre) {
 
-    console.log('conjountMembre', memb);
+
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${memb['email']}`);
     const data: User = {
       uid: '',
@@ -136,6 +148,7 @@ export class AuthService {
         adresse: memb.adresse,  // Référence à une autre interface
         ville: memb.ville,
         codePostal: memb.codePostal,
+        province: memb.province,
         telephone: memb.telephone,
         profession: memb.profession,
         dateNaissance: memb.dateNaissance,
@@ -155,7 +168,7 @@ export class AuthService {
     return userRef.set(data);
   }
   isInDatabase(email: string): boolean {
-    console.log('emailData', email);
+
     let _isInDataBase: boolean;
     _isInDataBase = false;
     let count: number;
@@ -166,19 +179,15 @@ export class AuthService {
         count++;
         const temp = x[0];
       if (x.length === 1) {
-        console.log('--x__', x);
         this.userToken['membre'] = temp['membre'];
-        console.log('emailData2', this.userToken['membre']);
         this.memberIsInDataBase = true;
         _isInDataBase = true;
       }
     });
-console.log('_isInDataBase' , _isInDataBase);
     return _isInDataBase;
   }
 
   addUserMembre( memb: Membre) {
-    console.log('add', this.userToken['email'], memb );
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${this.userToken['email']}`);
     const data: User = {
       uid: this.userToken['uid'],
@@ -195,6 +204,7 @@ console.log('_isInDataBase' , _isInDataBase);
         adresse: memb.adresse,  // Référence à une autre interface
         ville: memb.ville,
         codePostal: memb.codePostal,
+        province: memb.province,
         telephone: memb.telephone,
         profession: memb.profession,
         dateNaissance: memb.dateNaissance,
@@ -229,7 +239,6 @@ console.log('_isInDataBase' , _isInDataBase);
     this.isLoggedIn = false;
   }
   _membre(memb: FormGroup) {
-    console.log('add', this.userToken['email'], memb );
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${this.userToken['email']}`);
     const data: User = {
       uid: this.userToken['uid'],
@@ -246,6 +255,44 @@ console.log('_isInDataBase' , _isInDataBase);
         adresse: memb.get('adresseCtrl').value,  // Référence à une autre interface
         ville: memb.get('villeCtrl').value,
         codePostal: memb.get('codePostalCtrl').value,
+        province: memb.get('provinceCtrl').value,
+        telephone: memb.get('telephoneCtrl').value,
+        profession: memb.get('professionCtrl').value,
+        dateNaissance: memb.get('dateNaissanceCtrl').value,
+        typeCotisation:  memb.get('typeCotisationCtrl').value,
+        courrielConjouint: memb.get('courrielConjouintCtrl').value,
+        teleList: memb.get('teleListCtrl').value,
+        nomListe: memb.get('nomListeCtrl').value,
+        animExc: memb.get('animExcCtrl').value,
+        recenNoel: memb.get('recenNoelCtrl').value,
+        animKio: memb.get('animKioCtrl').value,
+        consAdm: memb.get('consAdmCtrl').value,
+        redacRevi: memb.get('redacReviCtrl').value,
+        promoPubli: memb.get('promoPubliCtrl').value,
+        autre: memb.get('autreCtrl').value,
+      }
+    };
+    return userRef.set(data);
+  }
+  adminAddMembre(memb: FormGroup, date: string) {
+    console.log('form' , memb);
+    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${memb.get('emailCtrl').value}`);
+    const data: User = {
+      uid: '',
+      email: memb.get('emailCtrl').value,
+      displayName: '',
+      photoURL: '',
+      membre : {
+        adhDate: date,
+        infFacturation : memb.get('infFacturationCtrl').value,
+        estMembreActif: memb.get('estMembreActifCtrl').value,
+        email: this.userToken['email'],
+        nom: memb.get('nomCtrl').value,
+        prenom: memb.get('prenomCtrl').value,
+        adresse: memb.get('adresseCtrl').value,  // Référence à une autre interface
+        ville: memb.get('villeCtrl').value,
+        codePostal: memb.get('codePostalCtrl').value,
+        province: memb.get('provinceCtrl').value,
         telephone: memb.get('telephoneCtrl').value,
         profession: memb.get('professionCtrl').value,
         dateNaissance: memb.get('dateNaissanceCtrl').value,

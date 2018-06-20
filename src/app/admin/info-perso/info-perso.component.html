@@ -1,11 +1,13 @@
 <div  *ngIf="infoMembre" [@routeAnimation] class="container" [appBoxComport]="stateBox"  >
 <form [formGroup]="infoPersoFormGroup">
 <div class="c_info">
-    <img class="b_g_i_infoPerso" src="./../../assets/SVG/backGroudInfo2.svg"/>
+
 <div class="c_h_info wrapper container_princip" >
   <section class="sec_h_info wrapper">
-    <section class="d_urlPhoto">
+    <section class="d_urlPhoto wrapper">
+      <div class="div_image">
         <img class="transformPhoto" [src]="urlPhoto"/>
+      </div>
     </section>
     <div class="d_input_nom_info">
       <h2 #test class="h2_name">{{infoMembre.prenom}}	&nbsp;{{infoMembre.nom}}</h2>
@@ -75,11 +77,22 @@
                 <mat-error>Ce champ est obligatoire</mat-error>
               </mat-form-field>
              </div>
-             <div class="h2_inf_label" *ngIf="!_inputElement">
-            <h2 >{{infoMembre.ville}}</h2>
+             <div class="h2_inf_label wrapper" *ngIf="!_inputElement">
+
+            <h2 >{{infoMembre.ville}}, &nbsp;</h2>
+            <h2>
+              <span *ngIf="infoMembre.province === 'on'">
+                  Ontario
+              </span>
+              <span *ngIf="infoMembre.province === 'qc'">
+                  Québec
+              </span>
+              </h2>
+
             </div>
             <div class="h2_inf_input" *ngIf="_inputElement">
-            <mat-form-field class="full-width" >
+
+            <mat-form-field class="adresse civic" >
                 <input matInput
                        type="text"
                        class="input"
@@ -90,6 +103,19 @@
                        required>
                 <mat-error>Ce champ est obligatoire</mat-error>
               </mat-form-field>
+              <mat-form-field class="adresse">
+                  <input matInput
+                  minlength="2"
+                  maxlength="2"
+                  formControlName="provinceCtrl"
+                  placeholder="Province"
+                  (keyup)="inputWriting(province.value,'province')"
+                  #province
+                  required
+                  >
+              <mat-error>veillez inscrire qc pour Québec ou on pour Ontario</mat-error>
+            </mat-form-field>
+
           </div>
           <div class="h2_inf_label" *ngIf="!_inputElement">
             <h2 >{{infoMembre.codePostal}}</h2>

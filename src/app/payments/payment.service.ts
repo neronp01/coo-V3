@@ -27,9 +27,9 @@ export class PaymentService {
       }
     });
   }
-  processPayment(token: any, amount: number, numberFac: number, itemsPaiement: object) {
-
-    const montant = amount['montant'];
+  processPayment(token: any, _amount: number, numberFac: number, itemsPaiement: object) {
+    const temp = _amount / 1.029;
+    const amount =  Math.round(_amount / 1.029 - 30);
     const payment = { token, amount};
     const paiement  = this.afs.doc(`users/${ this.userEmail}/numerosFac/${numberFac}`);
     this.remerciement();

@@ -116,8 +116,9 @@ showFacture: object;
 telValue: string;
 tabItems= [];
 infoPersoFormGroup: FormGroup;
-  constructor(private inf: InformationService, private auth: AuthService, private _formBuilder: FormBuilder, private router: Router) { }
-
+  constructor(private inf: InformationService, private auth: AuthService, private _formBuilder: FormBuilder, private router: Router) {
+    window.scroll(0, 0);
+   }
   ngOnInit() {
 
     this.infoUser = this.auth.userToken;
@@ -151,6 +152,7 @@ initForm() {
     villeCtrl: [this.infoMembre.ville , Validators.required],
     codePostalCtrl: [this.infoMembre.codePostal , Validators.required],
     telephoneCtrl: [this.infoMembre.telephone , Validators.required],
+    provinceCtrl: [this.infoMembre.province , Validators.required],
   });
 }
 inputWriting(a: string, input: string) {
@@ -186,6 +188,7 @@ sauverClick() {
   this.infoMembre.ville = this.infoPersoFormGroup.value['villeCtrl'];
   this.infoMembre.codePostal = this.infoPersoFormGroup.value['codePostalCtrl'];
   this.infoMembre.telephone = this.infoPersoFormGroup.value['telephoneCtrl'];
+  this.infoMembre.province = this.infoPersoFormGroup.value['provinceCtrl'];
   newInfoMembre = this.infoMembre;
   this.auth.updateMembre(newInfoMembre);
   this.router.navigate(['/accueil/informations_presonnelles']);
@@ -223,5 +226,9 @@ factureClick(i: number) {
   this.trouverDon(this.infosFacture[i]);
   this.showFacture =  this.trouverDon(this.infosFacture[i]);
 
+}
+prov(e: any) {
+  console.log('test--');
+  this.infoPersoFormGroup.value['provinceCtrl'] = e.value;
 }
 }

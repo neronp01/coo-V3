@@ -1,0 +1,164 @@
+<div class= "container"></div>
+  <form  [formGroup]="infoPersoFormGroup" >
+  <mat-grid-list cols="1" rowHeight="700px">
+    <mat-grid-tile colspan = "1" rowspan="1">
+  <mat-card class="card_perso"  >
+  <mat-grid-list cols="4" rowHeight="70px">
+    <div>
+    <mat-grid-tile colspan = "4" rowspan="1" >
+          <mat-toolbar style="background-color: #757575; text-align: center">
+            <div style="width: 100%">
+<h1 class="titre">Ajouter un membre</h1>
+            </div>
+          </mat-toolbar>
+    </mat-grid-tile>
+    <mat-grid-tile colspan = "4" rowspan="1" >
+    </mat-grid-tile>
+    <mat-grid-tile colspan = "2" rowspan="1" >
+      <mat-form-field class="full-width cotisation">
+        <mat-select placeholder="Types de cotisation annuelle" name="inscription" (selectionChange)="cotisationSelcted($event)"  formControlName="typeCotisationCtrl" required>
+          <mat-option *ngFor="let cotisation of $cotisation.getValue()"
+                      [value]="cotisation.value">
+            {{cotisation.viewValue + " : " + cotisation.PriceValue+ ".00 $"}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile colspan = "2" rowspan="1" >
+    <mat-form-field class="full-width">
+        <input matInput [matDatepicker]="picker" [formControl]="date" required placeholder="Date d'adhésion"  (dateInput)="addEvent('input', $event)" (dateChange)="addEvent('change', $event)">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error>AAAAMMDD</mat-error>
+      </mat-form-field>
+      </mat-grid-tile>
+
+    <mat-grid-tile colspan = "2" rowspan="1" >
+        <mat-form-field class="full-width">
+          <input matInput id="email"
+                 type="email"
+                 formControlName="emailCtrl"
+                 required
+                 #courriel
+                 placeholder="Courriel" >
+          <mat-error>Ce champ est obligatoire</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile colspan = "2" rowspan="1" >
+          <mat-form-field class="full-width">
+            <input matInput id="cEmail"
+                   type="email"
+                   formControlName="courrielConjouintCtrl"
+                   #cCourriel
+                   placeholder="Courriel du conjouint" >
+            <mat-error>Ceci n'est pas un courriel</mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+    <mat-grid-tile colspan = "2" rowspan="1" >
+      <mat-form-field class="full-width">
+        <input matInput id="prenom"
+               minlength="2"
+               formControlName="prenomCtrl"
+               required
+               #prenom1
+               placeholder="Prénom" >
+        <mat-error>Ce champ est obligatoire</mat-error>
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile colspan = "2" rowspan="1">
+      <mat-form-field class="full-width">
+        <input matInput
+
+               formControlName="nomCtrl"
+               minlength="2"
+               required
+               placeholder="Nom" #nom1 >
+        <mat-error>Ce champ est obligatoire</mat-error>
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile colspan = "4" rowspan="1">
+      <mat-form-field class="full-width">
+        <input matInput
+               formControlName="adresseCtrl"
+               minlength="4"
+               required
+               placeholder="Adresse" #adresse1 >
+        <mat-error>Ce champ est obligatoire</mat-error>
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile colspan = "2" rowspan="1" >
+      <mat-form-field class="full-width">
+        <input matInput
+               placeholder="Ville"
+               formControlName="villeCtrl"
+               minlength="3"
+               required
+               #ville1>
+        <mat-error>Ce champ est obligatoire</mat-error>
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile colspan = "1" rowspan="1" >
+      <mat-form-field class="full-width">
+          <!-- appPostalCode   -->
+        <input matInput
+               minlength="7"
+               formControlName="codePostalCtrl"
+               required
+               placeholder="Code Postal" #codePostal1 >
+        <mat-error>Ce champ est obligatoire</mat-error>
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile colspan = "1" rowspan="1" >
+          <!-- appPostalCode   -->
+          <mat-form-field class="full-width">
+            <mat-select
+            required
+            formControlName="provinceCtrl"
+            placeholder="Province"
+            (selectionChange) = "clickProv($event)"
+            >
+              <mat-option  value="qc" >Québec</mat-option>
+              <mat-option  value="on">Ontario</mat-option>
+            </mat-select>
+        <mat-error>Ce champ est obligatoire</mat-error>
+      </mat-form-field>
+    </mat-grid-tile>
+    </div>
+    <mat-grid-tile colspan = "2" rowspan="1" >
+      <mat-form-field class="full-width">
+          <input
+            matInput
+            formControlName="telephoneCtrl"
+            placeholder="Téléphone"
+            #telephone
+            required>
+            <mat-error>Ce champ est obligatoire</mat-error>
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile colspan = "2" rowspan="1" >
+      <mat-form-field class="full-width">
+        <input matInput
+               formControlName="professionCtrl"
+               placeholder="Profession" #profession1>
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile colspan = "2" rowspan="1">
+
+    </mat-grid-tile>
+    <mat-grid-tile colspan = "2" rowspan="1">
+    </mat-grid-tile>
+
+    <mat-grid-tile colspan = "4" rowspan="1">
+  <div>
+    <button mat-button
+    (click)="sauverClick()"
+    [disabled] = infoPersoisDisabled
+    >Sauver</button>
+  </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+  </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</form>
+

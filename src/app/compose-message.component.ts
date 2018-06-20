@@ -30,7 +30,7 @@ export class ComposeMessageComponent {
       const emailObject = {from: this.auth.userToken['email'], to: this.email.email, type: 'communication' , texte: e};
       console.log('email:', temp, this.auth.userToken['email'], emailObject);
       this.email.setSendEmail(temp, this.auth.userToken['email'], emailObject);
-
+      this.router.navigate(['/accueil']);
     });
 
     setTimeout(() => {

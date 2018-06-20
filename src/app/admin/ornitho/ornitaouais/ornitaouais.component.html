@@ -1,8 +1,5 @@
 <mat-card class="card_orni">
   <mat-card-header >
-    <div style="text-align:center; width:100%">
-    <h2>L’Ornitaouais</h2>
-  </div>
   </mat-card-header>
 <div class="example-container mat-elevation-z8">
     <div class="example-header">
@@ -14,7 +11,7 @@
     <mat-table #table [dataSource]="dataSource">
 
       <!-- Position Column -->
-      <ng-container matColumnDef="date" class="date">
+      <ng-container matColumnDef="date">
         <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
         <mat-cell *matCellDef="let element"> {{element.date | date:'MM/dd/yyyy'}} </mat-cell>
       </ng-container>
@@ -34,18 +31,18 @@
 
 
 
-      <ng-container matColumnDef="data" class="data">
-          <mat-header-cell *matHeaderCellDef>  </mat-header-cell>
+      <ng-container matColumnDef="data">
+          <mat-header-cell *matHeaderCellDef>Sujets</mat-header-cell>
           <mat-cell *matCellDef="let element">
               <mat-expansion-panel (opened)="panelOpenState = true"
               (closed)="panelOpenState = false">
 <mat-expansion-panel-header>
 <mat-panel-title>
-Sujets
+
 </mat-panel-title>
 </mat-expansion-panel-header>
 <div *ngFor="let sujet of element.data">
-<p >{{sujet}}</p>
+<p class="p_sujet">{{sujet}}</p>
 </div>
 </mat-expansion-panel>
            </mat-cell>

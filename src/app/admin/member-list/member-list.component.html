@@ -6,10 +6,10 @@
     </mat-form-field>
   </div>
 
-  <mat-table #table [dataSource]="dataSource">
+  <mat-table  #table [dataSource]="dataSource">
 
     <!-- Position Column -->
-    <ng-container matColumnDef=" ">
+    <ng-container matColumnDef="Photo">
       <mat-header-cell *matHeaderCellDef></mat-header-cell>
       <mat-cell *matCellDef="let element2">
         <div *ngIf="element2.photo !== ''"  class="container_photo">
@@ -21,13 +21,13 @@
 
     <!-- Name Column -->
     <ng-container matColumnDef="Nom">
-      <mat-header-cell *matHeaderCellDef> Nom </mat-header-cell>
-      <mat-cell *matCellDef="let element2"> {{element2.prenom}}  &nbsp; {{element2.nom}} </mat-cell>
+      <mat-header-cell class="nom_box" *matHeaderCellDef> Nom </mat-header-cell>
+      <mat-cell class="nom_box2" *matCellDef="let element2"> {{element2.prenom}}  &nbsp; {{element2.nom}} </mat-cell>
     </ng-container>
 
     <!-- Weight Column -->
-    <ng-container matColumnDef="Téléphone">
-      <mat-header-cell *matHeaderCellDef> Téléphone </mat-header-cell>
+    <ng-container matColumnDef="Telephone">
+      <mat-header-cell class="headerTelephone" *matHeaderCellDef> Téléphone </mat-header-cell>
       <mat-cell *matCellDef="let element2" datatype="tel"> {{element2.tel}} </mat-cell>
     </ng-container>
 

@@ -22,7 +22,217 @@
 .wrapper{
   @include flexbox();
 }
+.router_outlet{
 
+}
+.router_outletIn{
+  @include flex(1);
+  display: inline-flex;
+  @include flexbox();
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+.router_outletOut{
+  display: none;
+}
+.accueil_image{
+  flex-direction: column;
+  align-content: center;
+justify-content: flex-end;
+  @include flex(.4);
+
+}
+.pic_image{
+  -webkit-box-flex: .4 .5 40%;
+  -moz-box-flex:  .4 .5 40%;
+  -webkit-flex: .4 .5 40%;
+  -ms-flex:  .4 .5 40%;
+  flex:  .4 .5 40%;
+  height: 765px;
+  width: 933px
+}
+.accueil{
+  width: 100%;
+  @include flex(1);
+}
+
+.accueilIn{
+  @include flexbox();
+  flex-direction: row;
+  justify-content: center;
+}
+.content{
+  flex-wrap: wrap
+}
+
+.toolbar_menu{
+  overflow:hidden;
+  min-width: 100px;
+  padding: 25px 0px;
+  position: absolute;
+  top:-10px;
+  z-index: 99;
+  background-color :rgba(33, 33, 33, .3);
+  flex-direction: column;
+  align-content: center;
+  -webkit-transition: all .5s
+}
+.menue_tall{
+  height: 510px;
+}
+.menue_small{
+  height: 310px;
+}
+.menue_medium{
+  height: 460px;
+}
+span > .menue {
+  border-right: 1px solid #424242;
+  padding-right: 10px;
+  margin-right: 10px;
+}
+#space_bar{
+  margin: 0px;
+}
+.toolbar_app{
+  @include flex(.7);
+  justify-content: flex-end;
+}
+.connect{
+  cursor: pointer;
+  font-size: 125%;
+  font-family: 'Open Sans Condensed', sans-serif;
+}
+.line{
+  @include flex(1);
+  flex-direction: row;
+  align-content: flex-end;
+}
+.div_connect{
+  @include flex(1);
+  text-align: end;
+}
+.toolbar_space{
+  @include flex(.23);
+}
+.menue_card{
+  background-color: #212121
+}
+.toolbar_frame{
+  @include flex(.77);
+}
+.titre_toolBar {
+  font-family: 'Great Vibes', cursive;
+  position: absolute;
+  top: 0px;
+  left: 30px;
+  font-size: 40px;
+}
+.titre_toolBar_div{
+  @include flex(.8);
+}
+.bar{
+  flex-direction: column;
+
+}
+.header_card{
+  @include flex(1);
+  flex-direction: row;
+  align-content: center;
+  height: 50px;
+}
+.inconeMenu{
+  font-size: 150%;
+  cursor: pointer;
+}
+.spacer{
+  margin-top:13px;
+  @include flex(.1);
+}
+.spacer_icone{
+  margin-top:13px;
+text-align: right;
+}
+.pCitation{
+  @include flex(1);
+
+  color:#ffffff;
+  font-size: 200%;
+  font-family: 'Great Vibes', sans-serif;
+  text-align: center;
+}
+.p_inscription{
+ height: auto;
+background-color: #ffffff;
+  align-content: center;
+}
+.p_Ornita{
+  border-style: solid;
+  border-color: #424242;
+  border-width: 1px;
+  margin-top: 100px;
+  background-color: #212121;
+  align-content: center;
+}
+.pinscription{
+  background-color: #ffffff;
+  padding: 20px;
+  margin: 50px 20px 20px 20px;
+  height: auto;
+  color:#212121;
+  font-size: 175%;
+  font-family: 'Open Sans Condensed', sans-serif;
+}
+.pOrnita{
+  border-style: solid;
+  border-color: #424242;
+  padding: 20px;
+  margin: 30px 20px 20px 20px;
+  color:#717171;
+  font-size: 175%;
+  font-family: 'Open Sans Condensed', sans-serif;
+}
+#p_text{
+  @include flex(1);
+  @include flexbox();
+  align-content: center;
+  height: auto;
+}
+.i_pic_button{
+  @include flex(.1);
+  height: 100%;
+  width: 110px;
+  background-color: #03A9F4;
+  color: #ffffff;
+  text-align: center;
+  font-size: 175%;
+  font-family: 'Open Sans Condensed', sans-serif;
+}
+.colum_side{
+  @include flex(.1);
+}
+.i_pic_button_ornito{
+  @include flex(.1);
+  height: 330px;
+  width: 110px;
+  background-color: #C51162;
+  color: #ffffff;
+  text-align: center;
+  font-size: 175%;
+  font-family: 'Open Sans Condensed', sans-serif;
+
+}
+.pAuteur{
+  @include flex(1);
+  font-family: 'Open Sans Condensed', sans-serif;
+  color:#ffffff;
+  text-align: right
+}
+
+.accueilOut{
+  display: none;
+}
 .header_nav {
   width:100%;
   background-color:#C51162;
@@ -40,7 +250,7 @@
 }
 
 .header_nav--small {
-  z-index: 100;
+  z-index: 99;
   height:80px;
   opacity: 1;
   padding-top: 20px;
@@ -67,14 +277,71 @@
   @include flex(1);
 }
 .flex-item {
-  @include flex(7);
+  width: 50px;
+  flex-direction: row;
+  justify-content: center;
+  -webkit-transition: all .5s
+}
+.toolbar_menu_open{
+  width: 450px;
+  .texte_button, .titre_toolBar_div{
+    display: inline;
+  }
+  span > .menue {
+    border-right: 1px solid #424242;
+  }
+  .spacer{
+    display: inline;
+  }
+  .spacer_icone{
+    width: auto;
+    text-align: right;
+  }
+}
+.toolbar_menu_close{
+  width: 50px;
+  .texte_button, .titre_toolBar_div {
+    display: none;
+  }
+  .spacer_icone{
+    width: 100%;
+    text-align: center;
+  }
+  span > .menue {
+    border-right: none;
+  }
+  .spacer{
+    display: none;
+  }
+}
+.flex-item_open{
+  display: inline-flex;
+  @include flex(1);
+}
+.flex-item_close{
+
+  @include flex(1);
 }
 .flex-spacer-item {
-  flex: 1 20%;
+  display: none;
+
 }
+.flex-spacer-item_close {
+  display: none;
+}
+
 .flex-item-titre {
-  flex: 1;
-  text-align: left;
+  text-align: center;
+  font-size: 175%;
+  font-family: 'Open Sans Condensed', sans-serif;
+  @include flex(1);
+  -webkit-transition: all .5s
+}
+.flex-item-titre_open{
+  @include flex(.73);
+}
+.flex-item-titre_close{
+  @include flex(.93);
 }
 .toolbar_frame {
   flex-flow: row wrap;
@@ -97,9 +364,15 @@
 }
 .button_accueil{
   width: 100%;
-  font-size: large;
+  font-size: 175%;
+  font-family: 'Open Sans Condensed', sans-serif;
   text-align: left;
 }
+
+mat-list{
+  padding: 0px;
+}
+
 .list_item_accueil{
   margin-top: 10px;
   z-index: -1;;
@@ -116,7 +389,19 @@
 .buttonCell{
   color: #ffffff;
 }
-@media only screen and (min-width: 200px) and (max-width: 770px){
+@media only screen  and (max-width: 770px){
+  .toolbar_menu{
+    background-color :rgba(33, 33, 33, .75);
+  }
+  .pic_image{
+    width: 100%;
+    height: 75vw;
+  }
+  .accueil_image{
+    @include flex(1);
+    width: 100%;
+
+  }
   .flex-item-button{
     display: none;
   }
@@ -136,8 +421,39 @@
     margin-top: 30px;
   }
 }
-@media only screen and (min-width: 200px) and (max-width: 420px){
+.button_menu{
+  display: none
+}
+@media only screen and (min-width: 200px) and (max-width: 450px){
+  .content{
+    justify-content: center;
+    align-items: center;
+  }
+  .flex-item-titre{
+    font-size: 100%;
+  }
+
+}
+@media only screen and (max-width: 520px){
   .flex-spacer-item{
     display: none;
+  }
+  .pinscription, .pOrnita{
+    font-size: 125%;
+  }
+  .spacer_icone, .toolbar_menu {
+    display:none
+  }
+  .button_menu{
+    display: inline
+  }
+  .button_accueil{
+    font-size: 125%
+  }
+  span > .menue {
+    border-right: 1px solid #ffffff;
+    padding-right: 10px;
+    margin-top: 10px;
+    margin-right: 10px;
   }
 }

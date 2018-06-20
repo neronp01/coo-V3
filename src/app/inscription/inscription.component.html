@@ -4,9 +4,9 @@
 <form  [formGroup]="infoPersoFormGroup" >
 <form class="ecrant_large">
 <mat-horizontal-stepper class="stepper" linear (selectionChange)="clickinfoPerso()">
-  <mat-step [stepControl]="infoPersoFormGroupAll" >
+  <mat-step [stepControl]="infoPersoFormGroup" >
     <form [formGroup]="infoPersoFormGroup">
-      <ng-template matStepLabel>Renseignements personnels</ng-template>
+      <ng-template matStepLabel><span class="spanStep">Renseignements personnels</span></ng-template>
       <mat-grid-list cols="1" rowHeight="700px">
         <mat-grid-tile colspan = "1" rowspan="1">
       <mat-card class="card_perso"  >
@@ -22,10 +22,10 @@
         </mat-grid-tile>
         <mat-grid-tile colspan = "4" rowspan="1" >
           <mat-form-field class="full-width cotisation">
-            <mat-select placeholder="Types de cotisation annuelle" name="inscription" (selectionChange)="cotisationSelcted($event)"  formControlName="typeCotisationCtrl" [value]="courriel" required>
-              <mat-option *ngFor="let cotisation of cotisations"
+            <mat-select placeholder="Types de cotisation annuelle" name="inscription" (selectionChange)="cotisationSelcted($event)"  formControlName="typeCotisationCtrl" required>
+              <mat-option *ngFor="let cotisation of $cotisation.getValue()"
                           [value]="cotisation.value">
-                {{cotisation.viewValue}}
+                {{cotisation.viewValue + " : " + cotisation.PriceValue+ ".00 $"}}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -82,7 +82,7 @@
             <mat-error>Ce champ est obligatoire</mat-error>
           </mat-form-field>
         </mat-grid-tile>
-        <mat-grid-tile colspan = "2" rowspan="1" >
+        <mat-grid-tile colspan = "1" rowspan="1" >
           <mat-form-field class="full-width"(click)="clearFocus('')">
               <!-- appPostalCode   -->
             <input matInput
@@ -92,6 +92,21 @@
                    (blur)="membreInfoAdd('codePostal',codePostal1.value)"
                    (keyup)="membreInfoAdd('codePostal',codePostal1.value)"
                    placeholder="Code Postal" #codePostal1 >
+            <mat-error>Ce champ est obligatoire</mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile colspan = "1" rowspan="1" >
+              <!-- appPostalCode   -->
+              <mat-form-field class="full-width">
+                <mat-select
+                required
+                formControlName="provinceCtrl"
+                placeholder="Province"
+                (selectionChange) = "clickProv($event)"
+                >
+                  <mat-option  value="qc" >Québec</mat-option>
+                  <mat-option  value="on">Ontario</mat-option>
+                </mat-select>
             <mat-error>Ce champ est obligatoire</mat-error>
           </mat-form-field>
         </mat-grid-tile>
@@ -105,6 +120,7 @@
                 [focus]="focus"
                 formControlName="telephoneCtrl"
                 (focusTel)="focusTel($event)"
+                placeholder="Téléphone"
                 required></my-tel-input>
                 <mat-error>Ce champ est obligatoire</mat-error>
           </mat-form-field>
@@ -158,7 +174,7 @@
   </mat-step>
   <mat-step *ngIf="cotisation === 'familiale'" [stepControl]="infoPersoConjFormGroup" >
     <form [formGroup]="infoPersoConjFormGroup">
-      <ng-template matStepLabel>Renseignements autre membre</ng-template>
+      <ng-template matStepLabel><span class="spanStep">Renseignements autre membre</span></ng-template>
       <mat-grid-list cols="1" rowHeight="700px">
         <mat-grid-tile colspan = "1" rowspan="1">
           <mat-card class="card_perso">
@@ -259,7 +275,7 @@
   </mat-step>
   <mat-step>
     <form [formGroup]="factureFormGroup">
-    <ng-template matStepLabel>Renseignements complémentaires</ng-template>
+    <ng-template matStepLabel><span class="spanStep">Renseignements complémentaires</span></ng-template>
       <mat-grid-list cols="1" rowHeight="700px">
         <mat-grid-tile colspan = "1" rowspan="1">
           <mat-card class="card_perso">
@@ -391,7 +407,7 @@
     </form>
   </mat-step>
   <mat-step>
-    <ng-template matStepLabel>Paiement</ng-template>
+    <ng-template matStepLabel><span class="spanStep">Paiement</span></ng-template>
     <section class="section_facture">
     <app-facture  [infoPersoFormGroup]="infoPersoFormGroup" [itemsFacturation]="itemsFacturation" [infMembre]="infMembreFacturation" [infConjouint]="infConjouintFacturation"></app-facture>
     </section>
@@ -410,8 +426,8 @@
   <mat-vertical-stepper class="stepper" linear (selectionChange)="clickinfoPerso()" >
     <mat-step [stepControl]="infoPersoFormGroup">
       <form [formGroup]="infoPersoFormGroup">
-        <ng-template matStepLabel>Renseignements personnels</ng-template>
-        <mat-grid-list cols="1" rowHeight="700px">
+        <ng-template matStepLabel><span class="spanStep">Renseignements personnels</span></ng-template>
+        <mat-grid-list cols="1" rowHeight="800px">
           <mat-grid-tile colspan = "1" rowspan="1">
             <div class="card_perso">
               <mat-grid-list cols="4" rowHeight="70px">
@@ -426,10 +442,10 @@
                   </mat-grid-tile>
                   <mat-grid-tile colspan = "4" rowspan="1" >
                     <mat-form-field class="full-width cotisation">
-                      <mat-select placeholder="Types de cotisation annuelle" name="inscription" (selectionChange)="cotisationSelcted($event)"  formControlName="typeCotisationCtrl" [value]="courriel" required>
-                        <mat-option *ngFor="let cotisation of cotisations"
+                      <mat-select placeholder="Types de cotisation annuelle" name="inscription" (selectionChange)="cotisationSelcted($event)"  formControlName="typeCotisationCtrl" required>
+                        <mat-option *ngFor="let cotisation of $cotisation.getValue()"
                                     [value]="cotisation.value">
-                          {{cotisation.viewValue}}
+                                    {{cotisation.viewValue + " : " + cotisation.PriceValue+ ".00 $"}}
                         </mat-option>
                       </mat-select>
                     </mat-form-field>
@@ -442,8 +458,8 @@
                             [appAutofocus]="( focus === 'prenom' )"
                              formControlName="prenomCtrl"
                              required
-                             (keyup)="membreInfoAdd('prenom',prenom.value)"
-                             #prenom
+                             (keyup)="membreInfoAdd('prenom',prenomSmallScreen.value)"
+                             #prenomSmallScreen
                              placeholder="Prénom" >
                       <mat-error>Ce champ est obligatoire</mat-error>
                     </mat-form-field>
@@ -455,8 +471,8 @@
                              formControlName="nomCtrl"
                              minlength="2"
                              required
-                             (keyup)="membreInfoAdd('nom',nom.value)"
-                             placeholder="Nom" #nom >
+                             (keyup)="membreInfoAdd('nom',nomSmallScreen.value)"
+                             placeholder="Nom" #nomSmallScreen >
                       <mat-error>Ce champ est obligatoire</mat-error>
                     </mat-form-field>
                   </mat-grid-tile>
@@ -466,8 +482,8 @@
                              formControlName="adresseCtrl"
                              minlength="4"
                              required
-                             (keyup)="membreInfoAdd('adresse',adresse.value)"
-                             placeholder="Adresse" #adresse >
+                             (keyup)="membreInfoAdd('adresse',adresseSmallScreen.value)"
+                             placeholder="Adresse" #adresseSmallScreen >
                       <mat-error>Ce champ est obligatoire</mat-error>
                     </mat-form-field>
                   </mat-grid-tile>
@@ -477,9 +493,22 @@
                              placeholder="Ville"
                              formControlName="villeCtrl"
                              minlength="3"
-                             (keyup)="membreInfoAdd('ville',ville.value)"
+                             (keyup)="membreInfoAdd('ville',villeSmallScreen.value)"
                              required
-                             #ville>
+                             #villeSmallScreen>
+                      <mat-error>Ce champ est obligatoire</mat-error>
+                    </mat-form-field>
+                  </mat-grid-tile>
+                  <mat-grid-tile colspan = "4" rowspan="1" >
+                      <mat-form-field class="full-width">
+                          <mat-select
+                          formControlName="provinceCtrl"
+                          placeholder="Province"
+                          (selectionChange) = "clickProv($event)"
+                          >
+                            <mat-option  value="qc" >Québec</mat-option>
+                            <mat-option  value="on">Ontario</mat-option>
+                          </mat-select>
                       <mat-error>Ce champ est obligatoire</mat-error>
                     </mat-form-field>
                   </mat-grid-tile>
@@ -490,8 +519,8 @@
                              appPostalCode
                              formControlName="codePostalCtrl"
                              required
-                             (keyup)="membreInfoAdd('codePostal',codePostal.value)"
-                             placeholder="Code Postal" #codePostal >
+                             (keyup)="membreInfoAdd('codePostal',codePostalSmallScreen.value)"
+                             placeholder="Code Postal" #codePostalSmallScreen >
                       <mat-error>Ce champ est obligatoire</mat-error>
                     </mat-form-field>
                   </mat-grid-tile>
@@ -499,11 +528,12 @@
                 <mat-grid-tile colspan = "4" rowspan="1" >
                   <mat-form-field class="full-width" (click)="clearFocus('')">
                     <my-tel-input
-                      (tel)="tel($event,prenom.value,nom.value,adresse.value,ville.value,codePostal.value)"
+                      (tel)="tel($event, prenomSmallScreen.value,nomSmallScreen.value,adresseSmallScreen.value,villeSmallScreen.value,codePostalSmallScreen.value)"
                       placeholder="Téléphone"
                       [focus]="focus"
                       (focusTel)="focusTel($event)"
                       [value]="value"
+                      placeholder="Téléphone"
                       required></my-tel-input>
                   </mat-form-field>
                 </mat-grid-tile>
@@ -512,8 +542,8 @@
                     <input matInput
                     [appAutofocus]="( focus === 'profession' )"
                            formControlName="professionCtrl"
-                           (keyup)="membreInfoAdd('profession',profession.value)"
-                           placeholder="Profession" #profession>
+                           (keyup)="membreInfoAdd('profession',professionSmallScreen.value)"
+                           placeholder="Profession" #professionSmallScreen>
                   </mat-form-field>
                 </mat-grid-tile>
                 <mat-grid-tile colspan = "4" rowspan="1">
@@ -555,7 +585,7 @@
     </mat-step>
     <mat-step *ngIf="cotisation === 'familiale'" [stepControl]="infoPersoConjFormGroup" >
       <form [formGroup]="infoPersoConjFormGroup" class="stepper_conjouint">
-        <ng-template matStepLabel>Renseignements autre membre</ng-template>
+        <ng-template matStepLabel><span class="spanStep">Renseignements autre membre</span></ng-template>
         <mat-grid-list cols="1" rowHeight="500px">
           <mat-grid-tile colspan = "1" rowspan="1">
             <div class="card_perso">
@@ -567,8 +597,8 @@
                            class="card_perso email"
                            placeholder="Courriel"
                            formControlName="c_emailCtrl"
-                           #courrielConjouint
-                           (keyup)="membreInfoAdd('courrielConjouint',courrielConjouint.value)"
+                           #courrielConjouintSmallScreen
+                           (keyup)="membreInfoAdd('courrielConjouint',courrielConjouintSmallScreen.value)"
                            required>
                     <mat-error>Ce champ est obligatoire et doit être un courriel</mat-error>
                   </mat-form-field>
@@ -579,8 +609,8 @@
                            minlength="2"
                            required
                            formControlName="c_prenomCtrl"
-                           #prenomConjouint
-                           (keyup)="membreInfoAdd('prenomConjouint',prenomConjouint.value)"
+                           #prenomConjouintSmallScreen
+                           (keyup)="membreInfoAdd('prenomConjouint',prenomConjouintSmallScreen.value)"
                            placeholder="Prénom" >
                     <mat-error>Ce champ est obligatoire</mat-error>
                   </mat-form-field>
@@ -592,15 +622,15 @@
                            required
                            formControlName="c_nomCtrl"
                            placeholder="Nom"
-                           (keyup)="membreInfoAdd('nomConjouint',nomConjouint.value)"
-                           #nomConjouint >
+                           (keyup)="membreInfoAdd('nomConjouint',nomConjouintSmallScreen.value)"
+                           #nomConjouintSmallScreen >
                     <mat-error>Ce champ est obligatoire</mat-error>
                   </mat-form-field>
                 </mat-grid-tile>
                 <mat-grid-tile colspan = "4" rowspan="1" >
                   <mat-form-field class="full-width" (click)="clearFocus('')">
                     <my-tel-input
-                      (tel)="telConjouint($event, courrielConjouint.value, prenomConjouint.value,nomConjouint.value, professionConjouint.value)"
+                      (tel)="telConjouint($event, courrielConjouintSmallScreen.value, prenomConjouintSmallScreen.value,nomConjouintSmallScreen.value, professionConjouintSmallScreen.value)"
                       [value]="valueConJouint"
                       [focus]="focus"
                       (focusTel)="focusTel($event)"
@@ -614,8 +644,8 @@
                     <input matInput
                     [appAutofocus]="( focus === 'profession' )"
                            formControlName="c_professionCtrl"
-                           (keyup)="membreInfoAdd('professionConjouint',professionConjouint.value)"
-                           placeholder="Profession" #professionConjouint>
+                           (keyup)="membreInfoAdd('professionConjouint',professionConjouintSmallScreen.value)"
+                           placeholder="Profession" #professionConjouintSmallScreen>
                   </mat-form-field>
                 </mat-grid-tile>
                 <mat-grid-tile colspan = "4" rowspan="1">
@@ -654,7 +684,7 @@
     </mat-step>
     <mat-step>
       <form [formGroup]="factureFormGroup">
-        <ng-template matStepLabel>Renseignements complémentaires</ng-template>
+        <ng-template matStepLabel><span class="spanStep">Renseignements complémentaires</span></ng-template>
         <mat-grid-list cols="1" rowHeight="775px">
           <mat-grid-tile colspan = "1" rowspan="1">
             <div class="card_perso">
@@ -772,7 +802,7 @@
       </form>
     </mat-step>
     <mat-step>
-      <ng-template matStepLabel>Paiement</ng-template>
+      <ng-template matStepLabel><span class="spanStep">Paiement</span></ng-template>
       <section class="section_facture">
         <app-facture [infoPersoFormGroup]="infoPersoFormGroup" [itemsFacturation]="itemsFacturation" [infMembre]="infMembreFacturation" [infConjouint]="infConjouintFacturation"></app-facture>
       </section>

@@ -6,6 +6,11 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/switchMap';
 import { Item } from './item.model';
 
+export interface Cotisation {
+  value: string;
+  viewValue: string;
+  PriceValue: number;
+}
 export interface Information {
   CotisationIndividuelle ?: number;
   calendrier ?: number;
@@ -24,6 +29,8 @@ export class InformationService {
   infoDoc:  AngularFirestoreDocument<object>;
   roleDoc:  AngularFirestoreDocument<object>;
   private itemsCollection: AngularFirestoreCollection<Item>;
+  private cotisationCollection: AngularFirestoreCollection<Cotisation>;
+  cotisation: Observable<Cotisation[]>;
   items: Observable<Item[]>;
   tabItem: Array<object>;
   infoCotisation: object;
@@ -121,5 +128,35 @@ listItem() {
   updateRole( role: object) {
     this.roleDoc = this.dbc.doc<object>('informations/role');
     this.roleDoc.update(role);
+  }
+  get cotisationTable(): Observable<Cotisation[]> {
+    let temp:  Observable<Cotisation[]>;
+    this.cotisationCollection = this.dbc.collection('informations/listeItemes/itemes',
+     ref => ref.where('type', '==', 'cotisation'));
+    this.cotisation = this.cotisationCollection.valueChanges();
+    temp = this.cotisation.map((snap) => {
+      snap = snap.map( (type) => {
+        return {
+         value : this.getNomAbonnement(type['nom'])[0],
+         viewValue: this.getNomAbonnement(type['nom'])[1],
+         PriceValue: type['prix']
+        };
+      });
+      return snap;
+    });
+    return temp;
+  }
+
+  getNomAbonnement(nom: string): Array<string> {
+    let temp: Array<string>;
+    switch (nom) {
+      case 'cotisationIndividuelle': temp = ['individuelle', 'Cotisation individuelle'];
+      break;
+      case 'cotisationFamiliale': temp = ['familiale', 'Cotisation familiale'];
+        break;
+      case 'cotisationOrganisme': temp = ['organisme', 'Cotisation organisme'];
+        break;
+    }
+    return temp;
   }
 }

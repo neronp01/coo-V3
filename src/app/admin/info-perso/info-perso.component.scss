@@ -6,7 +6,13 @@
   -o-transform: scale($scales) translateY($translateY);
   transform: scale($scales) translateY($translateY);
 }
-
+@mixin transform2($scales, $translateY){
+  -webkit-transform: scale($scales) translateX($translateY);
+  -moz-transform: scale($scales) translateX($translateY);
+  -ms-transform: scale($scales) translateX($translateY);
+  -o-transform: scale($scales) translateX($translateY);
+  transform: scale($scales) translateX($translateY);
+}
 @mixin flexbox() {
   display: -webkit-box;
   display: -moz-box;
@@ -43,7 +49,10 @@
 
 }
 
+.adresse{
 
+  width: 47.5%;
+}
 .wrapper {
   @include flexbox();
 }
@@ -81,6 +90,10 @@
     @include flex(1);
     color:#ffffff;
   }
+  .h2_inf_input{
+    flex-direction: row;
+
+  }
   .label_adresse, .input_adresse{
     margin-top: 20px;
   }
@@ -116,10 +129,10 @@
 
 .c_f_info{
 
-  @include transform(1,-625px);
   flex-flow: row;
   align-items: flex-start;
   justify-content: center;
+
 
   .sec_f_info{
     @include flex(.8);
@@ -144,8 +157,6 @@
 
 .container_princip{
   z-index: 0;
-  position: relative;
-  top: -600px;
   flex-flow: row;
   justify-content: center;
 }
@@ -161,18 +172,27 @@
 // container photo
   .d_urlPhoto{
     @include flex(1.5);
-    width: 100px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    width: 100%;
 
 
     // photo
-    .transformPhoto {
-    position: absolute;
-    left:30px;
-      @include transform(.2,-550px);
-      border-radius: 50%;
-      border: 12px solid #333333;
-    }
+
   }
+  .div_image{
+    @include flex(.2);
+    width: 100px;
+    height: 100px;
+  }
+  .transformPhoto {
+    width: 120px;
+    height: 120px;
+    @include transform2(1, -15px);
+      border-radius: 50%;
+      border: 6px solid #333333;
+    }
 // container input nom
   .d_input_nom_info{
     @include flex(1);}
@@ -204,6 +224,7 @@ h1, h2{
   flex-flow: row;
   justify-content: center;
   z-index: -50;
+  background-color:#252525;
 }
 .adhesionInfo, .facturesInfo{
   display: none;
@@ -331,7 +352,7 @@ mat-divider{
     width: 100%;
   }
   .h2_name{
-    @include transform(1,410px);
+
   }
   .transformPhoto {
    display:none;
@@ -347,7 +368,7 @@ mat-divider{
     }
     .c_f_info{
       z-index: -51;
-      @include transform(1,-240px);
+
       .sec_f_info{
         @include flex(.4);
         flex-flow: row;
@@ -370,18 +391,27 @@ mat-divider{
     .sec_d_info{
       @include flex(1);
     }
-      .full-width, .h2_inf_label, .input_tel, .h2_tel_label{
+      .full-width, .h2_inf_label, .input_tel, .h2_tel_label, .civic{
         margin-left: 10px;
       }
       .d_tel,  .d_cordonnées{
         margin: 0px;
         width: 100%;
-        @include transform(1,400px);
+
       }
       .c_d_info, .sec_d_info{
-           width: 400px;
+           width: 350px;
       }
       .d_tel{
         margin-top: 15px;
+      }
+      .d_urlPhoto{
+        display: none
+      }
+      .c_h_info{
+        @include flex(.3);
+        margin-top: 50px;
+        height: 150px;
+
       }
 }

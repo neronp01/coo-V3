@@ -10,6 +10,7 @@ export class Membre {
   codePostal?: string;
   telephone?: string;
   profession?: string;
+  province?: string;
   dateNaissance?: string;
   typeCotisation?: string;
   courrielConjouint?: string;

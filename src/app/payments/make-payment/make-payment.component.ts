@@ -7,6 +7,7 @@ import * as moment from 'moment';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { InformationService} from '../../services/information.service';
 import { MessagesService } from '../../services/messages.service';
+import { Router, NavigationExtras } from '@angular/router';
 
 
 @Component({
@@ -21,8 +22,10 @@ export class MakePaymentComponent implements OnInit {
   handler: any;
   membre: Membre;
   fr = moment.locale('fr');
-  constructor(private paymentSvc: PaymentService, private auth: AuthService, private inf: InformationService,
-  private message: MessagesService) { }
+  constructor(private paymentSvc: PaymentService, private router: Router, private auth: AuthService, private inf: InformationService,
+  private message: MessagesService) {
+    window.scroll(0, 0);
+  }
   ngOnInit() {
     const temp = this.infoFacture['membre'];
       this.handler = StripeCheckout.configure({
@@ -31,6 +34,8 @@ export class MakePaymentComponent implements OnInit {
         '.appspot.com/o/pique.jpg?alt=media&token=26424b30-3d13-4a5b-aa82-31561099dc9d',
         locale: 'auto',
         token: token => {
+          token['card']['country'] = 'CA';
+          token['card']['currency'] = 'CAD';
          this.paymentSvc.processPayment(token, this.infoFacture['montant'], this.infoFacture['numeroFacture'], this.itemsPaiement);
         }
     });
@@ -39,6 +44,8 @@ export class MakePaymentComponent implements OnInit {
     this.handler.open({
       name: 'Le GrandPic',
       excerpt: 'Paiement',
+      currency: 'cad',
+      country: 'ca',
       amount: this.infoFacture['montant']
     });
     this.auth.updateMembre(this.updateMembreWithItem);

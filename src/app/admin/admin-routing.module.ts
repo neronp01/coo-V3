@@ -12,6 +12,8 @@ import {MemberListComponent} from './member-list/member-list.component';
 import { InfoPersoComponent } from './info-perso/info-perso.component';
 import { OrnithoComponent } from './ornitho/ornitho.component';
 import { RedacComponent } from './redac/redac.component';
+import { AccueilComponent } from './accueil/accueil.component';
+
 
 
 

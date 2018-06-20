@@ -8,8 +8,12 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { AuthService, User} from '../auth.service';
 import {VALID} from '@angular/forms/src/model';
 import { Membre } from '../services/membre.model';
-import { InformationService } from '../services/information.service';
+import { InformationService, Cotisation } from '../services/information.service';
 import { MessagesService } from '../services/messages.service';
+import { Observable } from 'rxjs/Observable';
+import { Item } from '../services/item.model';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/filter';
 
 import {
   trigger,
@@ -189,6 +193,7 @@ export class InscriptionComponent implements OnInit {
   membre: User;
   membreConjouint: User;
   membreInfo: BehaviorSubject<Membre>;
+  $cotisation: BehaviorSubject<Cotisation[]|null>;
   _membre: Membre;
   telForm: FormGroup;
   itemsFacturation = {type: 'adhesion', tabItems: [{}] };
@@ -203,12 +208,6 @@ export class InscriptionComponent implements OnInit {
   cotisation: string;
   infoDatabaseMembre: User;
   remerciement = false;
-
-  cotisations = [
-    {value: 'individuelle', viewValue: 'Cotisation individuelle'},
-    {value: 'familiale', viewValue: 'Cotisation familiale'},
-      {value: 'organisme', viewValue: 'Cotisation organisme'}
-  ];
   _autorisationsTelephone = ['Je ', 'veux ', 'que mon numéro de téléphone figure sur la liste des membres.'];
   _autorisationsNom = ['Je ', 'veux  ', ' que mon nom figure sur la liste des membres.'];
   autorisationTel= true;
@@ -218,8 +217,11 @@ export class InscriptionComponent implements OnInit {
   value: MyTel;
   valueConJouint: MyTel;
   public focus: string;
-  constructor(private _formBuilder: FormBuilder, private auth: AuthService,
+  itmesInfo: Observable<Item[]>;
+  constructor(private _formBuilder: FormBuilder, public auth: AuthService,
      private inf: InformationService, private message: MessagesService) {
+      this.itmesInfo = this.inf.itemsInfo;
+      window.scroll(0, 0);
     this.initUserConjouint();
     this.membre = this.auth.userToken;
     if (this.auth.memberIsInDataBase) {
@@ -266,13 +268,24 @@ export class InscriptionComponent implements OnInit {
   }
 
   ngOnInit() {
-    this._remerciement();
+    this.getItemifo();
     this.initTelForm();
 this.membre['email'] = this.auth.currentUserEmail;
     this.membre.membre['email'] = this.auth.currentUserEmail;
     this.factureFormGroup = this._formBuilder.group({
       factureCtrl: ['', Validators.required]
     });
+  }
+  getItemifo() {
+    this.$cotisation = new BehaviorSubject(null);
+    this.inf.cotisationTable.subscribe( x => {
+      this.$cotisation.next(x);
+    }
+    );
+    this.$cotisation.subscribe( x => {
+     console.log('cotisationObservable', x);
+    }
+    );
   }
   initUserConjouint() {
     const uid = '';
@@ -314,7 +327,7 @@ telephoneHolderConjouint () {
     this.valueConJouint = new MyTel( area , exchange , subscriber );
   }
   initForm() {
-
+// console.log('membre--', this.membre.membre);
     this.infoPersoFormGroup = this._formBuilder.group({
       adhDateCtrl: [ this.membre.membre['adhDate'], Validators],
       infFacturationCtrl: [ this.membre.membre['infFacturation'], Validators],
@@ -327,6 +340,7 @@ telephoneHolderConjouint () {
       adresseCtrl: [this.membre.membre['adresse'] , Validators.required],
       villeCtrl: [this.membre.membre['ville'] , Validators.required],
       codePostalCtrl: [this.membre.membre['codePostal'] , Validators.required],
+      provinceCtrl: [this.membre.membre['province'] , Validators.required],
       professionCtrl: [this.membre.membre['profession'] , Validators],
       telephoneCtrl: [this.membre.membre['telephone'] , Validators],
       courrielConjouintCtrl: [this.membre.membre['courrielConjouint'], Validators],
@@ -346,7 +360,7 @@ telephoneHolderConjouint () {
       c_telephoneCtrl: [this.membreConjouint.membre['telephone'], Validators],
       c_dateNaissanceCtrl: [this.membreConjouint.membre['dateNaissance'], Validators]
     });
-
+console.log('info' , this.infoPersoFormGroup);
   }
   formTel(e: any) {
     this.telForm = e;
@@ -395,6 +409,7 @@ telephoneHolderConjouint () {
     return status;
   }
   get infoPersoConjisDisabled(): boolean {
+    console.log('--info', this.infoPersoConjFormGroup);
     let status: boolean;
     if (this.infoPersoConjFormGroup.status === 'VALID') {
       status = false;
@@ -437,6 +452,11 @@ telephoneHolderConjouint () {
     this. membreInfoAdd('tel', e);
 
   }
+  clickProv(pr: any) {
+    this._formBuilder.group['provinceCtrl'] = pr.value;
+    this.membre.membre['province'] = pr.value;
+    console.log( this.membre.membre);
+  }
   telConjouint(e: any, email: string, prenom: string, nom: string, profession: string) {
     this._formBuilder.group['c_telephoneCtrl'] = e.value;
     this.membreConjouint.membre['telephone'] = e;
@@ -474,6 +494,7 @@ telephoneHolderConjouint () {
       adresse: '',  // Référence à une autre interface
       ville: '',
       codePostal: '',
+      province: '',
       telephone: '',
       profession: '',
       dateNaissance: '',
@@ -500,6 +521,7 @@ telephoneHolderConjouint () {
         adresse: '',  // Référence à une autre interface
         ville: '',
         codePostal: '',
+        province: '',
         telephone: '',
         profession: '',
         dateNaissance: '',

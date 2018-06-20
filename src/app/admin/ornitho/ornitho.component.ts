@@ -17,6 +17,7 @@ export class OrnithoComponent implements OnInit {
   ornitoTab = [];
   _orni: Ornitaouais[];
   constructor(private orni: OrnitaouaisService, private storage: AngularFireStorage) {
+    window.scroll(0, 0);
     setTimeout(() => {
       this._orni = orni.orni;
       console.log('inter', this._orni);

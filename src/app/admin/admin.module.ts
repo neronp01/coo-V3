@@ -48,6 +48,11 @@ import { OrnitaouaisComponent } from './ornitho/ornitaouais/ornitaouais.componen
 import { EvenementComponent } from './redac/evenement/evenement.component';
 import { TexteService } from './redac/evenement/texte.service';
 import { MessageService } from './redac/evenement/message.service';
+import { AccueilComponent } from './accueil/accueil.component';
+import { MenuDirective } from './menu.directive';
+import { InterfaceService } from './interface.service';
+import { ListService } from './member-list/list.service';
+import { AjoutMembreComponent } from './redac/ajout-membre/ajout-membre.component';
 
 
 
@@ -92,12 +97,16 @@ import { MessageService } from './redac/evenement/message.service';
      FileUploadComponent,
      FileSizePipe,
      OrnitaouaisComponent,
-     EvenementComponent
+     EvenementComponent,
+     AccueilComponent,
+     MenuDirective,
+     AjoutMembreComponent
 
 
   //  ComposeMessageComponent
     // AccueilComponent,
   ],
-  providers: [PaymentService, InformationService, EmailIdService, OrnitaouaisService, TexteService, MessageService]
+  providers: [ListService, PaymentService, InformationService, EmailIdService, OrnitaouaisService,
+     TexteService, MessageService, InterfaceService]
 })
 export class AdminModule {}

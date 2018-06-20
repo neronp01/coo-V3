@@ -6,7 +6,7 @@ import {FrontPageComponent} from './front-page.component';
 const FrontPageRoutes: Routes = [
 //  { path: 'heroes', redirectTo: '/superheroes' },
 //  { path: 'hero/:id', redirectTo: '/superhero/:id' },
-  { path: 'coo',  component: FrontPageComponent },
+ // { path: 'coo',  component: FrontPageComponent },
 //  { path: 'superhero/:id', component: HeroDetailComponent }
 ];
 
