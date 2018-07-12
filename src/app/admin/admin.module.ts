@@ -53,6 +53,9 @@ import { MenuDirective } from './menu.directive';
 import { InterfaceService } from './interface.service';
 import { ListService } from './member-list/list.service';
 import { AjoutMembreComponent } from './redac/ajout-membre/ajout-membre.component';
+import { RapportService } from './redac/rapports/rapport.service';
+import { RapportComponent } from './redac/rapports/rapport/rapport.component';
+import { ReportLinkComponent } from './redac/rapports/report-link/report-link.component'
 
 
 
@@ -100,7 +103,9 @@ import { AjoutMembreComponent } from './redac/ajout-membre/ajout-membre.componen
      EvenementComponent,
      AccueilComponent,
      MenuDirective,
-     AjoutMembreComponent
+     AjoutMembreComponent,
+     RapportComponent,
+     ReportLinkComponent
 
 
   //  ComposeMessageComponent

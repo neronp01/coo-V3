@@ -1,0 +1,19 @@
+<div class="container wrapper">
+  <div class="rowButton">
+  <button mat-button color="primary" (click)="requestReport()">
+    <span class="button_span">Générer un rapport CSV</span>
+  </button>
+</div>
+<div class="row">
+  <div *ngFor="let report of reports | async;let i = index">
+
+      <a class="button is-info"
+      [class.is-loading]="report.status === 'processing'"
+      [href]="rapports[i]" download>
+      Téléchargement id:{{report.id}} &nbsp;{{report.createdAt | date:'yyyy-MM-dd'}}
+    </a>
+    <!-- <app-report-link [report]="i"></app-report-link> -->
+
+  </div>
+</div>
+</div>
