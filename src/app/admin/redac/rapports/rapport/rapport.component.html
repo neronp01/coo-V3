@@ -3,6 +3,7 @@
   <button mat-button color="primary" (click)="requestReport()">
     <span class="button_span">Générer un rapport CSV</span>
   </button>
+  <p style="color: aliceblue; position: absolute; left: 0px;">{{rapport}}</p>
 </div>
 <div class="row">
   <div *ngFor="let report of reports | async;let i = index">

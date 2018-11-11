@@ -58,8 +58,7 @@ import { InterfaceService } from './interface.service';
 export class AdminComponent implements OnInit {
   @HostBinding('class.isActive')
   @HostBinding('class.current') isActive: boolean;
-p_citation = '“Les oiseaux sont responsables de trois au moins des grandes malédictions qui pèsent sur l’homme.' +
-' Ils lui ont donné le désir de grimper aux arbres, celui de voler, celui de chanter…”'
+p_citation = ''
  // state: this.state = _.fill(Array(60), '');;
 p_pic_texte = 'Le Club des ornithologues de l\'Outaouais (COO)  vous souhaite la bienvenue. Le COO est un organisme sans but ' +
  'lucratif regroupant les personnes et les organismes s\'intéressant à l\'observation et à la protection des oiseaux et de leurs' +
@@ -67,7 +66,7 @@ p_pic_texte = 'Le Club des ornithologues de l\'Outaouais (COO)  vous souhaite la
  'Cette application vous permet de vous inscrire ou de renouveler votre abonnement.';
  i_pic_texte = 'Nous publions quatre fois par année L\'Ornitaouais, un bulletin de liaison entre le Club et ses membres. Il présente des' +
  ' statistiques saisonnières d\'observation, des comptes-rendus d\'excursions et de voyages ornithologues, ainsi que des articles' +
- ' d\'intérêt général sur les oiseaux. Parmi ses activités, le Club organise des excursions sur le terrain en toute saison, offre des' +
+ ' d\'intérêt général sur les oiseaux. Parmi ses activités, le Club organise des excursions sur le terrain en toute saison, offre des ' +
   'cours d\'initiation à l\'observation des oiseaux, présente des conférences, réalise des recensements de Noël et s\'implique dans' +
   ' divers projets touchant la nature et l\'ornithologie.';
   tabMenu: BehaviorSubject<Array<object>>;

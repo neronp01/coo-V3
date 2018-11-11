@@ -14,8 +14,10 @@
                </div>
         <div class="flex-spacer-item"></div>
         <div class="div_connect">
-            <p class="connect" *ngIf="!auth.isLoggedIn"  routerLink="/login" routerLinkActive="active">Se connecter</p>
-            <p class="connect" *ngIf="auth.isLoggedIn" (click)="auth.signOut()" routerLink="/coo"  >Se déconnecter</p>
+            <p class="connect" *ngIf="!auth.isLoggedIn"> <a href="http://www.coo.qc.ca/" style="text-decoration: none; color: #ffffff">Se déconnecter</a></p>
+            <p class="connect" *ngIf="auth.isLoggedIn" (click)="auth.signOut()" > <a href="http://www.coo.qc.ca/" style="text-decoration: none; color: #ffffff
+
+            ">Se déconnecter</a></p>
               </div>
 
     </mat-toolbar>
@@ -70,7 +72,7 @@
             <img class="pic_image" src="./assets/Pic2.png">
             </div>
             <p class="pCitation"  >{{p_citation}}</p>
-            <p class="pAuteur"   >- Boris Vian -</p>
+            <p class="pAuteur"   ></p>
 
                 <p class="pinscription"  >{{p_pic_texte}}</p>
 
