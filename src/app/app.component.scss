@@ -23,6 +23,9 @@
 .wrapper {
   @include flexbox();
 }
+em {
+  font-family: 'Great Vibes', sans-serif;
+}
 .displayNone{
   display: none;
   color: aqua
@@ -40,7 +43,7 @@
 .container_message{
   background-image: url("/assets/background.png-1.jpg");
   margin: 0px;
-  height: 700px;
+  height: 500px;
   width: 500px;
 }
 .titre_remerciement{

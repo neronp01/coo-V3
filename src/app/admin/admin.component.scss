@@ -25,6 +25,9 @@
 .router_outlet{
 
 }
+em {
+  font-family: 'Great Vibes', sans-serif;
+}
 .router_outletIn{
   @include flex(1);
   display: inline-flex;

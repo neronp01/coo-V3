@@ -62,12 +62,12 @@ p_citation = ''
  // state: this.state = _.fill(Array(60), '');;
 p_pic_texte = 'Le Club des ornithologues de l\'Outaouais (COO)  vous souhaite la bienvenue. Le COO est un organisme sans but ' +
  'lucratif regroupant les personnes et les organismes s\'intéressant à l\'observation et à la protection des oiseaux et de leurs' +
- ' habitats. Nos membres pratiquent l\'ornithologie dans les régions de l\'Outaouais et le nord-ouest des Hautes-Laurentides, au Québec.' +
+ ' habitats. Nos membres pratiquent l\'ornithologie dans les régions de l\'Outaouais et du nord-ouest des Hautes-Laurentides, au Québec.' +
  'Cette application vous permet de vous inscrire ou de renouveler votre abonnement.';
  i_pic_texte = 'Nous publions quatre fois par année L\'Ornitaouais, un bulletin de liaison entre le Club et ses membres. Il présente des' +
- ' statistiques saisonnières d\'observation, des comptes-rendus d\'excursions et de voyages ornithologues, ainsi que des articles' +
+ ' statistiques saisonnières d\'observation, des comptes-rendus d\'excursions et de voyages ornithologiques, ainsi que des articles' +
  ' d\'intérêt général sur les oiseaux. Parmi ses activités, le Club organise des excursions sur le terrain en toute saison, offre des ' +
-  'cours d\'initiation à l\'observation des oiseaux, présente des conférences, réalise des recensements de Noël et s\'implique dans' +
+  'cours d\'initiation à l\'observation des oiseaux, présente des conférences, réalise des recensements et s\'implique dans' +
   ' divers projets touchant la nature et l\'ornithologie.';
   tabMenu: BehaviorSubject<Array<object>>;
   innerWidth: number;
@@ -206,7 +206,7 @@ console.log(' temp', temp);
       break;
       case 'email': this.titre = 'Accueil';
       this.accueil = true;
-      this._email('cooutaouais@outlook.com');
+      this._email('info@coo.qc.ca');
       this.inter.menuOpen = false;
       this.inter.icon = 'menu';
       break;

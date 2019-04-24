@@ -18,7 +18,11 @@
                 <img class="imageMembre" [src]="auth.userToken.photoURL">
               </mat-toolbar>
         </mat-grid-tile>
+
+
+
         <mat-grid-tile colspan = "4" rowspan="1" >
+            <p><em>Pour être membre du COO, vous devez lire notre <a href="http://www.coo.qc.ca/coo/CodeEthique.php" style="color:#ffffff" target="_blank">code d’éthique</a>&nbsp; et vous engager à y adhérer.</em></p>
         </mat-grid-tile>
         <mat-grid-tile colspan = "4" rowspan="1" >
           <mat-form-field class="full-width cotisation">
@@ -144,7 +148,7 @@
                      dateNaissanceValidation
                      [(ngModel)]="_dateNaissance"
                      class="form-control"
-                     placeholder="Date de naisssance"
+                     placeholder="Date de naissance"
                      (blur)="membreInfoAdd('dateNaissance',dateNaissance1.value)"
                      (keyup)="membreInfoAdd('dateNaissance',dateNaissance1.value)"
               >
@@ -251,7 +255,7 @@
                            type="text"
                            (keyup)="membreInfoAdd('dateNaissanceConjouint',dateNaissanceConjouint1.value)"
                            class="form-control"
-                           placeholder="Date de naisssance"
+                           placeholder="Date de naissance"
                     >
                     <!--#dateNaissanceConjouint="ngModel"-->
                     <!--[(ngModel)]="_dateNaissance"-->
@@ -557,7 +561,7 @@
                              dateNaissanceValidation
                              [(ngModel)]="_dateNaissance"
                              class="form-control"
-                             placeholder="Date de naisssance"
+                             placeholder="Date de naissance"
                              (keyup)="membreInfoAdd('dateNaissance',dateNaissance.value)"
                       >
                       <app-errors [control]="dateNaissance"></app-errors>
@@ -660,7 +664,7 @@
                              name="dateNaissanceConjouint"
                              (keyup)="membreInfoAdd('dateNaissanceConjouint',dateNaissanceConjouint.value)"
                              class="form-control"
-                             placeholder="Date de naisssance"
+                             placeholder="Date de naissance"
                       >
                       <!--#dateNaissanceConjouint="ngModel"-->
                       <!--[(ngModel)]="_dateNaissance"-->

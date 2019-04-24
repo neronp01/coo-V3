@@ -1,5 +1,6 @@
 .example-container {
   width: 100%;
+  overflow-y: hidden;
 }
 @mixin flex($values) {
   -webkit-box-flex: $values;
@@ -93,7 +94,7 @@
 }
 .center_element {
   @include flexbox();
-  width: 550px;
+  width: 600px;
   -webkit-flex-flow: row wrap;
   justify-content: space-around;
 }
